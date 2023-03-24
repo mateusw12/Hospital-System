@@ -5,6 +5,7 @@ import com.api.hospitalsystem.mapper.user.UserMapper;
 import com.api.hospitalsystem.model.user.UserModel;
 import com.api.hospitalsystem.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +21,9 @@ public class UserService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private PasswordEncoder encoder;
 
     @Transactional
     public List<UserDTO> findAll() {
@@ -43,7 +47,7 @@ public class UserService {
     @Transactional
     public UserDTO create(UserDTO userDTO) {
         UserModel userModel = userMapper.toEntity(userDTO);
-       // userModel.setPassword(encoder.encode(userDTO.password()));
+        userModel.setPassword(encoder.encode(userDTO.password()));
         return userMapper.toDTO(userRepository.save(userModel));
     }
 
@@ -55,7 +59,7 @@ public class UserService {
                     recordFound.setCrm(userDTO.crm());
                     recordFound.setEmail(userDTO.email());
                     recordFound.setIsActive(userDTO.isActive());
-                    recordFound.setPassword(userDTO.password());
+                    recordFound.setPassword(encoder.encode(userDTO.password()));
                     recordFound.setRole(userDTO.role());
                     recordFound.setUserName(userDTO.userName());
                     recordFound.setHospitalId(userDTO.hospitalId());
