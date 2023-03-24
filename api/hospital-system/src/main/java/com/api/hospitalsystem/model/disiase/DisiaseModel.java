@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Data
-@Entity(name = "doença")
+@Entity(name = "doenca")
 public class DisiaseModel implements Serializable {
 
     @Id
