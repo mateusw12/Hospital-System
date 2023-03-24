@@ -19,7 +19,8 @@ public class UserMapper {
                 userModel.getPassword(),
                 userModel.getIsActive(),
                 userModel.getRole(),
-                userModel.getEmail()
+                userModel.getEmail(),
+                userModel.getHospitalId()
         );
     }
 
@@ -40,6 +41,7 @@ public class UserMapper {
         userModel.setIsActive(userDTO.isActive());
         userModel.setUserName(userDTO.userName());
         userModel.setRole(userDTO.role());
+        userModel.setHospitalId(userDTO.hospitalId());
         return userModel;
     }
 

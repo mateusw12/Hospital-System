@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.io.Serializable;
 
 @Entity(name = "usuario")
@@ -59,5 +60,10 @@ public class UserModel implements Serializable {
     @Length(max = 300)
     @Column(name="email", length = 300)
     public String email;
+
+    @NotNull
+    @Positive
+    @Column(name="codHospital", nullable = false)
+    public Long hospitalId;
 
 }
