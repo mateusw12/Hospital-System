@@ -3,7 +3,7 @@ package com.api.hospitalsystem;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+@SpringBootApplication()
 public class HospitalSystemApplication {
 
 	public static void main(String[] args) {
