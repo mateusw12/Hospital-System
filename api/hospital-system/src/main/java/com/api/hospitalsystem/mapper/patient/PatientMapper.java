@@ -1,7 +1,7 @@
 package com.api.hospitalsystem.mapper.patient;
 
 import com.api.hospitalsystem.dto.patient.PatientDTO;
-import com.api.hospitalsystem.model.patient.PatientModel;
+import com.api.hospitalsystem.model.maritalStatus.patient.PatientModel;
 import org.springframework.stereotype.Component;
 
 @Component
