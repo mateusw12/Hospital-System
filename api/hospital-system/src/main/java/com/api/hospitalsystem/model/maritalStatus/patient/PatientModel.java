@@ -1,8 +1,7 @@
-package com.api.hospitalsystem.model.patient;
+package com.api.hospitalsystem.model.maritalStatus.patient;
 
 import com.api.hospitalsystem.converter.gender.GenderConverter;
 import com.api.hospitalsystem.converter.maritalStatus.MaritalStatusConverter;
-import com.api.hospitalsystem.converter.role.RoleConverter;
 import com.api.hospitalsystem.model.gender.Gender;
 import com.api.hospitalsystem.model.maritalStatus.MaritalStatus;
 import lombok.Data;
