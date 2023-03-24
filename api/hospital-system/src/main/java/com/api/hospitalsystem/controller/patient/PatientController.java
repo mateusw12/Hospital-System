@@ -25,33 +25,33 @@ public class PatientController {
     private PatientService patientService;
 
     @GetMapping
-    @Operation(summary = "Consulta todos os usuários")
+    @Operation(summary = "Consulta todos os paciente")
     public @ResponseBody List<PatientDTO> findAll() {
         return patientService.findAll();
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Consulta usuário por código")
+    @Operation(summary = "Consulta paciente por código")
     public PatientDTO findById(@PathVariable @NotBlank @Positive Long id) {
         return patientService.findById(id);
     }
 
     @PostMapping
-    @Operation(summary = "Cadastra um usuário")
+    @Operation(summary = "Cadastra um paciente")
     @ResponseStatus(code = HttpStatus.CREATED)
     public PatientDTO create(@RequestBody @Valid @NotNull PatientDTO patientDTO) {
         return patientService.create(patientDTO);
     }
 
     @PutMapping("/{id}")
-    @Operation(summary = "Atualiza um usuário")
+    @Operation(summary = "Atualiza um paciente")
     public PatientDTO update(@PathVariable @NotNull @Positive Long id,
                              @RequestBody @Valid @NotNull PatientDTO patientDTO) {
         return patientService.update(id, patientDTO);
     }
 
     @DeleteMapping("/{id}")
-    @Operation(summary = "Exclui um usuário")
+    @Operation(summary = "Exclui um paciente")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void delete(@PathVariable @NotNull @Positive Long id) {
         patientService.delete(id);
