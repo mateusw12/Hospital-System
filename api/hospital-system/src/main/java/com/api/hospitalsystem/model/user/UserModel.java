@@ -1,7 +1,9 @@
 package com.api.hospitalsystem.model.user;
 
 import com.api.hospitalsystem.converter.role.RoleConverter;
+import com.api.hospitalsystem.converter.specialization.SpecializationConverter;
 import com.api.hospitalsystem.model.role.Role;
+import com.api.hospitalsystem.model.specialization.Specialization;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
@@ -65,5 +67,10 @@ public class UserModel implements Serializable {
     @Positive
     @Column(name="codHospital", nullable = false)
     public Long hospitalId;
+
+    @Convert(converter = SpecializationConverter.class)
+    @NotNull
+    @Column(name="especializacao", nullable = false)
+    public Specialization specialization;
 
 }
