@@ -2,6 +2,7 @@ package com.api.hospitalsystem.dto.user;
 
 import com.api.hospitalsystem.converter.role.RoleConverter;
 import com.api.hospitalsystem.model.role.Role;
+import com.api.hospitalsystem.model.specialization.Specialization;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 
@@ -21,6 +22,7 @@ public record UserDTO(
         Boolean isActive,
         @Convert(converter = RoleConverter.class) @NotNull Role role,
         @Email @NotNull @NotBlank @Length(max = 300) String email,
-        @NotNull @Positive Long hospitalId
-) {
+        @NotNull @Positive Long hospitalId,
+        @Convert(converter = Specialization.class) @NotNull Specialization specialization
+        ) {
 }

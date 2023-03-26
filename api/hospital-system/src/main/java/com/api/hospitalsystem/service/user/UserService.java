@@ -63,6 +63,7 @@ public class UserService {
                     recordFound.setRole(userDTO.role());
                     recordFound.setUserName(userDTO.userName());
                     recordFound.setHospitalId(userDTO.hospitalId());
+                    recordFound.setSpecialization(userDTO.specialization());
                     return userMapper.toDTO(userRepository.save(recordFound));
                 }).orElseThrow(() -> new EntityNotFoundException("User not found" + id));
     }
