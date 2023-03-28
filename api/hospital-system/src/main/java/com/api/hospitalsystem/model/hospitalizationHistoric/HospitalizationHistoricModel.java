@@ -11,7 +11,7 @@ import java.io.Serializable;
 
 @Entity(name = "historicoInternacao")
 @Data
-public class HospitalizationHistoricModel implements Serializable {
+public class  HospitalizationHistoricModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
