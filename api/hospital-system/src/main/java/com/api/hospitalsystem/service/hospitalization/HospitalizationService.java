@@ -2,7 +2,9 @@ package com.api.hospitalsystem.service.hospitalization;
 
 import com.api.hospitalsystem.dto.hospitalization.HospitalizationDTO;
 import com.api.hospitalsystem.mapper.hospitalization.HospitalizationMapper;
+import com.api.hospitalsystem.model.hospitalizationHistoric.HospitalizationHistoricModel;
 import com.api.hospitalsystem.repository.hospitalization.HospitalizationRepository;
+import com.api.hospitalsystem.repository.hospitalizationHistoric.HospitalizationHistoricRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +18,9 @@ public class HospitalizationService {
 
     @Autowired
     private HospitalizationRepository hospitalizationRepository;
+
+    @Autowired
+    private HospitalizationHistoricRepository hospitalizationHistoricRepository;
 
     @Autowired
     private HospitalizationMapper hospitalizationMapper;
@@ -36,6 +41,7 @@ public class HospitalizationService {
 
     @Transactional
     public HospitalizationDTO create(HospitalizationDTO hospitalizationDTO) {
+        hospitalizationHistoricRepository.save(getHospitalizationHistoricModel(hospitalizationDTO));
         return hospitalizationMapper.toDTO(hospitalizationRepository.save(hospitalizationMapper.toEntity(hospitalizationDTO)));
     }
 
@@ -55,8 +61,19 @@ public class HospitalizationService {
 
     @Transactional
     public void delete(Long id) {
+        hospitalizationHistoricRepository.delete(hospitalizationHistoricRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Hospitalization Historic not found" + id)));
+
         hospitalizationRepository.delete(hospitalizationRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Hospitalization not found" + id)));
+    }
+
+    private HospitalizationHistoricModel getHospitalizationHistoricModel(HospitalizationDTO hospitalizationDTO){
+        HospitalizationHistoricModel model = new HospitalizationHistoricModel();
+        model.setCurrentSector(hospitalizationDTO.initialSector());
+        model.setHospitalizationId(hospitalizationDTO.id());
+        model.setDays(1L);
+        return model;
     }
 
 }
