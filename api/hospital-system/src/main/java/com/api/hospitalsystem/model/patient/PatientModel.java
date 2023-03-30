@@ -1,9 +1,10 @@
-package com.api.hospitalsystem.model.maritalStatus.patient;
+package com.api.hospitalsystem.model.patient;
 
 import com.api.hospitalsystem.converter.gender.GenderConverter;
 import com.api.hospitalsystem.converter.maritalStatus.MaritalStatusConverter;
 import com.api.hospitalsystem.model.gender.Gender;
 import com.api.hospitalsystem.model.maritalStatus.MaritalStatus;
+import com.api.hospitalsystem.utils.decorator.cep.Cep;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
@@ -38,6 +39,7 @@ public class PatientModel implements Serializable {
 
     @NotNull
     @NotBlank
+    @Cep
     @Length(max = 20)
     @Column(name="cep",nullable = false, length = 20)
     public String cep;
