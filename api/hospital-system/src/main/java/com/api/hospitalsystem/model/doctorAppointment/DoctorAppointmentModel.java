@@ -1,5 +1,6 @@
 package com.api.hospitalsystem.model.doctorAppointment;
 
+import com.api.hospitalsystem.utils.decorator.futureDate.FutureDate;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
@@ -36,6 +37,7 @@ public class DoctorAppointmentModel implements Serializable {
     public Long hospitalId;
 
     @NotNull
+    @FutureDate
     @Column(name = "dataConsulta", nullable = false)
     public Date appointmentDate;
 

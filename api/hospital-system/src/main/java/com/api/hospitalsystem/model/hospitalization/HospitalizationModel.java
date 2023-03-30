@@ -2,6 +2,7 @@ package com.api.hospitalsystem.model.hospitalization;
 
 import com.api.hospitalsystem.converter.sector.SectorConverter;
 import com.api.hospitalsystem.model.sector.Sector;
+import com.api.hospitalsystem.utils.decorator.futureDate.FutureDate;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -29,6 +30,7 @@ public class HospitalizationModel implements Serializable {
     public Sector initialSector;
 
     @NotNull
+    @FutureDate
     @Column(name = "dataInternacao", nullable = false)
     public Date hospitalizationDate;
 
