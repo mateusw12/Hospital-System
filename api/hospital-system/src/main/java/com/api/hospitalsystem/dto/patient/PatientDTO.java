@@ -4,6 +4,7 @@ import com.api.hospitalsystem.converter.gender.GenderConverter;
 import com.api.hospitalsystem.converter.maritalStatus.MaritalStatusConverter;
 import com.api.hospitalsystem.model.gender.Gender;
 import com.api.hospitalsystem.model.maritalStatus.MaritalStatus;
+import com.api.hospitalsystem.utils.decorator.cep.Cep;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.Convert;
@@ -18,7 +19,7 @@ public record PatientDTO(
         @NotNull @NotBlank @Length(max = 200) String name,
         @Length(max = 300) String email,
         @Length(max = 20) String phone,
-        @NotNull @NotBlank @Length(max = 20) String cep,
+        @NotNull @NotBlank @Cep @Length(max = 20) String cep,
         @NotNull @PositiveOrZero() Long houseNumber,
         @NotNull @Positive() Long age,
         @Convert(converter = GenderConverter.class) @NotNull Gender gender,
