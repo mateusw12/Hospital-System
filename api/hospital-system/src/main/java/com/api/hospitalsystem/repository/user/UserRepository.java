@@ -9,4 +9,6 @@ public interface UserRepository extends JpaRepository<UserModel, Long> {
 
     UserModel findByCrm(String crm);
 
+    UserModel findByUserName(String userName);
+
 }
