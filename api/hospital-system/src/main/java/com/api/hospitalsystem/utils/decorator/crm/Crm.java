@@ -1,4 +1,4 @@
-package com.api.hospitalsystem.utils.decorator.cep;
+package com.api.hospitalsystem.utils.decorator.crm;
 
 import com.api.hospitalsystem.utils.decorator.phoneNumber.PhoneNumberValidator;
 
@@ -11,10 +11,10 @@ import java.lang.annotation.Target;
 
 @Target({ ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = { CepValidator.class })
-public @interface Cep {
+@Constraint(validatedBy = { CrmValidator.class })
+public @interface Crm {
 
-    String message() default "O CEP informado é inválido";
+    String message() default "O CRM informado é inválido";
 
     Class<?>[] groups() default {};
 

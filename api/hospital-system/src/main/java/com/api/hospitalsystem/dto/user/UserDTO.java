@@ -3,6 +3,7 @@ package com.api.hospitalsystem.dto.user;
 import com.api.hospitalsystem.converter.role.RoleConverter;
 import com.api.hospitalsystem.model.role.Role;
 import com.api.hospitalsystem.model.specialization.Specialization;
+import com.api.hospitalsystem.utils.decorator.crm.Crm;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 
@@ -17,7 +18,7 @@ public record UserDTO(
         @Id Long id,
         @NotNull @NotBlank @Length(max = 200) String name,
         @NotNull @NotBlank @Length(max = 200) String userName,
-        @NotNull @NotBlank @Length(max = 200) String crm,
+        @NotNull @NotBlank @Crm @Length(max = 200) String crm,
         @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) @NotNull @NotBlank @Length(max = 200) String password,
         Boolean isActive,
         @Convert(converter = RoleConverter.class) @NotNull Role role,

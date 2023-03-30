@@ -4,6 +4,7 @@ import com.api.hospitalsystem.converter.role.RoleConverter;
 import com.api.hospitalsystem.converter.specialization.SpecializationConverter;
 import com.api.hospitalsystem.model.role.Role;
 import com.api.hospitalsystem.model.specialization.Specialization;
+import com.api.hospitalsystem.utils.decorator.crm.Crm;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
@@ -37,6 +38,7 @@ public class UserModel implements Serializable {
 
     @NotNull
     @NotBlank
+    @Crm
     @Length(max = 200)
     @Column(name="crm", nullable = false, length = 200)
     public String crm;
