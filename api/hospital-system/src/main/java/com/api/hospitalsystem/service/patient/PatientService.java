@@ -50,6 +50,10 @@ public class PatientService {
                     recordFound.setAge(patientDTO.age());
                     recordFound.setCep(patientDTO.cep());
                     recordFound.setGender(patientDTO.gender());
+                    recordFound.setCity(patientDTO.city());
+                    recordFound.setDistrict(patientDTO.district());
+                    recordFound.setState(patientDTO.state());
+                    recordFound.setStreet(patientDTO.street());
                     return patientMapper.toDTO(patientRepository.save(recordFound));
                 }).orElseThrow(() -> new EntityNotFoundException("Patient not found" + id));
     }
