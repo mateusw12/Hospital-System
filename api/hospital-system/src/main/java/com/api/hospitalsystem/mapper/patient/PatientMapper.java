@@ -17,6 +17,10 @@ public class PatientMapper {
                 patientModel.getEmail(),
                 patientModel.getPhone(),
                 patientModel.getCep(),
+                patientModel.getStreet(),
+                patientModel.getDistrict(),
+                patientModel.getCity(),
+                patientModel.getState(),
                 patientModel.getHouseNumber(),
                 patientModel.getAge(),
                 patientModel.getGender(),
@@ -38,6 +42,9 @@ public class PatientMapper {
         patientModel.setAge(patientDTO.age());
         patientModel.setEmail(patientDTO.email());
         patientModel.setCep(patientDTO.cep());
+        patientModel.setState(patientDTO.state());
+        patientModel.setDistrict(patientDTO.district());
+        patientModel.setStreet(patientDTO.street());
         patientModel.setGender(patientDTO.gender());
         patientModel.setPhone(patientDTO.phone());
         patientModel.setHouseNumber(patientDTO.houseNumber());

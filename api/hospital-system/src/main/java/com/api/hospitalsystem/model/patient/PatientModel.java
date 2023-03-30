@@ -45,6 +45,30 @@ public class PatientModel implements Serializable {
     public String cep;
 
     @NotNull
+    @NotBlank
+    @Length(max = 200)
+    @Column(name="endereco",nullable = false, length = 200)
+    public String street;
+
+    @NotNull
+    @NotBlank
+    @Length(max = 200)
+    @Column(name="bairro",nullable = false, length = 200)
+    public String district;
+
+    @NotNull
+    @NotBlank
+    @Length(max = 20)
+    @Column(name="cidade",nullable = false, length = 200)
+    public String city;
+
+    @NotNull
+    @NotBlank
+    @Length(max = 20)
+    @Column(name="estado",nullable = false, length = 200)
+    public String state;
+
+    @NotNull
     @PositiveOrZero
     @Column(name="numeroCasa", nullable = false)
     public Long houseNumber;
