@@ -103,4 +103,7 @@ public class PatientModel implements Serializable {
     @Column(name="estadoCivil", nullable = false)
     public MaritalStatus maritalStatus;
 
+    @Column(name="temPlanoSaude")
+    public Boolean hasHeathPlan;
+
 }

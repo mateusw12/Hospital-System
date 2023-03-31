@@ -44,6 +44,14 @@ public class PatientService {
     }
 
     @Transactional
+    public List<PatientDTO> findByHasHeathPlan() {
+        return patientRepository.findByHasHeathPlan(true)
+                .stream()
+                .map(patientMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
     public PatientDTO create(PatientDTO patientDTO) {
         return patientMapper.toDTO(patientRepository.save(patientMapper.toEntity(patientDTO)));
     }
@@ -65,6 +73,7 @@ public class PatientService {
                     recordFound.setStreet(patientDTO.street());
                     recordFound.setCpf(patientDTO.cpf());
                     recordFound.setHeathPlan(patientDTO.heathPlan());
+                    recordFound.setHasHeathPlan(patientDTO.hasHeathPlan());
                     return patientMapper.toDTO(patientRepository.save(recordFound));
                 }).orElseThrow(() -> new EntityNotFoundException("Patient not found" + id));
     }

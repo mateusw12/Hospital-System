@@ -11,5 +11,6 @@ import java.util.List;
 public interface PatientRepository extends JpaRepository<PatientModel, Long> {
 
     List<PatientModel> findByHeathPlan(HeathPlan heathPlan);
+    List<PatientModel> findByHasHeathPlan(Boolean hasHeathPlan);
 
 }

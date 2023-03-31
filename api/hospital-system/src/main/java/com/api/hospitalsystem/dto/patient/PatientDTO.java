@@ -33,6 +33,7 @@ public record PatientDTO(
         @NotNull @PositiveOrZero() Long houseNumber,
         @NotNull @Positive() Long age,
         @Convert(converter = GenderConverter.class) @NotNull Gender gender,
-        @Convert(converter = MaritalStatusConverter.class) @NotNull MaritalStatus maritalStatus
+        @Convert(converter = MaritalStatusConverter.class) @NotNull MaritalStatus maritalStatus,
+        Boolean hasHeathPlan
 ) {
 }

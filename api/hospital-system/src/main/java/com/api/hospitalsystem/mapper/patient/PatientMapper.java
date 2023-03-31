@@ -26,7 +26,8 @@ public class PatientMapper {
                 patientModel.getHouseNumber(),
                 patientModel.getAge(),
                 patientModel.getGender(),
-                patientModel.getMaritalStatus()
+                patientModel.getMaritalStatus(),
+                patientModel.getHasHeathPlan()
         );
     }
 
@@ -53,6 +54,7 @@ public class PatientMapper {
         patientModel.setHeathPlan(patientDTO.heathPlan());
         patientModel.setHouseNumber(patientDTO.houseNumber());
         patientModel.setMaritalStatus(patientDTO.maritalStatus());
+        patientModel.setHasHeathPlan(patientDTO.hasHeathPlan());
         return patientModel;
     }
 

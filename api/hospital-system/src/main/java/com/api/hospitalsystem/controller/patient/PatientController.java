@@ -43,6 +43,12 @@ public class PatientController {
         return patientService.findByHeathPlan(heathPlan);
     }
 
+    @GetMapping("heath-plan")
+    @Operation(summary = "Consulta todos os paciente que possuem plano de saúde")
+    public @ResponseBody List<PatientDTO> findByHasHeathPlan() {
+        return patientService.findByHasHeathPlan();
+    }
+
     @PostMapping
     @Operation(summary = "Cadastra um paciente")
     @ResponseStatus(code = HttpStatus.CREATED)
