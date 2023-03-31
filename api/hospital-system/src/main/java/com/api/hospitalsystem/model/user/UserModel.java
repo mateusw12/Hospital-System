@@ -6,6 +6,7 @@ import com.api.hospitalsystem.model.medicalProcedure.MedicalProcedureModel;
 import com.api.hospitalsystem.model.role.Role;
 import com.api.hospitalsystem.model.specialization.Specialization;
 import com.api.hospitalsystem.utils.decorator.crm.Crm;
+import com.api.hospitalsystem.utils.decorator.medicalProcedure.MedicalProcedure;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
@@ -76,6 +77,7 @@ public class UserModel implements Serializable {
     @Column(name="especializacao", nullable = false)
     public Specialization specialization;
 
+    @MedicalProcedure
     @ManyToMany
     @JoinTable(
             name = "user_procedure",
