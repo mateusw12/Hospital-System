@@ -1,4 +1,4 @@
-package com.api.hospitalsystem.configuration;
+package com.api.hospitalsystem.configuration.swagger;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
