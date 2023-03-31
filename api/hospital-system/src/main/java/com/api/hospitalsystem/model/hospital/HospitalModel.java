@@ -1,5 +1,6 @@
 package com.api.hospitalsystem.model.hospital;
 
+import com.api.hospitalsystem.utils.decorator.cep.Cep;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
@@ -22,6 +23,7 @@ public class HospitalModel implements Serializable {
     @Column(name = "nome",nullable = false, length = 200)
     public String name;
 
+    @Cep
     @Length(max = 20)
     @Column(name = "cep", length = 20)
     public String zipCode;
