@@ -36,11 +36,9 @@ public class UserModel implements Serializable {
     @Column(name="nomeUsuario", nullable = false, length = 200)
     public String userName;
 
-    @NotNull
-    @NotBlank
     @Crm
     @Length(max = 200)
-    @Column(name="crm", nullable = false, length = 200)
+    @Column(name="crm", length = 200)
     public String crm;
 
     @NotNull

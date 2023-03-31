@@ -18,7 +18,7 @@ public record UserDTO(
         @Id Long id,
         @NotNull @NotBlank @Length(max = 200) String name,
         @NotNull @NotBlank @Length(max = 200) String userName,
-        @NotNull @NotBlank @Crm @Length(max = 200) String crm,
+        @Crm @Length(max = 200) String crm,
         @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) @NotNull @NotBlank @Length(max = 200) String password,
         Boolean isActive,
         @Convert(converter = RoleConverter.class) @NotNull Role role,

@@ -56,8 +56,7 @@ public class DatabaseInitializer {
             user.setName("Mateus");
             user.setEmail("mateus.walz@gmail.com");
             user.setSpecialization(Specialization.Surgeon);
-            user.setRole(Role.Adm);
-            user.setCrm("SP-123456-1");
+            user.setRole(Role.Doctor);
             user.setHospitalId(1L);
             user.setIsActive(true);
             userRepository.save(user);
