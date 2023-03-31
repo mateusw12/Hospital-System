@@ -89,7 +89,7 @@ public class CrmValidator implements ConstraintValidator<Crm, String> {
                 regexEstado = "^89\\d{5}$";
                 break;
             case "SP":
-                regexEstado = "^\\d{8}$|^\\d{5}-\\d{3}$";
+                regexEstado = "^\\w{2}-\\d{6}-\\d$";
                 break;
             case "SE":
                 regexEstado = "^49\\d{5}$";
