@@ -1,4 +1,4 @@
-package com.api.hospitalsystem.utils.decorator.medicalProcedure;
+package com.api.hospitalsystem.utils.decorator.doctors;
 
 import com.api.hospitalsystem.model.medicalProcedure.MedicalProcedureModel;
 import com.api.hospitalsystem.model.role.Role;
@@ -15,13 +15,13 @@ import java.nio.file.attribute.UserPrincipal;
 import java.util.List;
 
 @Component
-public class MedicalProcedureValidator implements ConstraintValidator<MedicalProcedure, List<MedicalProcedureModel>> {
+public class DoctorsValidator implements ConstraintValidator<Doctors, List<UserModel>> {
 
     @Autowired
     private UserRepository userRepository;
 
     @Override
-    public boolean isValid(List<MedicalProcedureModel> medicalProcedureModels, ConstraintValidatorContext context) {
+    public boolean isValid(List<UserModel> userModels, ConstraintValidatorContext context) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null) {
             Object principal = authentication.getPrincipal();
@@ -29,7 +29,7 @@ public class MedicalProcedureValidator implements ConstraintValidator<MedicalPro
                 UserPrincipal userPrincipal = (UserPrincipal) principal;
                 UserModel user = userRepository.findByUserName(userPrincipal.getName());
                 if (user != null && user.getRole() == Role.Doctor) {
-                    return medicalProcedureModels != null && !medicalProcedureModels.isEmpty();
+                    return userModels != null && !userModels.isEmpty();
                 }
             }
          }

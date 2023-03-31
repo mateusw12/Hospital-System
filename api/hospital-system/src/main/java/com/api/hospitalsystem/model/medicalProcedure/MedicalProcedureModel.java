@@ -1,6 +1,7 @@
 package com.api.hospitalsystem.model.medicalProcedure;
 
 import com.api.hospitalsystem.model.user.UserModel;
+import com.api.hospitalsystem.utils.decorator.doctors.Doctors;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
@@ -37,6 +38,7 @@ public class MedicalProcedureModel implements Serializable {
     @Column(name = "preco", nullable = false)
     private Double price;
 
+    @Doctors
     @ManyToMany(mappedBy = "procedures")
     private List<UserModel> doctors = new ArrayList<>();
 
