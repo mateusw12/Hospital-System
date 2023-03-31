@@ -5,6 +5,7 @@ import com.api.hospitalsystem.converter.maritalStatus.MaritalStatusConverter;
 import com.api.hospitalsystem.model.gender.Gender;
 import com.api.hospitalsystem.model.maritalStatus.MaritalStatus;
 import com.api.hospitalsystem.utils.decorator.cep.Cep;
+import com.api.hospitalsystem.utils.decorator.cpf.Cpf;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
@@ -28,6 +29,13 @@ public class PatientModel implements Serializable {
     @Length(max = 200)
     @Column(name="nome", nullable = false, length = 200)
     public String name;
+
+    @NotNull
+    @NotBlank
+    @Cpf
+    @Length(max = 11)
+    @Column(name="cpf", nullable = false, length = 11)
+    public String cpf;
 
     @Length(max = 200)
     @Column(name="email", length = 200)
