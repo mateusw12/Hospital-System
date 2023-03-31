@@ -1,8 +1,10 @@
 package com.api.hospitalsystem.model.patient;
 
 import com.api.hospitalsystem.converter.gender.GenderConverter;
+import com.api.hospitalsystem.converter.heathPlan.HeathPlanConverter;
 import com.api.hospitalsystem.converter.maritalStatus.MaritalStatusConverter;
 import com.api.hospitalsystem.model.gender.Gender;
+import com.api.hospitalsystem.model.heathPlan.HeathPlan;
 import com.api.hospitalsystem.model.maritalStatus.MaritalStatus;
 import com.api.hospitalsystem.utils.decorator.cep.Cep;
 import com.api.hospitalsystem.utils.decorator.cpf.Cpf;
@@ -36,6 +38,11 @@ public class PatientModel implements Serializable {
     @Length(max = 11)
     @Column(name="cpf", nullable = false, length = 11)
     public String cpf;
+
+    @Convert(converter = HeathPlanConverter.class)
+    @Length(max = 200)
+    @Column(name="planoSaude", nullable = false, length = 200)
+    public HeathPlan heathPlan;
 
     @Length(max = 200)
     @Column(name="email", length = 200)
@@ -95,5 +102,8 @@ public class PatientModel implements Serializable {
     @Convert(converter = MaritalStatusConverter.class)
     @Column(name="estadoCivil", nullable = false)
     public MaritalStatus maritalStatus;
+
+    @Column(name="temPlanoSaude")
+    public Boolean hasHeathPlan;
 
 }
