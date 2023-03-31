@@ -1,6 +1,7 @@
 package com.api.hospitalsystem.controller.patient;
 
 import com.api.hospitalsystem.dto.patient.PatientDTO;
+import com.api.hospitalsystem.model.heathPlan.HeathPlan;
 import com.api.hospitalsystem.service.patient.PatientService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -34,6 +35,12 @@ public class PatientController {
     @Operation(summary = "Consulta paciente por código")
     public PatientDTO findById(@PathVariable @NotBlank @Positive Long id) {
         return patientService.findById(id);
+    }
+
+    @GetMapping("heath-plan/{heathPlan}")
+    @Operation(summary = "Consulta todos os paciente por plano de saúde")
+    public @ResponseBody List<PatientDTO> findByHeathPlan(@PathVariable @NotNull HeathPlan heathPlan) {
+        return patientService.findByHeathPlan(heathPlan);
     }
 
     @PostMapping
