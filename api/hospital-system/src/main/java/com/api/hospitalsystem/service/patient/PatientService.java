@@ -54,6 +54,7 @@ public class PatientService {
                     recordFound.setDistrict(patientDTO.district());
                     recordFound.setState(patientDTO.state());
                     recordFound.setStreet(patientDTO.street());
+                    recordFound.setCpf(patientDTO.cpf());
                     return patientMapper.toDTO(patientRepository.save(recordFound));
                 }).orElseThrow(() -> new EntityNotFoundException("Patient not found" + id));
     }

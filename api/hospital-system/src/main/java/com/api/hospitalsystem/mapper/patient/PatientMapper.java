@@ -14,6 +14,7 @@ public class PatientMapper {
         return new PatientDTO(
                 patientModel.getId(),
                 patientModel.getName(),
+                patientModel.getCpf(),
                 patientModel.getEmail(),
                 patientModel.getPhone(),
                 patientModel.getCep(),
@@ -47,6 +48,7 @@ public class PatientMapper {
         patientModel.setStreet(patientDTO.street());
         patientModel.setGender(patientDTO.gender());
         patientModel.setPhone(patientDTO.phone());
+        patientModel.setCpf(patientDTO.cpf());
         patientModel.setHouseNumber(patientDTO.houseNumber());
         patientModel.setMaritalStatus(patientDTO.maritalStatus());
         return patientModel;
