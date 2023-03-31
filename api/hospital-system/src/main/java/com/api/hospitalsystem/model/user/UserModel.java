@@ -2,6 +2,7 @@ package com.api.hospitalsystem.model.user;
 
 import com.api.hospitalsystem.converter.role.RoleConverter;
 import com.api.hospitalsystem.converter.specialization.SpecializationConverter;
+import com.api.hospitalsystem.model.medicalProcedure.MedicalProcedureModel;
 import com.api.hospitalsystem.model.role.Role;
 import com.api.hospitalsystem.model.specialization.Specialization;
 import com.api.hospitalsystem.utils.decorator.crm.Crm;
@@ -15,6 +16,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "usuario")
 @Data
@@ -72,5 +75,12 @@ public class UserModel implements Serializable {
     @NotNull
     @Column(name="especializacao", nullable = false)
     public Specialization specialization;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_procedure",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "procedure_id"))
+    private List<MedicalProcedureModel> procedures = new ArrayList<>();
 
 }
