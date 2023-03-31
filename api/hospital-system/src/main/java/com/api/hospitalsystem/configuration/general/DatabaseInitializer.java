@@ -1,4 +1,4 @@
-package com.api.hospitalsystem.configuration;
+package com.api.hospitalsystem.configuration.general;
 
 import com.api.hospitalsystem.model.hospital.HospitalModel;
 import com.api.hospitalsystem.model.role.Role;
