@@ -12,7 +12,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    AppRoutingModule,
+    AppRoutingModule
   ],
   providers: [BsModalService],
   bootstrap: [AppComponent],
