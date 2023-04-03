@@ -1,0 +1,52 @@
+
+::ng-deep {
+
+  .modal-large {
+    max-width: calc(100vw - 45vw);
+  }
+
+  .modal-xl {
+    max-width: calc(100vw - 45vw);
+  }
+
+  .page-content {
+    margin-top: 25px;
+  }
+
+  body {
+    background-color: var(--body);
+  }
+
+  :root .light {
+    --body: #fff;
+    --text-menu: #4c4c4d;
+    --text-body: #4c4c4d;
+  }
+
+  :root .dark-theme {
+    --body: #4c4c4d;
+    --text-menu: #fff;
+    --text-body: #fff;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--text-menu);
+    font-family: sans-serif;
+  }
+
+  p {
+    color: var(--text-menu);
+    font-family: sans-serif;
+  }
+
+  a {
+    color: var(--text-body);
+    font-family: sans-serif;
+  }
+
+}
