@@ -2,6 +2,7 @@ package com.api.hospitalsystem.security.utils;
 
 import com.api.hospitalsystem.service.impl.user.DetailUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,6 +23,9 @@ public class JWTRequestFilter extends OncePerRequestFilter {
     private DetailUserServiceImpl detailUserService;
 
     @Autowired
+    private TokenService tokenService;
+
+    @Autowired
     private JWTUtil jwtUtil;
 
     @Override
@@ -38,12 +42,12 @@ public class JWTRequestFilter extends OncePerRequestFilter {
         }
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = detailUserService.loadUserByUsername(username);
-            if (jwtUtil.validateToken(token, userDetails)) {
+            if (tokenService.isTokenValid(token)) {
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             } else {
-                throw new ServletException("Token has expired, please login again");
+                throw new BadCredentialsException("Token inválido");
             }
         }
         filterChain.doFilter(request, response);
