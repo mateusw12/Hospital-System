@@ -26,5 +26,4 @@ public class DetailUserServiceImpl implements UserDetailsService {
         return new DetailUserLogin(userModel);
     }
 
-
 }
