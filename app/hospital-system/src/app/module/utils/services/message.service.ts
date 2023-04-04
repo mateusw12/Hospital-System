@@ -3,7 +3,7 @@ import {
   AlertContent,
   AlertDialogComponent,
   ConfirmDialogComponent,
-} from '@module/shared/src';
+} from '@module/shared';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import {
@@ -28,25 +28,25 @@ export class MessageService implements OnDestroy {
     private nbgModal: NgbModal
   ) {}
 
-  showConfirmDelete(): Promise<boolean> {
+  async showConfirmDelete(): Promise<boolean> {
     const modalRef = this.nbgModal.open(ConfirmDialogComponent);
     modalRef.componentInstance.title = 'Você confirma a exclusão?';
-    return modalRef.result;
+    return await modalRef.result;
   }
 
-  showConfirmSave(): Promise<boolean> {
+  async showConfirmSave(): Promise<boolean> {
     const modalRef = this.nbgModal.open(ConfirmDialogComponent);
     modalRef.componentInstance.title = 'Você confirma a alteração?';
-    return modalRef.result;
+    return await modalRef.result;
   }
 
-  showConfirm(title?: string, message?: string): Promise<boolean> {
+  async showConfirm(title?: string, message?: string): Promise<boolean> {
     const modalRef = this.nbgModal.open(ConfirmDialogComponent);
     modalRef.componentInstance.title =
       title || modalRef.componentInstance.title;
     modalRef.componentInstance.message =
       message || modalRef.componentInstance.message;
-    return modalRef.result;
+    return await modalRef.result;
   }
 
   showWarningMessage(message?: string): void {
