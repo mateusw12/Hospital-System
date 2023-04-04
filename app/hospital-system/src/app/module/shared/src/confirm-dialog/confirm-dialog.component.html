@@ -1,0 +1,18 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{ title }}</h4>
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="modal.dismiss()"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <p class="color-text">{{ message }}</p>
+</div>
+<div class="modal-footer">
+  <button ejs-button buttonCancel (click)="modal.dismiss()"></button>
+  <button ejs-button buttonConfirm (click)="modal.close(true)"></button>
+</div>
