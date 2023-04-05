@@ -9,7 +9,6 @@ import { BreadCrumb } from './breadcrumb-interface';
   selector: 'app-bread-crumb',
 })
 export class BreadCrumbComponent implements OnInit {
-
   get breadcrumbs(): BreadCrumb[] {
     return this._breadcrumbs;
   }
