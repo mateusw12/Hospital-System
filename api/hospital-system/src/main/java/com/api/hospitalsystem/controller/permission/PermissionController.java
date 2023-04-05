@@ -36,7 +36,7 @@ public class PermissionController {
         return permissionService.findById(id);
     }
 
-    @GetMapping("/sector/{sector}")
+    @GetMapping("/user/{userName}")
     @Operation(summary = "Consulta todas as configuração de permissao por usuario")
     public List<PermissionDTO> findByUserName(@PathVariable @NotNull @NotBlank String userName) {
         return permissionService.findByUserName(userName);
