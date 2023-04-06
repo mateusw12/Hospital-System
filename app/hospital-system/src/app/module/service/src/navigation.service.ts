@@ -6,7 +6,7 @@ export class NavigationService {
   constructor(private router: Router) {}
 
   navigateToHomePage(): Promise<boolean> {
-    return this.navigateTo([`/menu/home/`]);
+    return this.navigateTo([`/menu`]);
   }
 
   private navigateTo(
