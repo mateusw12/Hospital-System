@@ -2,7 +2,6 @@ export * from './alert-dialog/alert-content-interface';
 export * from './alert-dialog/alert-dialog.component';
 export * from './alert-dialog/alert-dialog.module';
 export * from './bread-crumb/bread-crumb.component';
-export * from './bread-crumb/bread-crumb.module';
 export * from './bread-crumb/breadcrumb-interface';
 export * from './button/button-app.module';
 export * from './confirm-dialog/confirm-dialog.component';
