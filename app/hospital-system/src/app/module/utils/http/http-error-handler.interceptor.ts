@@ -21,14 +21,7 @@ export class HttpErrorHandlerInterceptor implements HttpInterceptor {
     const requestUrl: string[] = request.url.split('/');
     const apiURL: string[] = environment.api_url.split('/');
     
-    if (token && requestUrl[2] === apiURL[2]) {
-      const newRequest = request.clone({
-        setHeaders: { Authorization: `Bearer ${token}` },
-      });
-      return next.handle(newRequest);
-    }
-
-    if (requestUrl[1] === apiURL[3]) {
+    if (token) {
       const newRequest = request.clone({
         setHeaders: { Authorization: `Bearer ${token}` },
       });
