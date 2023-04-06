@@ -13,7 +13,6 @@ import com.api.hospitalsystem.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.w3c.dom.stylesheets.LinkStyle;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -48,13 +47,12 @@ public class DatabaseInitializer {
     private void createHospital() {
         Optional<HospitalModel> hospitalModel = hospitalRepository.findById(1L);
 
-        if (hospitalModel == null) {
+        if (!hospitalModel.isPresent()) {
             HospitalModel hospitalModel1 = new HospitalModel();
             hospitalModel1.setComercialName("Hospital Sede");
             hospitalModel1.setPhone("4766666666");
             hospitalModel1.setName("Hospital Sede");
             hospitalModel1.setZipCode("89258809");
-            hospitalModel1.setId(1l);
             hospitalModel1.setIsActive(true);
             hospitalRepository.save(hospitalModel1);
         }
