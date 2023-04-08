@@ -1,5 +1,11 @@
-
 ::ng-deep {
+  #content {
+    width: 100%;
+    padding: 10px;
+    height: calc(100vh - 50px);
+    transition: all 0.3s;
+    overflow: hidden;
+  }
 
   .modal-large {
     max-width: calc(100vw - 45vw);
@@ -48,5 +54,4 @@
     color: var(--text-body);
     font-family: sans-serif;
   }
-
 }
