@@ -13,8 +13,8 @@ export const routes: Routes = [
     path: 'menu',
     component: MenuComponent,
     data: { pageTitle: 'Menu', breadcrumb: 'Menu' },
-    canActivate: [AuthGuardsService],
-    canActivateChild: [AuthGuardsService],
+    // canActivate: [AuthGuardsService],
+    // canActivateChild: [AuthGuardsService],
     children: []
  }
 ];
