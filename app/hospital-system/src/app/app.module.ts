@@ -11,7 +11,7 @@ import {
   HttpErrorHandlerInterceptor,
 } from '@module/utils/http';
 import { FormsModule } from '@angular/forms';
-import { BreadCrumbComponent, DropDownListModule } from '@module/shared';
+import { BreadCrumbComponent, ButtonAppModule, DropDownListModule } from '@module/shared';
 import { ButtonModule } from '@syncfusion/ej2-angular-buttons';
 import { AppBarModule } from '@syncfusion/ej2-angular-navigations';
 
@@ -26,6 +26,7 @@ import { AppBarModule } from '@syncfusion/ej2-angular-navigations';
     AppBarModule,
     ButtonModule,
     FormsModule,
+    ButtonAppModule,
   ],
   providers: [
     BsModalService,

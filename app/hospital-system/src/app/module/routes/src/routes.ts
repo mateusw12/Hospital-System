@@ -9,12 +9,18 @@ export const routes: Routes = [
     data: { pageTitle: 'Login' },
     loadChildren: pages.loginRegistration,
   },
- {
+  {
     path: 'menu',
     component: MenuComponent,
     data: { pageTitle: 'Menu', breadcrumb: 'Menu' },
     // canActivate: [AuthGuardsService],
     // canActivateChild: [AuthGuardsService],
-    children: []
- }
+    children: [
+      {
+        path: 'information',
+        data: { pageTitle: 'Informações', breadcrumb: 'Informações' },
+        loadChildren: pages.information,
+      },
+    ],
+  },
 ];
