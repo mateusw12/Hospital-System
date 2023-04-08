@@ -55,9 +55,11 @@ a:focus {
 #sidebar {
   min-width: 250px;
   max-width: 250px;
-  background: linear-gradient(to bottom, #3498db 40%, #071981);
+  background: linear-gradient(to bottom, #55b0ed 40%, #071981);
   color: #fff;
   transition: all 0.3s;
+  min-height: 100vh;
+  max-height: 100vh;
 }
 
 #sidebar.active {
@@ -66,7 +68,7 @@ a:focus {
 
 #sidebar .sidebar-header {
   padding: 20px;
-  background: #3498db;
+  background: #55b0ed;
 }
 
 #sidebar ul.components {
@@ -149,15 +151,6 @@ a.article:hover {
   color: #fff !important;
 }
 
-#content {
-  width: 100%;
-  padding: 10px;
-  min-height: 100vh;
-  max-height: 100vh;
-  transition: all 0.3s;
-  overflow: hidden;
-}
-
 @media (max-width: 768px) {
   #sidebar {
     margin-left: -250px;
@@ -189,7 +182,7 @@ a {
 }
 
 .custom-appbar {
-  background: linear-gradient(to right, #3498db 50%, #071981);
+  background: linear-gradient(to right, #55b0ed 50%, #071981);
 }
 
 .logout-button {
@@ -207,5 +200,9 @@ a {
 }
 
 .menu-button {
+  background-color: #55b0ed;
+}
+
+.menu-button:hover {
   background-color: #3498db;
 }
