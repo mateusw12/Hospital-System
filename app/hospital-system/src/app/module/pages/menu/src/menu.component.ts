@@ -83,6 +83,12 @@ export class MenuComponent implements OnInit, OnDestroy {
       );
   }
 
+  onInformationClick(): void {
+    this.navigationService.navigateToInformationPage();
+  }
+
+  onLicenseClick(): void {}
+
   ngOnDestroy(): void {}
 
   private async loadData(): Promise<void> {

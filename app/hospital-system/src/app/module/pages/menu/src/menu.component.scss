@@ -135,17 +135,6 @@ ul.CTAs a {
   margin-bottom: 5px;
 }
 
-a.download {
-  background: #fff;
-  color: #1a3aba;
-}
-
-a.article,
-a.article:hover {
-  background: #6d7fcc !important;
-  color: #fff !important;
-}
-
 @media (max-width: 768px) {
   #sidebar {
     margin-left: -250px;
@@ -200,4 +189,8 @@ a {
 
 .menu-button:hover {
   background-color: #3498db;
+}
+
+.align-button-format{
+  padding-bottom: 5px;
 }

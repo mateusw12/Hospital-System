@@ -9,6 +9,10 @@ export class NavigationService {
     return this.navigateTo([`/menu`]);
   }
 
+    navigateToInformationPage(): Promise<boolean> {
+    return this.navigateTo([`/menu/information`]);
+  }
+
   private navigateTo(
     commands: any[],
     extras?: NavigationExtras
