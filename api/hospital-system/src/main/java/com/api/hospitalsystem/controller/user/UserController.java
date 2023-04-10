@@ -2,6 +2,7 @@ package com.api.hospitalsystem.controller.user;
 
 import com.api.hospitalsystem.dto.user.UserDTO;
 import com.api.hospitalsystem.service.user.UserService;
+import com.api.hospitalsystem.validator.user.UserValidator;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserValidator userValidator;
+
     @GetMapping
     @Operation(summary = "Consulta todos os usuários")
     public @ResponseBody List<UserDTO> findAll() {
@@ -37,12 +41,12 @@ public class UserController {
         return userService.findById(id);
     }
 
-    @GetMapping("/me/{user}")
+    @GetMapping("/me")
     @Operation(summary = "Consulta usuário logado")
-    public ResponseEntity<UserDTO> findMe(@PathVariable @NotBlank @NotNull String user) {
-//        if(userCustomValidation.validadeLoggedUser(user)){
-//            return ResponseEntity.ok(userService.findMe(user));
-//        }
+    public ResponseEntity<UserDTO> findMe() {
+        if(userValidator.validateUserLogged()){
+            return ResponseEntity.ok(userService.findMe());
+        }
         return ResponseEntity.badRequest().build();
     }
 

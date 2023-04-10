@@ -2,6 +2,7 @@ package com.api.hospitalsystem.mapper.hospital;
 
 import com.api.hospitalsystem.dto.hospital.HospitalDTO;
 import com.api.hospitalsystem.model.hospital.HospitalModel;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.stereotype.Component;
 
 @Component

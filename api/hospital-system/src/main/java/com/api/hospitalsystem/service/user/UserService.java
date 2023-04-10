@@ -4,6 +4,7 @@ import com.api.hospitalsystem.dto.user.UserDTO;
 import com.api.hospitalsystem.mapper.user.UserMapper;
 import com.api.hospitalsystem.model.user.UserModel;
 import com.api.hospitalsystem.repository.user.UserRepository;
+import com.api.hospitalsystem.security.utils.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,9 @@ public class UserService {
     @Autowired
     private PasswordEncoder encoder;
 
+    @Autowired
+    private JWTUtil jwtUtil;
+
     @Transactional
     public List<UserDTO> findAll() {
         return userRepository.findAll()
@@ -40,8 +44,9 @@ public class UserService {
     }
 
     @Transactional
-    public UserDTO findMe(String crm) {
-        return userMapper.toDTO(userRepository.findByCrm(crm));
+    public UserDTO findMe() {
+        String userName = jwtUtil.findMe();
+        return userMapper.toDTO(userRepository.findByUserName(userName));
     }
 
     @Transactional
