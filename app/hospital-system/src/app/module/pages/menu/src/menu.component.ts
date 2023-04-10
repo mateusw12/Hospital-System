@@ -78,6 +78,7 @@ export class MenuComponent implements OnInit, OnDestroy {
       .subscribe(
         () => {
           this.authenticationService.clearUserToken();
+          this.navigationService.navigateToLoginPage();
         },
         (error) => this.handleError(error)
       );

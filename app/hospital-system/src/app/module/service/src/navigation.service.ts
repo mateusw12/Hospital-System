@@ -9,8 +9,12 @@ export class NavigationService {
     return this.navigateTo([`/menu`]);
   }
 
-    navigateToInformationPage(): Promise<boolean> {
+  navigateToInformationPage(): Promise<boolean> {
     return this.navigateTo([`/menu/information`]);
+  }
+
+  navigateToLoginPage(): Promise<boolean> {
+    return this.navigateTo([`/login`]);
   }
 
   private navigateTo(
