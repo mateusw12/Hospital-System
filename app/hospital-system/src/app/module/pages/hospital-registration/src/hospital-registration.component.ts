@@ -1,47 +1,49 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Role, Specialization, User } from '@module/models';
-import { UserRepository } from '@module/repository';
+import { Hospital } from '@module/models';
+import {
+  HospitalRepository,
+  ZipCodeAddressesRepository,
+} from '@module/repository';
 import { FormGridCommandEventArgs, ModalComponent } from '@module/shared';
 import { SfGridColumnModel, SfGridColumns } from '@module/shared/src/grid';
-import { untilDestroyed, untilDestroyedAsync } from '@module/utils/common';
+import { untilDestroyed } from '@module/utils/common';
+import { ZIP_CODE_ADDRESSES_REGEX } from '@module/utils/constant';
 import { markAllAsTouched } from '@module/utils/forms';
-import { getDescription, toArray } from '@module/utils/functions/enum';
 import {
   ErrorHandler,
-  MenuService,
   MessageService,
   ToastService,
 } from '@module/utils/services';
+import { debounceTime } from 'rxjs/operators';
 
 const NEW_ID = 'NOVO';
 
 interface GridRow {
   id: number;
-  userName: string;
-  role: string;
-  specialization: string;
-  isActive: boolean;
+  name: string;
+  comercialName: string;
+  zipCode: string;
 }
 
 interface FormModel {
   id: FormControl<string | null>;
   name: FormControl<string | null>;
-  userName: FormControl<string | null>;
-  password: FormControl<string | null>;
-  role: FormControl<Role | null>;
+  comercialName: FormControl<string | null>;
+  zipCode: FormControl<string | null>;
+  phone: FormControl<string | null>;
+  number: FormControl<string | null>;
   isActive: FormControl<boolean | null>;
-  email: FormControl<string | null>;
-  crm: FormControl<string | null>;
-  hospitalId: FormControl<number | null>;
-  specialization: FormControl<Specialization | null>;
+  street: FormControl<string | null>;
+  city: FormControl<string | null>;
 }
+
 @Component({
-  selector: 'app-user-registration',
-  templateUrl: './user-registration.component.html',
-  styleUrls: ['./user-registration.component.scss'],
+  selector: 'app-hospital-registration',
+  templateUrl: './hospital-registration.component.html',
+  styleUrls: ['./hospital-registration.component.scss'],
 })
-export class UserRegistrationComponent implements OnInit, OnDestroy {
+export class HospitalRegistrationComponent implements OnInit, OnDestroy {
   @ViewChild(ModalComponent, { static: true })
   modal!: ModalComponent;
 
@@ -49,20 +51,17 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
   dataSource: GridRow[] = [];
   form = this.createForm();
 
-  roles = toArray(Role);
-  specializations = toArray(Specialization);
-
   constructor(
     private toastService: ToastService,
     private messageService: MessageService,
     private errorHandler: ErrorHandler,
-    private userRepository: UserRepository,
-    private menuService: MenuService
+    private hospitalRepository: HospitalRepository,
+    private zipCodeAddressRepository: ZipCodeAddressesRepository
   ) {}
 
   ngOnInit(): void {
     this.loadData();
-    this.formEvents();
+    this.registerEvents();
   }
 
   onCommand(event: FormGridCommandEventArgs): void {
@@ -99,8 +98,8 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
     }
 
     (exists
-      ? this.userRepository.updateById(model)
-      : this.userRepository.add(model)
+      ? this.hospitalRepository.updateById(model)
+      : this.hospitalRepository.add(model)
     )
       .pipe(untilDestroyed(this))
       .subscribe(
@@ -116,29 +115,43 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {}
 
-  private formEvents(): void {
+  private registerEvents(): void {
     const controls = this.form.controls;
 
-    controls.role.valueChanges.pipe(untilDestroyed(this)).subscribe(
-      (value) => {
-        if (value !== Role.Adm) {
-          controls.specialization.addValidators([Validators.required]);
-          controls.crm.addValidators([Validators.required]);
-        } else {
-          controls.specialization.clearValidators();
-          controls.crm.clearValidators();
-        }
-        this.form.updateValueAndValidity();
-      },
-      (error) => this.handleError(error)
-    );
+    controls.zipCode.valueChanges.pipe(debounceTime(200)).subscribe((value) => {
+      if (value) this.getZipCodeAddresses(value);
+    });
+  }
+
+  private getZipCodeAddresses(zipCode: string): void {
+    this.resetZipCodeAddressesField();
+    if (!ZIP_CODE_ADDRESSES_REGEX.test(zipCode)) return;
+    this.zipCodeAddressRepository
+      .getZipCodeAddresses(zipCode)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        async (zipCodeAddresses) => {
+          this.form.patchValue({
+            city: zipCodeAddresses.localidade,
+            street: zipCodeAddresses.logradouro,
+          });
+        },
+        (error) => this.handleError(error)
+      );
+  }
+
+  private resetZipCodeAddressesField(): void {
+    this.form.patchValue({
+      city: null,
+      street: null,
+    });
   }
 
   private async onOpen(id?: number): Promise<void> {
     this.reset();
     try {
       if (id) {
-        await this.findUser(id);
+        await this.findCompany(id);
       }
       this.modal.open();
     } catch (error) {
@@ -157,7 +170,7 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
   private async onCommandRemove(model: GridRow): Promise<void> {
     const confirmed = await this.messageService.showConfirmDelete();
     if (!confirmed) return;
-    this.userRepository
+    this.hospitalRepository
       .deleteById(model.id)
       .pipe(untilDestroyed(this))
       .subscribe(
@@ -169,26 +182,20 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
       );
   }
 
-  private async loadData(): Promise<void> {
-    const hospitalId = await this.getHospital();
-
-    this.userRepository
-      .findByHospitalId(hospitalId)
+  private loadData(): void {
+    this.hospitalRepository
+      .findAll()
       .pipe(untilDestroyed(this))
       .subscribe(
-        async (users) => {
+        async (hospitals) => {
           const dataSource: GridRow[] = [];
 
-          for (const item of users) {
+          for (const item of hospitals) {
             dataSource.push({
               id: item.id,
-              role: getDescription(Role, item.role as unknown as string),
-              userName: item.userName,
-              isActive: item.isActive,
-              specialization: getDescription(
-                Specialization,
-                item.specialization as unknown as string
-              ),
+              name: item.name,
+              comercialName: item.comercialName,
+              zipCode: item.zipCode,
             });
           }
           this.dataSource = dataSource;
@@ -197,13 +204,8 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
       );
   }
 
-  private async getHospital():Promise<number>{
-    const hospital = await untilDestroyedAsync(this.menuService.getActiveHospital(), this)
-    return hospital.id;
-  }
-
-  private async findUser(id: number): Promise<void> {
-    this.userRepository
+  private async findCompany(id: number): Promise<void> {
+    this.hospitalRepository
       .findById(id)
       .pipe(untilDestroyed(this))
       .subscribe((user) => {
@@ -211,44 +213,28 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
       });
   }
 
-  private populateForm(user: User): void {
+  private populateForm(user: Hospital): void {
     this.form.patchValue({
       id: user.id.toString(),
       name: user.name,
-      role: user.role,
-      userName: user.userName,
-      email: user.email,
+      comercialName: user.comercialName,
+      number: user.number,
       isActive: user.isActive,
-      hospitalId: user.hospitalId,
-      specialization: user.specialization,
-      crm: user.crm,
+      phone: user.phone,
+      zipCode: user.zipCode,
     });
-    this.changeFormField(user.role);
   }
 
-  private changeFormField(role: Role): void {
-    const isAdministrator = role === Role.Adm;
-    const controls = this.form.controls;
-
-    if (isAdministrator) {
-      controls.role.disable();
-      return;
-    }
-    controls.role.enable();
-  }
-
-  private getModel(): User {
-    const model = new User();
+  private getModel(): Hospital {
+    const model = new Hospital();
     const formValue = this.form.getRawValue();
     model.id = formValue.id === NEW_ID ? 0 : Number(formValue.id);
     model.name = formValue.name as string;
-    model.userName = formValue.name as string;
-    model.role = formValue.role as Role;
-    model.password = formValue.password as string;
-    model.email = formValue.email as string;
+    model.comercialName = formValue.comercialName as string;
+    model.zipCode = formValue.zipCode as string;
+    model.phone = formValue.phone as string;
+    model.comercialName = formValue.comercialName as string;
     model.isActive = formValue.isActive as boolean;
-    model.specialization = formValue.specialization as Specialization;
-    model.crm = formValue.crm as string;
     return model;
   }
 
@@ -269,39 +255,31 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
         Validators.required,
         Validators.maxLength(200),
       ]),
-      crm: new FormControl<string | null>(null, [Validators.maxLength(200)]),
-      hospitalId: new FormControl<number | null>(null, [Validators.required]),
-      specialization: new FormControl<Specialization | null>(null),
-      userName: new FormControl<string | null>(null, [
+      phone: new FormControl<string | null>(null, [Validators.maxLength(20)]),
+      number: new FormControl<string | null>(null, [Validators.maxLength(20)]),
+      zipCode: new FormControl<string | null>(null, [
+        Validators.required,
+        Validators.maxLength(20),
+      ]),
+      comercialName: new FormControl<string | null>(null, [
         Validators.required,
         Validators.maxLength(200),
-      ]),
-      role: new FormControl<Role | null>(null, [
-        Validators.required,
-        Validators.min(0),
-      ]),
-      password: new FormControl<string | null>(null, [
-        Validators.required,
-        Validators.maxLength(200),
-      ]),
-      email: new FormControl<string | null>(null, [
-        Validators.email,
-        Validators.maxLength(300),
       ]),
       isActive: new FormControl<boolean | null>(false),
+      city: new FormControl<string | null>({ disabled: true, value: null }),
+      street: new FormControl<string | null>({ disabled: true, value: null }),
     });
   }
 
   private createColumns() {
     return SfGridColumns.build<GridRow>({
       id: SfGridColumns.text('id', 'Código').minWidth(100).isPrimaryKey(true),
-      userName: SfGridColumns.text('userName', 'Usuário').minWidth(200),
-      role: SfGridColumns.text('role', 'Perfil').minWidth(100),
-      specialization: SfGridColumns.text(
-        'specialization',
-        'Especialização'
+      name: SfGridColumns.text('name', 'Empresa').minWidth(200),
+      comercialName: SfGridColumns.text(
+        'comercialName',
+        'Nome Fantasia'
       ).minWidth(100),
-      isActive: SfGridColumns.boolean('isActive', 'Ativo').minWidth(100),
+      zipCode: SfGridColumns.text('zipCode', 'CEP').minWidth(100),
     });
   }
 }

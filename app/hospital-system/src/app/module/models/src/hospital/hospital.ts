@@ -4,5 +4,6 @@ export class Hospital {
   zipCode: string = '';
   comercialName: string = '';
   phone: string = '';
+  number: string = '';
   isActive: boolean = false;
 }

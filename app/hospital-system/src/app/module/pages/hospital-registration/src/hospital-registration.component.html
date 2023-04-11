@@ -1,0 +1,118 @@
+<div id="content" class="fill">
+  <ejs-formgrid
+    [dataSource]="dataSource"
+    [columns]="columns"
+    (command)="onCommand($event)"
+  >
+  </ejs-formgrid>
+</div>
+
+<app-modal #modal modalHeader="Cadastro de Empresa">
+  <ng-template #bodyTemplate>
+    <form [formGroup]="form">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <ejs-textbox formControlName="id" placeholder="Código">
+            </ejs-textbox>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <div class="form-group">
+            <ejs-textbox
+              formControlName="name"
+              placeholder="Nome"
+              formErrorHandler
+            >
+            </ejs-textbox>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8">
+          <div class="form-group">
+            <ejs-textbox
+              formControlName="comercialName"
+              placeholder="Nome Fantasia"
+              formErrorHandler
+            >
+            </ejs-textbox>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <ejs-textbox
+              formControlName="phone"
+              placeholder="Telefone"
+              formErrorHandler
+            >
+            </ejs-textbox>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12"></div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <ejs-textbox
+              formControlName="zipCode"
+              placeholder="CEP"
+              formErrorHandler
+            >
+            </ejs-textbox>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="form-group">
+            <ejs-textbox
+              formControlName="city"
+              placeholder="Cidade"
+              formErrorHandler
+            >
+            </ejs-textbox>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-7">
+          <div class="form-group">
+            <ejs-textbox
+              formControlName="street"
+              placeholder="Endereço"
+              formErrorHandler
+            >
+            </ejs-textbox>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <ejs-textbox
+              formControlName="number"
+              placeholder="Número"
+              formErrorHandler
+            >
+            </ejs-textbox>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="align-check-box">
+            <ejs-checkbox label="Ativo" formControlName="isActive">
+            </ejs-checkbox>
+          </div>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template #footerTemplate>
+    <button
+      ejs-button
+      buttonSave
+      [disabled]="!this.form.dirty"
+      (click)="onSaveClick()"
+    ></button>
+    <button ejs-button buttonCancel (click)="onModalClose()"></button>
+  </ng-template>
+</app-modal>
