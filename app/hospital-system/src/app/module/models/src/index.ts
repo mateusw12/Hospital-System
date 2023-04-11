@@ -8,3 +8,4 @@ export * from './role/role';
 export * from './specialization/specialization';
 export * from './state/state';
 export * from './user/user';
+export * from './zip-code-address/zip-code-address';

@@ -14,3 +14,10 @@ export function userRegistration() {
   );
   return promise;
 }
+
+export function hospitalRegistration() {
+  const promise = import('@module/pages/hospital-registration').then(
+    (m) => m.HospitalRegistrationModule
+  );
+  return promise;
+}
