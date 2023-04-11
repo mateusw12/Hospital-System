@@ -67,8 +67,7 @@ public class DatabaseInitializer {
             user.setPassword(passwordEncoder.encode("123456"));
             user.setName("Mateus");
             user.setEmail("mateus.walz@gmail.com");
-            user.setSpecialization(Specialization.Surgeon);
-            user.setRole(Role.Doctor);
+            user.setRole(Role.Adm);
             user.setHospitalId(1L);
             user.setIsActive(true);
             userRepository.save(user);
@@ -87,7 +86,7 @@ public class DatabaseInitializer {
             item.setDescriptionFather("Administração");
             item.setItemFather("Administração");
             item.setOnlyPath("usuario");
-            item.setPath("menu/administracao/usuario");
+            item.setPath("menu/administration/user");
             item.setVisible(true);
             itemRepository.save(item);
         }
@@ -98,7 +97,7 @@ public class DatabaseInitializer {
             item.setDescriptionFather("Administração");
             item.setItemFather("Administração");
             item.setOnlyPath("permissao");
-            item.setPath("menu/administracao/permissao");
+            item.setPath("menu/administration/permission");
             item.setVisible(true);
             itemRepository.save(item);
         }
@@ -109,7 +108,7 @@ public class DatabaseInitializer {
             item.setDescriptionFather("Administração");
             item.setItemFather("Administração");
             item.setOnlyPath("empresa");
-            item.setPath("menu/administracao/empresa");
+            item.setPath("menu/administration/company");
             item.setVisible(true);
             itemRepository.save(item);
         }
@@ -120,7 +119,7 @@ public class DatabaseInitializer {
             item.setDescriptionFather("Administração");
             item.setItemFather("Administração");
             item.setOnlyPath("item");
-            item.setPath("menu/administracao/item");
+            item.setPath("menu/administration/iten");
             item.setVisible(true);
             itemRepository.save(item);
         }
