@@ -41,6 +41,12 @@ public class UserController {
         return userService.findById(id);
     }
 
+    @GetMapping("/hospital/{hospitalId}")
+    @Operation(summary = "Consulta usuário por código")
+    public List<UserDTO> findByHospitalId(@PathVariable @NotNull @Positive Long hospitalId) {
+        return userService.findByHospitalId(hospitalId);
+    }
+
     @GetMapping("/me")
     @Operation(summary = "Consulta usuário logado")
     public ResponseEntity<UserDTO> findMe() {

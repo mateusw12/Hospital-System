@@ -44,6 +44,14 @@ public class UserService {
     }
 
     @Transactional
+    public List<UserDTO> findByHospitalId(Long hospitalId) {
+        return userRepository.findAllByHospitalId(hospitalId)
+                .stream()
+                .map(userMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
     public UserDTO findMe() {
         String userName = jwtUtil.findMe();
         return userMapper.toDTO(userRepository.findByUserName(userName));
