@@ -10,6 +10,6 @@ export function toArray<T>(enumeration: Enum<T>): EnumItem[] {
     .map(value => ({
       value: value as number,
       name: map[value] as string,
-      description: getDescription(map, value as number)
+      description: getDescription(map, value as string)
     }));
 }

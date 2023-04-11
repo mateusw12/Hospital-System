@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Hospital, Item, Login } from '@module/models';
 import {
   HospitalRepository,
@@ -35,7 +36,8 @@ export class MenuComponent implements OnInit, OnDestroy {
     private loginRepository: LoginRepository,
     private authenticationService: AuthenticationService,
     private navigationService: NavigationService,
-    private errorHandler: ErrorHandler
+    private errorHandler: ErrorHandler,
+    private route: Router
   ) {}
 
   ngOnInit(): void {
@@ -89,6 +91,10 @@ export class MenuComponent implements OnInit, OnDestroy {
   }
 
   onLicenseClick(): void {}
+
+  onNavigateClick(item: Item): void {
+    this.route.navigate([item.path]);
+  }
 
   ngOnDestroy(): void {}
 

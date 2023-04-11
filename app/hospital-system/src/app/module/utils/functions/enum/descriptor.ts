@@ -1,4 +1,4 @@
-import { Enum } from "@module/utils/internal";
+import { Enum } from '@module/utils/internal';
 
 const enumDescriptorSymbol = Symbol('enumDescriptor');
 
@@ -13,10 +13,19 @@ interface EnumDescriptorAccessor<T> {
   [enumDescriptorSymbol]?: EnumDescriptor<T>;
 }
 
-export function getDescriptor<T>(enumeration: Enum<T>): EnumDescriptor<T> | undefined {
+export function getDescriptor<T>(
+  enumeration: Enum<T>
+): EnumDescriptor<T> | undefined {
   return (enumeration as EnumDescriptorAccessor<T>)[enumDescriptorSymbol];
 }
 
-export function describe<T>(enumeration: Enum<T>, description: EnumDescription<T>, flags = false): void {
-  (enumeration as EnumDescriptorAccessor<T>)[enumDescriptorSymbol] = { description, flags };
+export function describe<T>(
+  enumeration: Enum<T>,
+  description: EnumDescription<T>,
+  flags = false
+): void {
+  (enumeration as EnumDescriptorAccessor<T>)[enumDescriptorSymbol] = {
+    description,
+    flags,
+  };
 }

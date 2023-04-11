@@ -21,6 +21,17 @@ export const routes: Routes = [
         data: { pageTitle: 'Informações', breadcrumb: 'Informações' },
         loadChildren: pages.information,
       },
+      {
+        path: 'administration',
+        data: { pageTitle: 'Administração', breadcrumb: 'Administração' },
+        children: [
+          {
+            path: 'user',
+            data: { pageTitle: 'Usuário', breadcrumb: 'Usuário' },
+            loadChildren: pages.userRegistration,
+          },
+        ],
+      },
     ],
   },
 ];
