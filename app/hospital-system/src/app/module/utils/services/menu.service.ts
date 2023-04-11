@@ -30,7 +30,7 @@ export class MenuService implements OnDestroy {
   onHospitalChange$(id: number): void {
     this.hospitalRepository.findById(id).subscribe(
       (hospital) => this.hospitalChangeSubject.next(hospital),
-      (error) => console.log('onHospitalChange$', error)
+      (error) => console.error('onHospitalChange$', error)
     );
   }
 

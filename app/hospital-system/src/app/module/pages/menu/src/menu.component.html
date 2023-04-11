@@ -27,7 +27,7 @@
         >
         <ul class="collapse list-unstyled" id="{{ itemFather }}Submenu">
           <li *ngFor="let item of menuItemsFiltered(itemFather)">
-            <a [routerLink]="item.path">{{ item.description }}</a>
+            <a (click)="onNavigateClick(item)">{{ item.description }}</a>
           </li>
         </ul>
       </li>
@@ -78,8 +78,6 @@
         ></button>
       </ejs-appbar>
     </div>
-    <div id="content">
-      <router-outlet></router-outlet>
-    </div>
+    <router-outlet></router-outlet>
   </div>
 </div>

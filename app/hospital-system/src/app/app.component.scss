@@ -2,9 +2,12 @@
   #content {
     width: 100%;
     padding: 10px;
-    height: calc(100vh - 50px);
     transition: all 0.3s;
     overflow: hidden;
+  }
+
+  .fill {
+    height: calc(100vh - 50px);
   }
 
   .modal-large {

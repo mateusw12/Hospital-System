@@ -7,3 +7,10 @@ export function information() {
   const promise = import('@module/pages/information').then((m) => m.InformationModule);
   return promise;
 }
+
+export function userRegistration() {
+  const promise = import('@module/pages/user-registration').then(
+    (m) => m.UserRegistrationModule
+  );
+  return promise;
+}

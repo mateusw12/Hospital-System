@@ -4,4 +4,7 @@ export * from './item/item';
 export * from './login/login';
 export * from './login/user-token';
 export * from './permission/permission';
+export * from './role/role';
+export * from './specialization/specialization';
 export * from './state/state';
+export * from './user/user';

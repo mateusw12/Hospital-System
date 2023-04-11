@@ -1,11 +1,20 @@
-import { Enum, Key, Nilable } from '@module/utils/internal';
+import { Enum, Nilable } from '@module/utils/internal';
 import { getDescriptor } from './descriptor';
-import { tryGetName } from './try-get-name';
 
-export function getDescription<T>(enumeration: Enum<T>, value: Nilable<number>): string {
-  const name = tryGetName(enumeration, value);
-  if (!name) return '';
+export function getDescription<T>(
+  enumeration: Enum<T>,
+  value: Nilable<string>
+): string {
   const descriptor = getDescriptor(enumeration);
-  if (!descriptor) return name;
-  return descriptor.description[name as Key<T>];
+  if (!descriptor) return '';
+
+  for (const key in enumeration) {
+    if (enumeration.hasOwnProperty(key)) {
+      const enumValue = enumeration[key];
+      if (enumValue === value) {
+        return descriptor.description[key] as string;
+      }
+    }
+  }
+  return '';
 }
