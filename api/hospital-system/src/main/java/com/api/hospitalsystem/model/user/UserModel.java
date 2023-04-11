@@ -73,8 +73,7 @@ public class UserModel implements Serializable {
     public Long hospitalId;
 
     @Convert(converter = SpecializationConverter.class)
-    @NotNull
-    @Column(name="especializacao", nullable = false)
+    @Column(name="especializacao")
     public Specialization specialization;
 
     @MedicalProcedure

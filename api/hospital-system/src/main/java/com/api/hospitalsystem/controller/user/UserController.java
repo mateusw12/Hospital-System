@@ -37,7 +37,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Consulta usuário por código")
-    public UserDTO findById(@PathVariable @NotBlank @Positive Long id) {
+    public UserDTO findById(@PathVariable @NotNull @Positive Long id) {
         return userService.findById(id);
     }
 
