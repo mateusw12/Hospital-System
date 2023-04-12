@@ -59,7 +59,9 @@ export class MenuComponent implements OnInit, OnDestroy {
   }
 
   onHospitalChange(hospitalId: number) {
-    this.menuService.onHospitalChange$(hospitalId);
+    setTimeout(() => {
+      this.menuService.onHospitalChange$(hospitalId);
+    }, 300);
   }
 
   onToggleSidebar() {
