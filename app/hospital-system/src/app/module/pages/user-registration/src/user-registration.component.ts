@@ -86,18 +86,19 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
   }
 
   async onSaveClick(): Promise<void> {
+    const model = this.getModel();
+    console.log('model', model);
+
     if (!this.form.valid) {
       markAllAsTouched(this.form);
       return;
     }
-    const model = this.getModel();
     const exists = model.id > 0;
 
     if (exists) {
       const confirmed = await this.messageService.showConfirmSave();
       if (!confirmed) return;
     }
-
     (exists
       ? this.userRepository.updateById(model)
       : this.userRepository.add(model)
@@ -122,8 +123,8 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
     controls.role.valueChanges.pipe(untilDestroyed(this)).subscribe(
       (value) => {
         if (value !== Role.Adm) {
-          controls.specialization.addValidators([Validators.required]);
-          controls.crm.addValidators([Validators.required]);
+          // controls.specialization.addValidators([Validators.required]);
+          // controls.crm.addValidators([Validators.required]);
         } else {
           controls.specialization.clearValidators();
           controls.crm.clearValidators();
@@ -197,8 +198,11 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
       );
   }
 
-  private async getHospital():Promise<number>{
-    const hospital = await untilDestroyedAsync(this.menuService.getActiveHospital(), this)
+  private async getHospital(): Promise<number> {
+    const hospital = await untilDestroyedAsync(
+      this.menuService.getActiveHospital(),
+      this
+    );
     return hospital.id;
   }
 
@@ -255,6 +259,7 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
   private reset(): void {
     this.form.reset({
       id: NEW_ID,
+      isActive: true,
     });
   }
 

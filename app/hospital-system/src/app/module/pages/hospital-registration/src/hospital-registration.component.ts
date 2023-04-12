@@ -118,9 +118,18 @@ export class HospitalRegistrationComponent implements OnInit, OnDestroy {
   private registerEvents(): void {
     const controls = this.form.controls;
 
-    controls.zipCode.valueChanges.pipe(debounceTime(200)).subscribe((value) => {
-      if (value) this.getZipCodeAddresses(value);
-    });
+    controls.zipCode.valueChanges.pipe(debounceTime(200)).subscribe(
+      (value) => {
+        controls.number.reset();
+        if (!value) {
+          controls.number.disable();
+          return;
+        }
+        controls.number.enable();
+        this.getZipCodeAddresses(value);
+      },
+      (error) => this.handleError(error)
+    );
   }
 
   private getZipCodeAddresses(zipCode: string): void {
@@ -144,6 +153,7 @@ export class HospitalRegistrationComponent implements OnInit, OnDestroy {
     this.form.patchValue({
       city: null,
       street: null,
+      number: null,
     });
   }
 
@@ -241,6 +251,7 @@ export class HospitalRegistrationComponent implements OnInit, OnDestroy {
   private reset(): void {
     this.form.reset({
       id: NEW_ID,
+      isActive: true
     });
   }
 

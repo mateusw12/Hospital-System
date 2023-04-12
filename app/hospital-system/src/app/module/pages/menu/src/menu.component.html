@@ -8,7 +8,7 @@
           [dataSource]="hospitals"
           [fields]="{ value: 'id', text: 'name' }"
           [allowFiltering]="true"
-          (valueChange)="onHospitalChange($event)"
+          (change)="onHospitalChange($event)"
           [(ngModel)]="hospital.id"
         >
         </ejs-dropdownlist>
