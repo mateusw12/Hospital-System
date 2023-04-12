@@ -21,3 +21,10 @@ export function hospitalRegistration() {
   );
   return promise;
 }
+
+export function permissionRegistration() {
+  const promise = import('@module/pages/permission-registration').then(
+    (m) => m.PermissionRegistrationModule
+  );
+  return promise;
+}

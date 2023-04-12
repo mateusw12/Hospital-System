@@ -35,6 +35,11 @@ export const routes: Routes = [
             data: { pageTitle: 'Empresa', breadcrumb: 'Empresa' },
             loadChildren: pages.hospitalRegistration,
           },
+          {
+            path: 'permission',
+            data: { pageTitle: 'Permissão', breadcrumb: 'Permissão' },
+            loadChildren: pages.permissionRegistration,
+          },
         ],
       },
     ],

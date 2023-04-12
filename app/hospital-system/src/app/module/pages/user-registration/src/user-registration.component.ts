@@ -123,8 +123,8 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
     controls.role.valueChanges.pipe(untilDestroyed(this)).subscribe(
       (value) => {
         if (value !== Role.Adm) {
-          // controls.specialization.addValidators([Validators.required]);
-          // controls.crm.addValidators([Validators.required]);
+          controls.specialization.addValidators([Validators.required]);
+          controls.crm.addValidators([Validators.required]);
         } else {
           controls.specialization.clearValidators();
           controls.crm.clearValidators();
