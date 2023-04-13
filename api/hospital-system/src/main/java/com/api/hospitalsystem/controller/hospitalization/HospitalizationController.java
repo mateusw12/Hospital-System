@@ -32,7 +32,7 @@ public class HospitalizationController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Consulta internação por código")
-    public HospitalizationDTO findById(@PathVariable @NotBlank @Positive Long id) {
+    public HospitalizationDTO findById(@PathVariable @NotNull @Positive Long id) {
         return hospitalizationService.findById(id);
     }
 

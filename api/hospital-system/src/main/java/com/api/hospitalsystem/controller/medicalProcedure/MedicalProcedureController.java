@@ -32,7 +32,7 @@ public class MedicalProcedureController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Consulta procedimento médico por código")
-    public MedicalProcedureDTO findById(@PathVariable @NotBlank @Positive Long id) {
+    public MedicalProcedureDTO findById(@PathVariable @NotNull @Positive Long id) {
         return medicalProcedureService.findById(id);
     }
 

@@ -32,7 +32,7 @@ public class DoctorAppointmentController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Consulta doneça por consultas médica")
-    public DoctorAppointmentDTO findById(@PathVariable @NotBlank @Positive Long id) {
+    public DoctorAppointmentDTO findById(@PathVariable @NotNull @Positive Long id) {
         return doctorAppointmentService.findById(id);
     }
 
