@@ -40,6 +40,11 @@ export const routes: Routes = [
             data: { pageTitle: 'Permissão', breadcrumb: 'Permissão' },
             loadChildren: pages.permissionRegistration,
           },
+          {
+            path: 'item',
+            data: { pageTitle: 'Item', breadcrumb: 'Item' },
+            loadChildren: pages.itemRegistration,
+          },
         ],
       },
     ],
