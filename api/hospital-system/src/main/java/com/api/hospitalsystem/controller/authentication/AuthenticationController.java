@@ -8,10 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -39,6 +36,11 @@ public class AuthenticationController {
         String token = tokenService.extractToken(request.getHeader("Authorization"));
         tokenService.addToBlacklist(token);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/valid-token")
+    public Boolean isTokenValid(@RequestBody @Valid UserTokenModel userTokenModel) {
+        return tokenService.isTokenValid(userTokenModel.getToken());
     }
 
 }
