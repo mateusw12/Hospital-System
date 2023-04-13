@@ -7,7 +7,7 @@
   </ejs-formgrid>
 </div>
 
-<app-modal #modal modalHeader="Cadastro de Permissão">
+<app-modal #modal modalHeader="Cadastro de Doenças">
   <ng-template #bodyTemplate>
     <form [formGroup]="form">
       <div class="row">
@@ -17,30 +17,24 @@
             </ejs-textbox>
           </div>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-7">
           <div class="form-group">
-            <ejs-dropdownlist
-              formControlName="userName"
-              placeholder="Usuários"
+            <ejs-textbox
+              formControlName="name"
+              placeholder="Nome"
               formErrorHandler
-              [dataSource]="users"
-              [fields]="{ value: 'userName', text: 'name' }"
             >
-            </ejs-dropdownlist>
+            </ejs-textbox>
           </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-2">
           <div class="form-group">
-            <ejs-dropdownlist
-              formControlName="itemId"
-              placeholder="Itens"
+            <ejs-textbox
+              formControlName="cid"
+              placeholder="CID"
               formErrorHandler
-              [dataSource]="items"
-              [fields]="{ value: 'id', text: 'description' }"
             >
-            </ejs-dropdownlist>
+            </ejs-textbox>
           </div>
         </div>
       </div>
