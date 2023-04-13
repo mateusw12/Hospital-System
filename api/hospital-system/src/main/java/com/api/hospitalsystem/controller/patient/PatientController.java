@@ -33,7 +33,7 @@ public class PatientController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Consulta paciente por código")
-    public PatientDTO findById(@PathVariable @NotBlank @Positive Long id) {
+    public PatientDTO findById(@PathVariable @NotNull @Positive Long id) {
         return patientService.findById(id);
     }
 

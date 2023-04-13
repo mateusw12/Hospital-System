@@ -32,7 +32,7 @@ public class DisiaseController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Consulta doneça por código")
-    public DisiaseDTO findById(@PathVariable @NotBlank @Positive Long id) {
+    public DisiaseDTO findById(@PathVariable @NotNull @Positive Long id) {
         return disiaseService.findById(id);
     }
 

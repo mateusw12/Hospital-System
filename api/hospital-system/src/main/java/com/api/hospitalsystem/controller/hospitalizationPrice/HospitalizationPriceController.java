@@ -32,7 +32,7 @@ public class HospitalizationPriceController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Consulta custo internação por código")
-    public HospitalizationPriceDTO findById(@PathVariable @NotBlank @Positive Long id) {
+    public HospitalizationPriceDTO findById(@PathVariable @NotNull @Positive Long id) {
         return hospitalizationPriceService.findById(id);
     }
 

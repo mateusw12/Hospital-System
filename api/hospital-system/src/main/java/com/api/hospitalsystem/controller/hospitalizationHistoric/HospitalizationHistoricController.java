@@ -45,7 +45,7 @@ public class HospitalizationHistoricController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Consulta históricos internação por código")
-    public HospitalizationHistoricDTO findById(@PathVariable @NotBlank @Positive Long id) {
+    public HospitalizationHistoricDTO findById(@PathVariable @NotNull @Positive Long id) {
         return hospitalizationHistoricService.findById(id);
     }
 

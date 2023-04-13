@@ -33,7 +33,7 @@ public class SectorSettingsController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Consulta configuração de setor por código")
-    public SectorSettingsDTO findById(@PathVariable @NotBlank @Positive Long id) {
+    public SectorSettingsDTO findById(@PathVariable @NotNull @Positive Long id) {
         return sectorSettingsService.findById(id);
     }
 
