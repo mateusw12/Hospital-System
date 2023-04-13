@@ -19,19 +19,21 @@
         </div>
         <div class="col-md-9">
           <div class="form-group">
-            <ejs-textbox
+            <ejs-dropdownlist
               formControlName="userName"
-              placeholder="Nome"
+              placeholder="Usuários"
               formErrorHandler
+              [dataSource]="users"
+              [fields]="{ value: 'id', text: 'userName' }"
             >
-            </ejs-textbox>
+            </ejs-dropdownlist>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-md-12">
           <div class="form-group">
-             <ejs-dropdownlist
+            <ejs-dropdownlist
               formControlName="itemId"
               placeholder="Itens"
               formErrorHandler
