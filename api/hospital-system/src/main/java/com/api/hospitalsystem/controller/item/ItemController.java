@@ -32,7 +32,7 @@ public class ItemController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Consulta item por código")
-    public ItemDTO findById(@PathVariable @NotBlank @Positive Long id) {
+    public ItemDTO findById(@PathVariable @NotNull @Positive Long id) {
         return itemService.findById(id);
     }
 
