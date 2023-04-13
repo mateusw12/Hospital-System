@@ -1,17 +1,19 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Item, Permission } from '@module/models';
+import { Item, Permission, User } from '@module/models';
 import {
+  HospitalRepository,
   ItemRepository,
   PermissionRepository,
   UserRepository,
 } from '@module/repository';
 import { FormGridCommandEventArgs, ModalComponent } from '@module/shared';
 import { SfGridColumnModel, SfGridColumns } from '@module/shared/src/grid';
-import { untilDestroyed } from '@module/utils/common';
+import { untilDestroyed, untilDestroyedAsync } from '@module/utils/common';
 import { markAllAsTouched } from '@module/utils/forms';
 import {
   ErrorHandler,
+  MenuService,
   MessageService,
   ToastService,
 } from '@module/utils/services';
@@ -41,6 +43,7 @@ export class PermissionRegistrationComponent implements OnInit, OnDestroy {
   dataSource: GridRow[] = [];
   form = this.createForm();
   items: Item[] = [];
+  users: User[] = [];
 
   @ViewChild(ModalComponent, { static: true })
   modal!: ModalComponent;
@@ -51,7 +54,8 @@ export class PermissionRegistrationComponent implements OnInit, OnDestroy {
     private permissionRepository: PermissionRepository,
     private itemRepository: ItemRepository,
     private userRepository: UserRepository,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private menuService: MenuService
   ) {}
 
   ngOnInit(): void {
@@ -144,15 +148,18 @@ export class PermissionRegistrationComponent implements OnInit, OnDestroy {
   }
 
   private async loadData(): Promise<void> {
+    const hospitalId = await this.getHospitalId();
     forkJoin([
-      this.permissionRepository.findByUserName('mateus'),
+      this.permissionRepository.findAll(),
       this.itemRepository.findAll(),
+      this.userRepository.findByHospitalId(hospitalId),
     ])
       .pipe(untilDestroyed(this))
       .subscribe(
-        async ([permissions, items]) => {
+        async ([permissions, items, users]) => {
           const dataSource: GridRow[] = [];
           this.items = items;
+          this.users = users;
 
           for (const permission of permissions) {
             const item = items.find((el) => el.id === permission.itemId);
@@ -167,6 +174,19 @@ export class PermissionRegistrationComponent implements OnInit, OnDestroy {
         },
         (error) => this.handleError(error)
       );
+  }
+
+  private async getHospitalId(): Promise<number> {
+    try {
+      const hospital = await untilDestroyedAsync(
+        this.menuService.getActiveHospital(),
+        this
+      );
+      return hospital.id;
+    } catch (error) {
+      this.handleError(error);
+      return 0;
+    }
   }
 
   private async findUser(id: number): Promise<void> {
