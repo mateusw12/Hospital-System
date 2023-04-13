@@ -7,7 +7,7 @@
   </ejs-formgrid>
 </div>
 
-<app-modal #modal modalHeader="Cadastro de Empresa">
+<app-modal #modal modalHeader="Cadastro de Item">
   <ng-template #bodyTemplate>
     <form [formGroup]="form">
       <div class="row">
@@ -17,11 +17,41 @@
             </ejs-textbox>
           </div>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-6">
           <div class="form-group">
             <ejs-textbox
-              formControlName="name"
-              placeholder="Nome"
+              formControlName="description"
+              placeholder="Descrição"
+              formErrorHandler
+            >
+            </ejs-textbox>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <div class="align-check-box">
+              <ejs-checkbox label="Item Pai" formControlName="isFather">
+              </ejs-checkbox>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <ejs-textbox
+              formControlName="itemFather"
+              placeholder="Título Item Pai"
+              formErrorHandler
+            >
+            </ejs-textbox>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <ejs-textbox
+              formControlName="descriptionFather"
+              placeholder="Desrição Item Pai"
               formErrorHandler
             >
             </ejs-textbox>
@@ -32,71 +62,29 @@
         <div class="col-md-8">
           <div class="form-group">
             <ejs-textbox
-              formControlName="comercialName"
-              placeholder="Nome Fantasia"
+              formControlName="onlyPath"
+              placeholder="Path Único"
               formErrorHandler
             >
             </ejs-textbox>
           </div>
         </div>
         <div class="col-md-4">
-          <div class="form-group">
-            <ejs-textbox
-              formControlName="phone"
-              placeholder="Telefone"
-              formErrorHandler
-            >
-            </ejs-textbox>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">
-          <div class="form-group">
-            <ejs-textbox
-              formControlName="zipCode"
-              placeholder="CEP"
-              formErrorHandler
-            >
-            </ejs-textbox>
-          </div>
-        </div>
-        <div class="col-md-8">
-          <div class="form-group">
-            <ejs-textbox
-              formControlName="city"
-              placeholder="Cidade"
-              formErrorHandler
-            >
-            </ejs-textbox>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-7">
-          <div class="form-group">
-            <ejs-textbox
-              formControlName="street"
-              placeholder="Endereço"
-              formErrorHandler
-            >
-            </ejs-textbox>
-          </div>
-        </div>
-        <div class="col-md-2">
-          <div class="form-group">
-            <ejs-textbox
-              formControlName="number"
-              placeholder="Número"
-              formErrorHandler
-            >
-            </ejs-textbox>
-          </div>
-        </div>
-        <div class="col-md-2">
           <div class="align-check-box">
-            <ejs-checkbox label="Ativo" formControlName="isActive">
+            <ejs-checkbox label="Visível" formControlName="visible">
             </ejs-checkbox>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <ejs-textbox
+              formControlName="path"
+              placeholder="Rota (Ex: menu/administration/user)"
+              formErrorHandler
+            >
+            </ejs-textbox>
           </div>
         </div>
       </div>

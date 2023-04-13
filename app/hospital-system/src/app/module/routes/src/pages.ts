@@ -28,3 +28,10 @@ export function permissionRegistration() {
   );
   return promise;
 }
+
+export function itemRegistration() {
+  const promise = import('@module/pages/item-registration').then(
+    (m) => m.ItemRegistrationModule
+  );
+  return promise;
+}
