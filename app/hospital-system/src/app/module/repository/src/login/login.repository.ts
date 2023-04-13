@@ -19,4 +19,5 @@ export class LoginRepository {
     if (!login) throw new InvalidOperationException('login');
     return this.httpCliente.post<UserToken>(`${API_URL}/logout`, login);
   }
+
 }

@@ -1,32 +1,32 @@
-import { chain } from '@module/utils/functions/date';
+import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
 import { UserToken } from '@module/models';
-import { untilDestroyed } from '@module/utils/common';
-import * as moment from 'moment';
-import { Subscription, timer } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { ErrorHandler } from './error-handler.service';
+import { Observable } from 'rxjs';
+import { chain } from '../functions/date';
+import { InvalidOperationException } from '../internal';
 import { LocalStorageService } from './local-storage.service';
 
-const REFRESH_INTERVAL_STATUS = 30000; // 30  segundos
+const API_URL = 'api/autenticacao';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService implements OnDestroy {
-  private interval$: Subscription = new Subscription();
-
   constructor(
     private localStorageService: LocalStorageService,
-    private errorHandler: ErrorHandler,
-    private router: Router
+    private httpCliente: HttpClient
   ) {}
+
+  isTokenValid(): Observable<boolean> {
+    const userToken = this.getUserToken();
+    if (!userToken) throw new InvalidOperationException('userToken');
+    return this.httpCliente.post<boolean>(`${API_URL}/valid-token`, userToken);
+  }
 
   setUserToken(userToken: UserToken): void {
     this.localStorageService.setItem('token', userToken.token);
     this.localStorageService.setItem('user', userToken.userName);
     this.localStorageService.setItem(
       'expirationDate',
-       new Date(userToken.expirationDate).toString()
+      new Date(userToken.expirationDate).toString()
     );
   }
 
@@ -50,41 +50,20 @@ export class AuthenticationService implements OnDestroy {
     this.localStorageService.clear();
   }
 
-  validateUserToken(): void {
-    this.interval$ = timer(0, REFRESH_INTERVAL_STATUS)
-      .pipe(
-        tap(async () => {
-          const today = new Date();
-          const expirationDate =  this.getExpirationDate()
-          const momentDate = chain(expirationDate, 'dd//MM/yyyy').toDate();
-          const result = moment(today).diff(momentDate);
-          if (result <= 0) {
-            this.interval$.unsubscribe();
-            this.navigateToLogin();
-            return;
-          }
-        }),
-        untilDestroyed(this)
-      )
-      .subscribe(
-        (timeout) => {
-          if (timeout <= 0) {
-            this.interval$.unsubscribe();
-            this.navigateToLogin();
-            return;
-          }
-        },
-        (error) => this.handleError(error)
-      );
+  getUserToken(): UserToken {
+    const token = this.localStorageService.getItem('token') as string;
+    const user = this.localStorageService.getItem('user') as string;
+    const expirationDate = chain(
+      this.localStorageService.getItem('expirationDate'),
+      'dd//MM/yyyy'
+    ).toDate();
+
+    const model = new UserToken();
+    model.expirationDate = expirationDate;
+    model.token = token;
+    model.userName = user;
+    return model;
   }
 
   ngOnDestroy(): void {}
-
-  private navigateToLogin(): void {
-    this.router.navigate([`/login`]);
-  }
-
-  private handleError(error: unknown): void {
-    this.errorHandler.present(error);
-  }
 }
