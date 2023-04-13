@@ -9,3 +9,4 @@ export * from './specialization/specialization';
 export * from './state/state';
 export * from './user/user';
 export * from './zip-code-address/zip-code-address';
+export * from './disiase/disiase';

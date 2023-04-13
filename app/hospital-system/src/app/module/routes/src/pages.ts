@@ -35,3 +35,10 @@ export function itemRegistration() {
   );
   return promise;
 }
+
+export function disiaseRegistration() {
+  const promise = import('@module/pages/disiase-registration').then(
+    (m) => m.DisiaseRegistrationModule
+  );
+  return promise;
+}

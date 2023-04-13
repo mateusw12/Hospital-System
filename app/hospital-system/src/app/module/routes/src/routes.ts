@@ -47,6 +47,17 @@ export const routes: Routes = [
           },
         ],
       },
+      {
+        path: 'registration',
+        data: { pageTitle: 'Cadastro', breadcrumb: 'Cadastro' },
+        children: [
+          {
+            path: 'disiase',
+            data: { pageTitle: 'Doenças', breadcrumb: 'Doenças' },
+            loadChildren: pages.disiaseRegistration,
+          },
+        ],
+      },
     ],
   },
 ];
