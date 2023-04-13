@@ -26,10 +26,8 @@ public class DoctorAppointmentModel implements Serializable {
     public String userName;
 
     @NotNull
-    @NotBlank
-    @Length(max = 200)
-    @Column(name = "paciente", nullable = false, length = 200)
-    public String patientName;
+    @Column(name = "codPaciente", nullable = false)
+    public Long patiendId;
 
     @NotNull
     @Positive
