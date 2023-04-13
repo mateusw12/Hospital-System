@@ -119,7 +119,7 @@ public class DatabaseInitializer {
             item.setDescriptionFather("Administração");
             item.setItemFather("Administração");
             item.setOnlyPath("item");
-            item.setPath("menu/administration/iten");
+            item.setPath("menu/administration/item");
             item.setVisible(true);
             itemRepository.save(item);
         }
@@ -145,7 +145,7 @@ public class DatabaseInitializer {
             permissionRepository.save(companyPermission);
 
             PermissionModel itemPermission = new PermissionModel();
-            itemPermission.setItemId(5L);
+            itemPermission.setItemId(6L);
             itemPermission.setUserName(userName);
             permissionRepository.save(itemPermission);
 
