@@ -11,7 +11,7 @@ import java.util.Date;
 public record DoctorAppointmentDTO(
         @Id Long id,
         @NotNull @NotBlank @Length(max = 200) String userName,
-        @NotNull @NotBlank @Length(max = 200) String patientName,
+        @NotNull @Positive Long patiendId,
         @NotNull @Positive Long hospitalId,
         @NotNull Date appointmentDate,
         @NotNull @NotBlank @Length(max = 1000) String observation,
