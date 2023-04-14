@@ -8,9 +8,9 @@ import com.api.hospitalsystem.model.heathPlan.HeathPlan;
 import com.api.hospitalsystem.model.maritalStatus.MaritalStatus;
 import com.api.hospitalsystem.utils.decorator.cep.Cep;
 import com.api.hospitalsystem.utils.decorator.cpf.Cpf;
+import lombok.NonNull;
 import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
@@ -24,8 +24,8 @@ public record PatientDTO(
         @NotNull @NotBlank @Cpf @Length(max = 200) String cpf,
         @Convert(converter = HeathPlanConverter.class) @Length(max = 200) HeathPlan heathPlan,
         @Length(max = 300) String email,
-        @Length(max = 20) String phone,
-        @NotNull @NotBlank @Cep @Length(max = 20) String cep,
+        @NotNull @NotBlank @Length(max = 20) String phone,
+        @NotNull @NotBlank @Cep @Length(max = 20) String zipCode,
         @NotNull @NotBlank @Length(max = 200) String street,
         @NotNull @NotBlank @Length(max = 200) String district,
         @NotNull @NotBlank @Length(max = 200) String city,
@@ -34,6 +34,7 @@ public record PatientDTO(
         @NotNull @Positive() Long age,
         @Convert(converter = GenderConverter.class) @NotNull Gender gender,
         @Convert(converter = MaritalStatusConverter.class) @NotNull MaritalStatus maritalStatus,
-        Boolean hasHeathPlan
+        Boolean hasHeathPlan,
+        @NonNull @Positive Long hospitalId
 ) {
 }

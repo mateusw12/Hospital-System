@@ -19,6 +19,7 @@ public class MedicalProcedureModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "procedure_id")
     private Long id;
 
     @NotNull
@@ -38,7 +39,6 @@ public class MedicalProcedureModel implements Serializable {
     @Column(name = "preco", nullable = false)
     private Double price;
 
-    @Doctors
     @ManyToMany(mappedBy = "procedures")
     private List<UserModel> doctors = new ArrayList<>();
 
