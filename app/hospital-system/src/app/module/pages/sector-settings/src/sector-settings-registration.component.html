@@ -1,0 +1,92 @@
+<div id="content" class="fill">
+  <ejs-formgrid
+    [dataSource]="dataSource"
+    [columns]="columns"
+    (command)="onCommand($event)"
+  >
+  </ejs-formgrid>
+</div>
+
+<app-modal #modal modalHeader="Cadastro de Configuração do Setor">
+  <ng-template #bodyTemplate>
+    <form [formGroup]="form">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <ejs-textbox formControlName="id" placeholder="Código">
+            </ejs-textbox>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <div class="form-group">
+            <ejs-dropdownlist
+              formControlName="hospitalId"
+              placeholder="Hospital"
+              formErrorHandler
+              [dataSource]="hospitals"
+              [fields]="{ value: 'id', text: 'name' }"
+            >
+            </ejs-dropdownlist>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <ejs-dropdownlist
+              formControlName="sector"
+              placeholder="Setor"
+              formErrorHandler
+              [dataSource]="sectors"
+              [fields]="{ value: 'value', text: 'description' }"
+            >
+            </ejs-dropdownlist>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <ejs-numerictextbox
+              formControlName="bedNumber"
+              formErrorHandler
+              placeholder="Número Leitos"
+            >
+            </ejs-numerictextbox>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <ejs-numerictextbox
+              formControlName="dailyPrice"
+              formErrorHandler
+              placeholder="Valor Diária"
+            >
+            </ejs-numerictextbox>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <div class="align-check-box">
+              <ejs-checkbox
+                formControlName="hasHealthInsurance"
+                label="Possui Plano Saúde"
+              >
+              </ejs-checkbox>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template #footerTemplate>
+    <button
+      ejs-button
+      buttonSave
+      [disabled]="!this.form.dirty"
+      (click)="onSaveClick()"
+    ></button>
+    <button ejs-button buttonCancel (click)="onModalClose()"></button>
+  </ng-template>
+</app-modal>

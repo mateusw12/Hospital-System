@@ -42,3 +42,10 @@ export function disiaseRegistration() {
   );
   return promise;
 }
+
+export function sectorSettingsRegistration() {
+  const promise = import('@module/pages/sector-settings').then(
+    (m) => m.SectorSettingsRegistrationModule
+  );
+  return promise;
+}
