@@ -1,0 +1,79 @@
+<div id="content" class="fill">
+  <ejs-formgrid
+    [dataSource]="dataSource"
+    [columns]="columns"
+    (command)="onCommand($event)"
+  >
+  </ejs-formgrid>
+</div>
+
+<app-modal #modal modalHeader="Cadastro de Procedimento Médico">
+  <ng-template #bodyTemplate>
+    <form [formGroup]="form">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <ejs-textbox formControlName="id" placeholder="Código">
+            </ejs-textbox>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <div class="form-group">
+            <ejs-textbox
+              formControlName="name"
+              placeholder="Nome"
+              formErrorHandler
+            >
+            </ejs-textbox>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8">
+          <div class="form-group">
+            <ejs-textbox
+              formControlName="description"
+              placeholder="Descrição"
+              formErrorHandler
+            >
+            </ejs-textbox>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <ejs-numerictextbox
+              formControlName="price"
+              formErrorHandler
+              placeholder="Valor Procedimento"
+            >
+            </ejs-numerictextbox>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <ejs-multiselect
+              formControlName="doctors"
+              placeholder="Doutores"
+              formErrorHandler
+              [dataSource]="users"
+              [fields]="{ value: 'id', text: 'name' }"
+            >
+            </ejs-multiselect>
+          </div>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template #footerTemplate>
+    <button
+      ejs-button
+      buttonSave
+      [disabled]="!this.form.dirty"
+      (click)="onSaveClick()"
+    ></button>
+    <button ejs-button buttonCancel (click)="onModalClose()"></button>
+  </ng-template>
+</app-modal>

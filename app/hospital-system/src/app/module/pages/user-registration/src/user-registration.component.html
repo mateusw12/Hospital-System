@@ -115,6 +115,20 @@
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <ejs-multiselect
+              formControlName="medicalProcedures"
+              placeholder="Procedimentos Médico"
+              formErrorHandler
+              [dataSource]="medicalProcedures"
+              [fields]="{ value: 'id', text: 'name' }"
+            >
+            </ejs-multiselect>
+          </div>
+        </div>
+      </div>
     </form>
   </ng-template>
 

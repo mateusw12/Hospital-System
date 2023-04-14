@@ -64,6 +64,14 @@ export const routes: Routes = [
             },
             loadChildren: pages.sectorSettingsRegistration,
           },
+          {
+            path: 'medical-procedure',
+            data: {
+              pageTitle: 'Procedimento Médico',
+              breadcrumb: 'Procedimento Médico',
+            },
+            loadChildren: pages.medicalProcedureRegistration,
+          },
         ],
       },
     ],
