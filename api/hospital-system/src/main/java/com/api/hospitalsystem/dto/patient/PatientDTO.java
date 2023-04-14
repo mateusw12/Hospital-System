@@ -22,7 +22,7 @@ public record PatientDTO(
         @Id Long id,
         @NotNull @NotBlank @Length(max = 200) String name,
         @NotNull @NotBlank @Cpf @Length(max = 200) String cpf,
-        @Convert(converter = HeathPlanConverter.class) @Length(max = 200) HeathPlan heathPlan,
+        @Convert(converter = HeathPlanConverter.class) HeathPlan heathPlan,
         @Length(max = 300) String email,
         @NotNull @NotBlank @Length(max = 20) String phone,
         @NotNull @NotBlank @Cep @Length(max = 20) String zipCode,

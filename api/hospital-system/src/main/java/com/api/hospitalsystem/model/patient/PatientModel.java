@@ -40,8 +40,7 @@ public class PatientModel implements Serializable {
     public String cpf;
 
     @Convert(converter = HeathPlanConverter.class)
-    @Length(max = 200)
-    @Column(name="planoSaude", nullable = false, length = 200)
+    @Column(name="planoSaude", length = 200)
     public HeathPlan heathPlan;
 
     @Length(max = 200)
@@ -75,13 +74,13 @@ public class PatientModel implements Serializable {
 
     @NotNull
     @NotBlank
-    @Length(max = 20)
+    @Length(max = 200)
     @Column(name="cidade",nullable = false, length = 200)
     public String city;
 
     @NotNull
     @NotBlank
-    @Length(max = 20)
+    @Length(max = 200)
     @Column(name="estado",nullable = false, length = 200)
     public String state;
 

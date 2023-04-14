@@ -49,6 +49,7 @@ public class PatientMapper {
         patientModel.setState(patientDTO.state());
         patientModel.setDistrict(patientDTO.district());
         patientModel.setStreet(patientDTO.street());
+        patientModel.setCity(patientDTO.city());
         patientModel.setGender(patientDTO.gender());
         patientModel.setPhone(patientDTO.phone());
         patientModel.setCpf(patientDTO.cpf());

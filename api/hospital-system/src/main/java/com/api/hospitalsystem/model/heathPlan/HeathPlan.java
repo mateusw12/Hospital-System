@@ -2,16 +2,17 @@ package com.api.hospitalsystem.model.heathPlan;
 
 public enum HeathPlan {
 
-    AMIL("Amil"),
-    BRADESCO_SAUDE("Bradesco Saúde"),
-    HAPVIDA("Hapvida"),
-    INTERMEDICA("Intermédica"),
-    NOTREDAME_INTERMEDICA("NotreDame Intermédica"),
-    SULAMERICA("SulAmérica"),
-    UNIMED("Unimed"),
-    GOLDEN_CROSS("Golden Cross"),
-    PORTO_SEGURO("Porto Seguro"),
-    SAO_CRISTOVAO("São Cristóvão");
+    Amil("Amil"),
+    BradescoSaude("Bradesco Saúde"),
+    Hapvida("Hapvida"),
+    InterMedica("Intermédica"),
+    NotredameIntermedica("NotreDame Intermédica"),
+    SulAmerica("SulAmérica"),
+    Unimed("Unimed"),
+    GoldenCross("Golden Cross"),
+    PortoSeguro("Porto Seguro"),
+    SaoCristovao("São Cristóvão"),
+    None("Nenhum");
 
     private final String description;
 
