@@ -7,12 +7,12 @@ import javax.persistence.Converter;
 import java.util.stream.Stream;
 
 @Converter(autoApply=true)
-public class HeathPlanConverter implements AttributeConverter<HeathPlan, String> {
+public class  HeathPlanConverter implements AttributeConverter<HeathPlan, String> {
 
     @Override
     public String convertToDatabaseColumn(HeathPlan heathPlan) {
         if(heathPlan == null){
-            return null;
+            return HeathPlan.None.getValue();
         }
         return heathPlan.getValue();
     }
