@@ -1,36 +1,52 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Disiase } from '@module/models';
-import { DisiaseRepository } from '@module/repository';
+import { Hospital, Sector, SectorSettings } from '@module/models';
+import {
+  HospitalRepository,
+  SectorSettingsRepository,
+} from '@module/repository';
 import { FormGridCommandEventArgs, ModalComponent } from '@module/shared';
 import { SfGridColumnModel, SfGridColumns } from '@module/shared/src/grid';
 import { untilDestroyed } from '@module/utils/common';
 import { markAllAsTouched } from '@module/utils/forms';
 import {
+  EnumItem,
+  getDescription,
+  toArray,
+} from '@module/utils/functions/enum';
+import {
   ErrorHandler,
   MessageService,
   ToastService,
 } from '@module/utils/services';
+import { forkJoin } from 'rxjs';
 
 const NEW_ID = 'NOVO';
 
 interface GridRow {
   id: number;
-  name: string;
-  cid: string;
+  hospitalName: string;
+  sector: string;
+  dailyPrice: number;
+  bedNumber: number;
+  hasHealthInsurance: boolean;
 }
 
 interface FormModel {
   id: FormControl<string | null>;
-  name: FormControl<string | null>;
-  cid: FormControl<string | null>;
+  sector: FormControl<Sector | null>;
+  hospitalId: FormControl<number | null>;
+  hasHealthInsurance: FormControl<boolean | null>;
+  bedNumber: FormControl<number | null>;
+  dailyPrice: FormControl<number | null>;
 }
 
 @Component({
-  selector: 'app-disiase-registration',
-  templateUrl: './disiase-registration.component.html'
+  selector: 'app-sector-settings-registration',
+  templateUrl: './sector-settings-registration.component.html',
+  styleUrls: ['./sector-settings-registration.component.scss'],
 })
-export class DisiaseRegistrationComponent implements OnInit {
+export class SectorSettingsRegistrationComponent implements OnInit {
   @ViewChild(ModalComponent, { static: true })
   modal!: ModalComponent;
 
@@ -38,11 +54,15 @@ export class DisiaseRegistrationComponent implements OnInit {
   dataSource: GridRow[] = [];
   form = this.createForm();
 
+  sectors: EnumItem[] = toArray(Sector);
+  hospitals: Hospital[] = [];
+
   constructor(
     private toastService: ToastService,
     private messageService: MessageService,
     private errorHandler: ErrorHandler,
-    private disiaseRepository: DisiaseRepository
+    private sectorSettingsRepository: SectorSettingsRepository,
+    private hospitalRepository: HospitalRepository
   ) {}
 
   ngOnInit(): void {
@@ -83,8 +103,8 @@ export class DisiaseRegistrationComponent implements OnInit {
     }
 
     (exists
-      ? this.disiaseRepository.updateById(model)
-      : this.disiaseRepository.add(model)
+      ? this.sectorSettingsRepository.updateById(model)
+      : this.sectorSettingsRepository.add(model)
     )
       .pipe(untilDestroyed(this))
       .subscribe(
@@ -104,7 +124,7 @@ export class DisiaseRegistrationComponent implements OnInit {
     this.reset();
     try {
       if (id) {
-        await this.findDisiase(id);
+        await this.findSectorSettings(id);
       }
       this.modal.open();
     } catch (error) {
@@ -123,7 +143,7 @@ export class DisiaseRegistrationComponent implements OnInit {
   private async onCommandRemove(model: GridRow): Promise<void> {
     const confirmed = await this.messageService.showConfirmDelete();
     if (!confirmed) return;
-    this.disiaseRepository
+    this.sectorSettingsRepository
       .deleteById(model.id)
       .pipe(untilDestroyed(this))
       .subscribe(
@@ -136,18 +156,25 @@ export class DisiaseRegistrationComponent implements OnInit {
   }
 
   private loadData(): void {
-    this.disiaseRepository
-      .findAll()
+    forkJoin([
+      this.sectorSettingsRepository.findAll(),
+      this.hospitalRepository.findAll(),
+    ])
       .pipe(untilDestroyed(this))
       .subscribe(
-        async (disiases) => {
+        async ([sectorSettings, hospitals]) => {
           const dataSource: GridRow[] = [];
+          this.hospitals = hospitals;
+          for (const item of sectorSettings) {
+            const hospital = hospitals.find((el) => el.id === item.hospitalId);
 
-          for (const item of disiases) {
             dataSource.push({
               id: item.id,
-              name: item.name,
-              cid: item.cid,
+              bedNumber: item.bedNumber,
+              dailyPrice: item.dailyPrice,
+              hasHealthInsurance: item.hasHealthInsurance,
+              sector: getDescription(Sector, item.sector as unknown as string),
+              hospitalName: hospital ? hospital.name : '',
             });
           }
           this.dataSource = dataSource;
@@ -156,8 +183,8 @@ export class DisiaseRegistrationComponent implements OnInit {
       );
   }
 
-  private async findDisiase(id: number): Promise<void> {
-    this.disiaseRepository
+  private async findSectorSettings(id: number): Promise<void> {
+    this.sectorSettingsRepository
       .findById(id)
       .pipe(untilDestroyed(this))
       .subscribe((user) => {
@@ -165,20 +192,26 @@ export class DisiaseRegistrationComponent implements OnInit {
       });
   }
 
-  private populateForm(disiase: Disiase): void {
+  private populateForm(sectorSettings: SectorSettings): void {
     this.form.patchValue({
-      id: disiase.id.toString(),
-      name: disiase.name,
-      cid: disiase.cid,
+      id: sectorSettings.id.toString(),
+      bedNumber: sectorSettings.bedNumber,
+      dailyPrice: sectorSettings.dailyPrice,
+      hasHealthInsurance: sectorSettings.hasHealthInsurance,
+      hospitalId: sectorSettings.hospitalId,
+      sector: sectorSettings.sector,
     });
   }
 
-  private getModel(): Disiase {
-    const model = new Disiase();
+  private getModel(): SectorSettings {
+    const model = new SectorSettings();
     const formValue = this.form.getRawValue();
     model.id = formValue.id === NEW_ID ? 0 : Number(formValue.id);
-    model.name = formValue.name as string;
-    model.cid = formValue.cid as string;
+    model.bedNumber = formValue.bedNumber as number;
+    model.dailyPrice = formValue.dailyPrice as number;
+    model.hasHealthInsurance = formValue.hasHealthInsurance as boolean;
+    model.hospitalId = formValue.hospitalId as number;
+    model.sector = formValue.sector as Sector;
     return model;
   }
 
@@ -195,22 +228,42 @@ export class DisiaseRegistrationComponent implements OnInit {
   private createForm(): FormGroup<FormModel> {
     return new FormGroup<FormModel>({
       id: new FormControl<string | null>({ value: NEW_ID, disabled: true }),
-      name: new FormControl<string | null>(null, [
+      bedNumber: new FormControl<number | null>(null, [
         Validators.required,
-        Validators.maxLength(200),
+        Validators.min(0),
       ]),
-      cid: new FormControl<string | null>(null, [
-        Validators.maxLength(100),
+      dailyPrice: new FormControl<number | null>(null, [
         Validators.required,
+        Validators.min(0),
       ]),
+      hospitalId: new FormControl<number | null>(null, [
+        Validators.required,
+        Validators.min(0),
+      ]),
+      sector: new FormControl<Sector | null>(null, [Validators.required]),
+      hasHealthInsurance: new FormControl<boolean | null>(false),
     });
   }
 
   private createColumns() {
     return SfGridColumns.build<GridRow>({
-      id: SfGridColumns.text('id', 'Código').minWidth(100).isPrimaryKey(true),
-      name: SfGridColumns.text('name', 'Nome').minWidth(200),
-      cid: SfGridColumns.text('cid', 'CID').minWidth(100),
+      id: SfGridColumns.text('id', 'Código')
+        .minWidth(100)
+        .isPrimaryKey(true),
+      hospitalName: SfGridColumns.text('hospitalName', 'Hospital').minWidth(
+        100
+      ),
+      dailyPrice: SfGridColumns.numeric('dailyPrice', 'Valor Diária').minWidth(
+        100
+      ),
+      bedNumber: SfGridColumns.numeric('bedNumber', 'Número Leitos').minWidth(
+        200
+      ),
+      sector: SfGridColumns.text('sector', 'Setor').minWidth(100),
+      hasHealthInsurance: SfGridColumns.boolean(
+        'hasHealthInsurance',
+        'Possui Plano de Saúde'
+      ).minWidth(80),
     });
   }
 }

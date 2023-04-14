@@ -56,6 +56,14 @@ export const routes: Routes = [
             data: { pageTitle: 'Doenças', breadcrumb: 'Doenças' },
             loadChildren: pages.disiaseRegistration,
           },
+          {
+            path: 'sector-settings',
+            data: {
+              pageTitle: 'Configuração Setor',
+              breadcrumb: 'Configuração Setor',
+            },
+            loadChildren: pages.sectorSettingsRegistration,
+          },
         ],
       },
     ],
