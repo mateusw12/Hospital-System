@@ -1,0 +1,202 @@
+<div id="content" class="fill">
+  <ejs-formgrid
+    [dataSource]="dataSource"
+    [columns]="columns"
+    (command)="onCommand($event)"
+  >
+  </ejs-formgrid>
+</div>
+
+<app-modal #modal modalHeader="Cadastro de Paciente" dialogClass="lg">
+  <ng-template #bodyTemplate>
+    <form [formGroup]="form">
+      <div class="row">
+        <div class="col-md-2">
+          <div class="form-group">
+            <ejs-textbox formControlName="id" placeholder="Código">
+            </ejs-textbox>
+          </div>
+        </div>
+        <div class="col-md-10">
+          <div class="form-group">
+            <ejs-textbox
+              formControlName="name"
+              placeholder="Nome"
+              formErrorHandler
+            >
+            </ejs-textbox>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <ejs-textbox
+              formControlName="cpf"
+              placeholder="CPF"
+              formErrorHandler
+            >
+            </ejs-textbox>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <ejs-numerictextbox
+              formControlName="age"
+              placeholder="Idade"
+              format="0"
+              formErrorHandler
+            >
+            </ejs-numerictextbox>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <ejs-dropdownlist
+              formControlName="gender"
+              placeholder="Gênero"
+              [dataSource]="genders"
+              [fields]="{ value: 'value', text: 'description' }"
+              formErrorHandler
+            >
+            </ejs-dropdownlist>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-5">
+          <div class="form-group">
+            <ejs-dropdownlist
+              formControlName="maritalStatus"
+              placeholder="Estado Civíl"
+              [dataSource]="maritalStatus"
+              [fields]="{ value: 'value', text: 'description' }"
+              formErrorHandler
+            >
+            </ejs-dropdownlist>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="form-group">
+            <ejs-dropdownlist
+              formControlName="heathPlan"
+              placeholder="Plano de Saúde"
+              [dataSource]="heathPlans"
+              [fields]="{ value: 'value', text: 'description' }"
+              formErrorHandler
+            >
+            </ejs-dropdownlist>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <div class="align-check-box">
+              <ejs-checkbox
+                label="Possui Plano Saúde"
+                formControlName="hasHeathPlan"
+              >
+              </ejs-checkbox>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8">
+          <div class="form-group">
+            <ejs-textbox
+              formControlName="email"
+              placeholder="E-mail"
+              formErrorHandler
+            >
+            </ejs-textbox>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <ejs-textbox
+              formControlName="phone"
+              placeholder="Telefone"
+              formErrorHandler
+            >
+            </ejs-textbox>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <ejs-textbox
+              formControlName="zipCode"
+              placeholder="CEP"
+              formErrorHandler
+            >
+            </ejs-textbox>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <ejs-textbox
+              formControlName="state"
+              placeholder="Estado"
+              formErrorHandler
+            >
+            </ejs-textbox>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <ejs-textbox
+              formControlName="city"
+              placeholder="Cidade"
+              formErrorHandler
+            >
+            </ejs-textbox>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <ejs-textbox
+              formControlName="district"
+              placeholder="Bairro"
+              formErrorHandler
+            >
+            </ejs-textbox>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="form-group">
+            <ejs-textbox
+              formControlName="street"
+              placeholder="Endereço"
+              formErrorHandler
+            >
+            </ejs-textbox>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <ejs-numerictextbox
+              formControlName="houseNumber"
+              placeholder="Número"
+              formErrorHandler
+              format="0"
+            >
+            </ejs-numerictextbox>
+          </div>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template #footerTemplate>
+    <button
+      ejs-button
+      buttonSave
+      [disabled]="!this.form.dirty"
+      (click)="onSaveClick()"
+    ></button>
+    <button ejs-button buttonCancel (click)="onModalClose()"></button>
+  </ng-template>
+</app-modal>

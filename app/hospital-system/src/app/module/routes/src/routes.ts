@@ -72,6 +72,14 @@ export const routes: Routes = [
             },
             loadChildren: pages.medicalProcedureRegistration,
           },
+          {
+            path: 'patient',
+            data: {
+              pageTitle: 'Paciente',
+              breadcrumb: 'Paciente',
+            },
+            loadChildren: pages.patientRegistration,
+          },
         ],
       },
     ],

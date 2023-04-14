@@ -1,10 +1,13 @@
 /**
- * 
+ *
  * Função que realiza validação de CNPJ, recebendo um cnpj e retorno se está válido
- * 
- * @param value 
- * @returns 
+ *
+ * @param value
+ * @returns
  */
+
+import { ValidatorFn, AbstractControl, ValidationErrors } from "@angular/forms";
+import { isValidCPF } from "./cpf-validator";
 
 export function isValidCNPJ(value: string): boolean {
   if (!value) return false;
@@ -56,4 +59,14 @@ export function isValidCNPJ(value: string): boolean {
 
   const digit1 = calc(13);
   return digit1 === digits[1];
+}
+
+export function cnpjValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const cnpj = control.value;
+    if (!cnpj || !isValidCNPJ(cnpj)) {
+      return { cpf: 'CNPJ inválido' };
+    }
+    return null;
+  };
 }

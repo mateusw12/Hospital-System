@@ -56,3 +56,10 @@ export function medicalProcedureRegistration() {
   );
   return promise;
 }
+
+export function patientRegistration() {
+  const promise = import('@module/pages/patient-registration').then(
+    (m) => m.PatientRegistrationModule
+  );
+  return promise;
+}

@@ -1,9 +1,11 @@
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+
 /**
- * 
+ *
  * Validação de CPF, recebe um cpf e retorno se está valido ou não
- * 
- * @param value 
- * @returns 
+ *
+ * @param value
+ * @returns
  */
 
 export function isValidCPF(value: string): boolean {
@@ -39,4 +41,14 @@ export function isValidCPF(value: string): boolean {
   if (result == 10 || result == 11) result = 0;
   if (result != parseInt(cpf.substring(10, 11))) return false;
   return true;
+}
+
+export function cpfValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const cpf = control.value;
+    if (!cpf || !isValidCPF(cpf)) {
+      return { cpf: 'CPF inválido' };
+    }
+    return null;
+  };
 }
