@@ -38,7 +38,7 @@ public class AuthenticationController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/valid-token")
+    @PostMapping("/valid-token")
     public Boolean isTokenValid(@RequestBody @Valid UserTokenModel userTokenModel) {
         return tokenService.isTokenValid(userTokenModel.getToken());
     }

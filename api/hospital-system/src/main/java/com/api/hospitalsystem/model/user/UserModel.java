@@ -26,6 +26,7 @@ public class UserModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "user_id")
     public long id;
 
     @NotNull
@@ -76,7 +77,6 @@ public class UserModel implements Serializable {
     @Column(name="especializacao")
     public Specialization specialization;
 
-    @MedicalProcedure
     @ManyToMany
     @JoinTable(
             name = "user_procedure",

@@ -7,8 +7,11 @@ import com.api.hospitalsystem.repository.patient.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,9 +25,10 @@ public class PatientService {
     private PatientMapper patientMapper;
 
     @Transactional
-    public List<PatientDTO> findAll() {
+    public List<PatientDTO> findAll(Long hospitalId) {
         return patientRepository.findAll()
                 .stream()
+                .filter(el -> el.getHospitalId() == hospitalId)
                 .map(patientMapper::toDTO)
                 .collect(Collectors.toList());
     }
@@ -65,7 +69,7 @@ public class PatientService {
                     recordFound.setEmail(patientDTO.email());
                     recordFound.setHouseNumber(patientDTO.houseNumber());
                     recordFound.setAge(patientDTO.age());
-                    recordFound.setCep(patientDTO.cep());
+                    recordFound.setZipCode(patientDTO.zipCode());
                     recordFound.setGender(patientDTO.gender());
                     recordFound.setCity(patientDTO.city());
                     recordFound.setDistrict(patientDTO.district());
@@ -74,6 +78,7 @@ public class PatientService {
                     recordFound.setCpf(patientDTO.cpf());
                     recordFound.setHeathPlan(patientDTO.heathPlan());
                     recordFound.setHasHeathPlan(patientDTO.hasHeathPlan());
+                    recordFound.setHospitalId(patientDTO.hospitalId());
                     return patientMapper.toDTO(patientRepository.save(recordFound));
                 }).orElseThrow(() -> new EntityNotFoundException("Patient not found" + id));
     }

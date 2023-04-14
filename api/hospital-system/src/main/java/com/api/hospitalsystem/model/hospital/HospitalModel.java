@@ -25,7 +25,7 @@ public class HospitalModel implements Serializable {
 
     @Cep
     @Length(max = 20)
-    @Column(name = "cep", length = 20)
+    @Column(name = "zipCode", length = 20)
     public String zipCode;
 
     @NotNull

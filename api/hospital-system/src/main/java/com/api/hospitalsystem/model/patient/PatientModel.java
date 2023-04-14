@@ -48,6 +48,8 @@ public class PatientModel implements Serializable {
     @Column(name="email", length = 200)
     public String email;
 
+    @NotNull
+    @NotBlank
     @Length(max = 20)
     @Column(name="telefone", length = 20)
     public String phone;
@@ -57,7 +59,7 @@ public class PatientModel implements Serializable {
     @Cep
     @Length(max = 20)
     @Column(name="cep",nullable = false, length = 20)
-    public String cep;
+    public String zipCode;
 
     @NotNull
     @NotBlank
@@ -105,5 +107,10 @@ public class PatientModel implements Serializable {
 
     @Column(name="temPlanoSaude")
     public Boolean hasHeathPlan;
+
+    @NotNull
+    @Positive
+    @Column(name="codHospital")
+    public Long hospitalId;
 
 }

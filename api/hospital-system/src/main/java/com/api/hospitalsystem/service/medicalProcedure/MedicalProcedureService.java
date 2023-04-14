@@ -3,6 +3,7 @@ package com.api.hospitalsystem.service.medicalProcedure;
 import com.api.hospitalsystem.dto.medicalProcedure.MedicalProcedureDTO;
 import com.api.hospitalsystem.mapper.medicalProcedure.MedicalProcedureMapper;
 import com.api.hospitalsystem.mapper.user.UserMapper;
+import com.api.hospitalsystem.model.medicalProcedure.MedicalProcedureModel;
 import com.api.hospitalsystem.repository.medicalProcedure.MedicalProcedureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,7 +41,14 @@ public class MedicalProcedureService {
 
     @Transactional
     public MedicalProcedureDTO create(MedicalProcedureDTO medicalProcedureDTO) {
-        return medicalProcedureMapper.toDTO(medicalProcedureRepository.save(medicalProcedureMapper.toEntity(medicalProcedureDTO)));
+        MedicalProcedureModel medicalProcedureModel = medicalProcedureMapper.toEntity(medicalProcedureDTO);
+        medicalProcedureModel.setDoctors(
+                medicalProcedureDTO.doctors()
+                        .stream()
+                        .map(userMapper::toEntity)
+                        .collect(Collectors.toList()));
+        MedicalProcedureModel savedMedicalProcedure = medicalProcedureRepository.save(medicalProcedureModel);
+        return medicalProcedureMapper.toDTO(savedMedicalProcedure);
     }
 
     @Transactional

@@ -25,10 +25,10 @@ public class PatientController {
     @Autowired
     private PatientService patientService;
 
-    @GetMapping
+    @GetMapping("/hospital/{hospitalId}")
     @Operation(summary = "Consulta todos os paciente")
-    public @ResponseBody List<PatientDTO> findAll() {
-        return patientService.findAll();
+    public @ResponseBody List<PatientDTO> findAll(@PathVariable @NotNull @Positive Long hospitalId) {
+        return patientService.findAll(hospitalId);
     }
 
     @GetMapping("/{id}")
