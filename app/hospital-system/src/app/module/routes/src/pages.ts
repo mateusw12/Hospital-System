@@ -49,3 +49,10 @@ export function sectorSettingsRegistration() {
   );
   return promise;
 }
+
+export function medicalProcedureRegistration() {
+  const promise = import('@module/pages/medical-procedure-registration').then(
+    (m) => m.MedicalProcedureRegistrationModule
+  );
+  return promise;
+}

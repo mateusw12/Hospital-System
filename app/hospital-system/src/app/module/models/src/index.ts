@@ -4,6 +4,7 @@ export * from './hospital/hospital';
 export * from './item/item';
 export * from './login/login';
 export * from './login/user-token';
+export * from './medical-procedure/medical-procedure';
 export * from './permission/permission';
 export * from './role/role';
 export * from './sector-settings/sector-settings';

@@ -1,3 +1,4 @@
+import { MedicalProcedure } from '../medical-procedure/medical-procedure';
 import { Role } from '../role/role';
 import { Specialization } from '../specialization/specialization';
 
@@ -12,4 +13,5 @@ export class User {
   email: string = '';
   hospitalId: number = 0;
   specialization: Specialization = Specialization.Cardiologist;
+  procedures: MedicalProcedure[] = [];
 }

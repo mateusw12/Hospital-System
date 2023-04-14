@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Role, Specialization, User } from '@module/models';
-import { UserRepository } from '@module/repository';
+import { MedicalProcedure, Role, Specialization, User } from '@module/models';
+import { MedicalProcedureRepository, UserRepository } from '@module/repository';
 import { FormGridCommandEventArgs, ModalComponent } from '@module/shared';
 import { SfGridColumnModel, SfGridColumns } from '@module/shared/src/grid';
 import { untilDestroyed, untilDestroyedAsync } from '@module/utils/common';
@@ -13,6 +13,7 @@ import {
   MessageService,
   ToastService,
 } from '@module/utils/services';
+import { forkJoin } from 'rxjs';
 
 const NEW_ID = 'NOVO';
 
@@ -35,6 +36,7 @@ interface FormModel {
   crm: FormControl<string | null>;
   hospitalId: FormControl<number | null>;
   specialization: FormControl<Specialization | null>;
+  procedures: FormControl<MedicalProcedure[] | null>;
 }
 @Component({
   selector: 'app-user-registration',
@@ -51,12 +53,14 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
 
   roles = toArray(Role);
   specializations = toArray(Specialization);
+  medicalProcedures: MedicalProcedure[] = [];
 
   constructor(
     private toastService: ToastService,
     private messageService: MessageService,
     private errorHandler: ErrorHandler,
     private userRepository: UserRepository,
+    private medicalProcedureRepository: MedicalProcedureRepository,
     private menuService: MenuService
   ) {}
 
@@ -173,12 +177,15 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
   private async loadData(): Promise<void> {
     const hospitalId = await this.getHospital();
 
-    this.userRepository
-      .findByHospitalId(hospitalId)
+    forkJoin([
+      this.userRepository.findByHospitalId(hospitalId),
+      this.medicalProcedureRepository.findAll(),
+    ])
       .pipe(untilDestroyed(this))
       .subscribe(
-        async (users) => {
+        async ([users, medicalProcedures]) => {
           const dataSource: GridRow[] = [];
+          this.medicalProcedures = medicalProcedures;
 
           for (const item of users) {
             dataSource.push({
@@ -226,6 +233,7 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
       hospitalId: user.hospitalId,
       specialization: user.specialization,
       crm: user.crm,
+      procedures: user.procedures,
     });
     this.changeFormField(user.role);
   }
@@ -253,6 +261,7 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
     model.isActive = formValue.isActive as boolean;
     model.specialization = formValue.specialization as Specialization;
     model.crm = formValue.crm as string;
+    model.procedures = formValue.procedures as MedicalProcedure[];
     return model;
   }
 
@@ -294,6 +303,7 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
         Validators.maxLength(300),
       ]),
       isActive: new FormControl<boolean | null>(false),
+      procedures: new FormControl<MedicalProcedure[] | null>([]),
     });
   }
 

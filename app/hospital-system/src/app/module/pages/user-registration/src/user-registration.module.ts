@@ -6,6 +6,7 @@ import {
   FormGridModule,
   MaskedTextBoxModule,
   ModalModule,
+  MultiSelectModule,
   PasswordStrengthBarModule,
   TextBoxModule,
 } from '@module/shared';
@@ -27,6 +28,7 @@ import { UserRegistrationComponent } from './user-registration.component';
     ButtonAppModule,
     DropDownListModule,
     CheckBoxModule,
+    MultiSelectModule,
     UserRegistrationRoutingModule,
     PasswordStrengthBarModule,
   ],
