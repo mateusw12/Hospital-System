@@ -11,6 +11,7 @@ export enum HeathPlan {
   GoldenCross = 7,
   PortoSeguro = 8,
   SaoCristovao = 9,
+  None = 10,
 }
 
 describe(HeathPlan, {
@@ -24,4 +25,5 @@ describe(HeathPlan, {
   GoldenCross: 'Golden Cross',
   PortoSeguro: 'Porto Segur',
   SaoCristovao: 'São Cristóvão',
+  None: 'Nenhum',
 });

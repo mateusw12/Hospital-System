@@ -111,8 +111,6 @@ export class PatientRegistrationComponent implements OnInit, OnDestroy {
   }
 
   async onSaveClick(): Promise<void> {
-    console.log('formValid', this.form.valid);
-    console.log('values', this.form.controls);
     if (!this.form.valid) {
       markAllAsTouched(this.form);
       return;
@@ -322,7 +320,9 @@ export class PatientRegistrationComponent implements OnInit, OnDestroy {
     model.email = formValue.email as string;
     model.gender = formValue.gender as Gender;
     model.hasHeathPlan = formValue.hasHeathPlan as boolean;
-    model.heathPlan = formValue.heathPlan as HeathPlan;
+    model.heathPlan = formValue.heathPlan
+      ? formValue.heathPlan
+      : HeathPlan.None;
     model.hospitalId = this.hospitalId;
     model.houseNumber = formValue.houseNumber as number;
     model.maritalStatus = formValue.maritalStatus as MaritalStatus;
@@ -363,7 +363,7 @@ export class PatientRegistrationComponent implements OnInit, OnDestroy {
       city: new FormControl<string | null>({ value: null, disabled: true }),
       cpf: new FormControl<string | null>(null, [
         Validators.required,
-        Validators.maxLength(20),
+        Validators.maxLength(11),
         cpfValidator(),
       ]),
       district: new FormControl<string | null>({ value: null, disabled: true }),
