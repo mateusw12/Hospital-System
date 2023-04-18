@@ -164,7 +164,7 @@ export class DoctorAppointmentRegistrationComponent implements OnInit {
     const hospitalId = await this.getHospitalId();
     this.form.controls.hospitalId.setValue(hospitalId);
     forkJoin([
-      this.doctorAppointmentRepository.findAll(),
+      this.doctorAppointmentRepository.findAll(hospitalId),
       this.hospitalRepository.findAll(),
       this.patientRepository.findAll(hospitalId),
       this.userRepository.findAll(),
@@ -189,7 +189,7 @@ export class DoctorAppointmentRegistrationComponent implements OnInit {
               appointmentDate: item.appointmentDate,
               hospitalName: hospital ? hospital.name : '',
               patientName: patient ? patient.name : '',
-              observation: item.observation
+              observation: item.observation,
             });
           }
           this.dataSource = dataSource;

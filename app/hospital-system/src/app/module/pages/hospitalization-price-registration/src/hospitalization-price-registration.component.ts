@@ -162,7 +162,7 @@ export class HospitalizationPriceRegistrationComponent
     forkJoin([
       this.hospitalizationPriceRepository.findAll(hospitalId),
       this.hospitalRepository.findAll(),
-      this.doctorAppointmentRepository.findAll(),
+      this.doctorAppointmentRepository.findAll(hospitalId),
     ])
       .pipe(untilDestroyed(this))
       .subscribe(
