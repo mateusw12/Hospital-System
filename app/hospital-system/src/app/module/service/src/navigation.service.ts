@@ -13,6 +13,10 @@ export class NavigationService {
     return this.navigateTo([`/menu/information`]);
   }
 
+  navigateToLicensePage(): Promise<boolean> {
+    return this.navigateTo([`/menu/license`]);
+  }
+
   navigateToLoginPage(): Promise<boolean> {
     return this.navigateTo([`/login`]);
   }

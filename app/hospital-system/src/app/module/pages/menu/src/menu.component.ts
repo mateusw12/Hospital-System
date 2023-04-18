@@ -92,7 +92,9 @@ export class MenuComponent implements OnInit, OnDestroy {
     this.navigationService.navigateToInformationPage();
   }
 
-  onLicenseClick(): void {}
+  onLicenseClick(): void {
+    this.navigationService.navigateToLicensePage();
+  }
 
   onNavigateClick(item: Item): void {
     this.route.navigate([item.path]);
