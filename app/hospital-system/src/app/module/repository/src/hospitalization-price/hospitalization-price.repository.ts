@@ -22,6 +22,7 @@ export class HospitalizationPriceRepository {
   }
 
   findAll(hospitalId: number): Observable<HospitalizationPrice[]> {
+    if (!hospitalId) throw new InvalidOperationException('id');
     return this.httpCliente.get<HospitalizationPrice[]>(
       `${API_URL}/hospital/${hospitalId}`
     );

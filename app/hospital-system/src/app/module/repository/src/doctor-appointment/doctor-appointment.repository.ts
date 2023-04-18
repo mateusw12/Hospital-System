@@ -21,8 +21,9 @@ export class DoctorAppointmentRepository {
     return this.httpCliente.get<DoctorAppointment>(`${API_URL}/${id}`);
   }
 
-  findAll(): Observable<DoctorAppointment[]> {
-    return this.httpCliente.get<DoctorAppointment[]>(`${API_URL}`);
+  findAll(hospitalId: number): Observable<DoctorAppointment[]> {
+    if (!hospitalId) throw new InvalidOperationException('hospitalId');
+    return this.httpCliente.get<DoctorAppointment[]>(`${API_URL}/hospital/${hospitalId}`);
   }
 
   updateById(doctorAppointment: DoctorAppointment): Observable<void> {
