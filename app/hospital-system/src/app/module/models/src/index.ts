@@ -1,4 +1,5 @@
 export * from './disiase/disiase';
+export * from './email/email';
 export * from './file-extensions/file-extensions';
 export * from './gender/gender';
 export * from './heath-plan/heath-plan';
@@ -13,6 +14,7 @@ export * from './permission/permission';
 export * from './role/role';
 export * from './sector-settings/sector-settings';
 export * from './sector/sector';
+export * from './sms/sms';
 export * from './specialization/specialization';
 export * from './state/state';
 export * from './user/user';
