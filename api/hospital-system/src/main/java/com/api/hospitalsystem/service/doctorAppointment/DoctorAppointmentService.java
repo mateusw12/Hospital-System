@@ -49,7 +49,7 @@ public class DoctorAppointmentService {
                     recordFound.setMedicalCertificate(doctorAppointmentDTO.medicalCertificate());
                     recordFound.setPrescription(doctorAppointmentDTO.prescription());
                     recordFound.setHospitalId(doctorAppointmentDTO.hospitalId());
-                    recordFound.setPatiendId(doctorAppointmentDTO.patiendId());
+                    recordFound.setPatientId(doctorAppointmentDTO.patientId());
                     return doctorAppointmentMapper.toDTO(doctorAppointmentRepository.save(recordFound));
                 }).orElseThrow(() -> new EntityNotFoundException("Doctor Appointment not found" + id));
     }

@@ -27,7 +27,7 @@ public class DoctorAppointmentModel implements Serializable {
 
     @NotNull
     @Column(name = "codPaciente", nullable = false)
-    public Long patiendId;
+    public Long patientId;
 
     @NotNull
     @Positive

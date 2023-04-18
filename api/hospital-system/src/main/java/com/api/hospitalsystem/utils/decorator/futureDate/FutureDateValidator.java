@@ -15,7 +15,7 @@ public class FutureDateValidator implements ConstraintValidator<FutureDate, Date
             return true;
         }
         Date today = new Date();
-        return value.after(today);
+        return value.before(today);
     }
 
 }
