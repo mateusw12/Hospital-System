@@ -86,3 +86,10 @@ export function error404() {
   ).then((m) => m.Error404Module);
   return promise;
 }
+
+export function license() {
+  const promise = import('@module/pages/license').then(
+    (m) => m.LicenseModule
+  );
+  return promise;
+}
