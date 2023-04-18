@@ -21,9 +21,10 @@ public class DoctorAppointmentService {
     private DoctorAppointmentMapper doctorAppointmentMapper;
 
     @Transactional
-    public List<DoctorAppointmentDTO> findAll() {
+    public List<DoctorAppointmentDTO> findAll(Long hospitalId) {
         return doctorAppointmentRepository.findAll()
                 .stream()
+                .filter(el -> el.getHospitalId() == hospitalId)
                 .map(doctorAppointmentMapper::toDTO)
                 .collect(Collectors.toList());
     }

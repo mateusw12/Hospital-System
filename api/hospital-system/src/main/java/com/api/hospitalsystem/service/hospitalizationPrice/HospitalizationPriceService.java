@@ -21,9 +21,10 @@ public class HospitalizationPriceService {
     private HospitalizationPriceMapper hospitalizationPriceMapper;
 
     @Transactional
-    public List<HospitalizationPriceDTO> findAll() {
+    public List<HospitalizationPriceDTO> findAll(Long hospitalId) {
         return hospitalizationPriceRepository.findAll()
                 .stream()
+                .filter(el -> el.getHospitalId() == hospitalId)
                 .map(hospitalizationPriceMapper::toDTO)
                 .collect(Collectors.toList());
     }
