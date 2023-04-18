@@ -24,10 +24,10 @@ public class HospitalizationPriceController {
     @Autowired
     private HospitalizationPriceService hospitalizationPriceService;
 
-    @GetMapping
+    @GetMapping("hospital/{hospitalId}")
     @Operation(summary = "Consulta todos os custo internação")
-    public @ResponseBody List<HospitalizationPriceDTO> findAll() {
-        return hospitalizationPriceService.findAll();
+    public @ResponseBody List<HospitalizationPriceDTO> findAll(@PathVariable @NotNull @Positive Long hospitalId) {
+        return hospitalizationPriceService.findAll(hospitalId);
     }
 
     @GetMapping("/{id}")

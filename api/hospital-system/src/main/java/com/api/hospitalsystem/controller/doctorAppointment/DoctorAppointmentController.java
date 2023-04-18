@@ -24,10 +24,10 @@ public class DoctorAppointmentController {
     @Autowired
     private DoctorAppointmentService doctorAppointmentService;
 
-    @GetMapping
-    @Operation(summary = "Consulta todos as consultas médicas")
-    public @ResponseBody List<DoctorAppointmentDTO> findAll() {
-        return doctorAppointmentService.findAll();
+    @GetMapping("/hospital/{hospitalId}")
+    @Operation(summary = "Consulta todas as consultas médicas")
+    public @ResponseBody List<DoctorAppointmentDTO> findAll(@PathVariable @NotNull @Positive Long hospitalId) {
+        return doctorAppointmentService.findAll(hospitalId);
     }
 
     @GetMapping("/{id}")
