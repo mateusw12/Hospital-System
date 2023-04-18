@@ -80,6 +80,14 @@ export const routes: Routes = [
             },
             loadChildren: pages.patientRegistration,
           },
+          {
+            path: 'doctor-appointment',
+            data: {
+              pageTitle: 'Consulta Médica',
+              breadcrumb: 'Consulta Médica',
+            },
+            loadChildren: pages.doctorAppointmentRegistration,
+          },
         ],
       },
     ],

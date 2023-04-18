@@ -4,7 +4,9 @@ export function loginRegistration() {
 }
 
 export function information() {
-  const promise = import('@module/pages/information').then((m) => m.InformationModule);
+  const promise = import('@module/pages/information').then(
+    (m) => m.InformationModule
+  );
   return promise;
 }
 
@@ -60,6 +62,13 @@ export function medicalProcedureRegistration() {
 export function patientRegistration() {
   const promise = import('@module/pages/patient-registration').then(
     (m) => m.PatientRegistrationModule
+  );
+  return promise;
+}
+
+export function doctorAppointmentRegistration() {
+  const promise = import('@module/pages/doctor-appointment-registration').then(
+    (m) => m.DoctorAppointmentRegistrationModule
   );
   return promise;
 }

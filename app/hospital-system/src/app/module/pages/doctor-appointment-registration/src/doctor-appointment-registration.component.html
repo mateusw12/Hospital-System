@@ -1,0 +1,104 @@
+<div id="content" class="fill">
+  <ejs-formgrid
+    [dataSource]="dataSource"
+    [columns]="columns"
+    (command)="onCommand($event)"
+  >
+  </ejs-formgrid>
+</div>
+
+<app-modal #modal modalHeader="Cadastro de Consultas Médicas">
+  <ng-template #bodyTemplate>
+    <form [formGroup]="form">
+      <div class="row">
+        <div class="col-md-2">
+          <div class="form-group">
+            <ejs-textbox formControlName="id" placeholder="Código">
+            </ejs-textbox>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <ejs-dropdownlist
+              formControlName="userName"
+              [dataSource]="users"
+              [fields]="{ value: 'userName', text: 'name' }"
+              formErrorHandler
+              placeholder="Médico"
+            >
+            </ejs-dropdownlist>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <ejs-datepicker
+              formControlName="appointmentDate"
+              placeholder="Data Consulta"
+              [min]="today"
+              formErrorHandler
+            >
+            </ejs-datepicker>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-9">
+          <div class="form-group">
+            <ejs-dropdownlist
+              formControlName="patientId"
+              [dataSource]="patients"
+              [fields]="{ value: 'id', text: 'name' }"
+              formErrorHandler
+              placeholder="Paciente"
+            >
+            </ejs-dropdownlist>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="align-check-box">
+            <ejs-checkbox label="Atestado Médico" formControlName="medicalCertificate">
+            </ejs-checkbox>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="fomr-group">
+            <ejs-textbox
+              formControlName="observation"
+              formErrorHandler
+              placeholder="Observação"
+              multiline="true"
+              rows="2"
+            >
+            </ejs-textbox>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="fomr-group">
+            <ejs-textbox
+              formControlName="prescription"
+              formErrorHandler
+              placeholder="Receita"
+              multiline="true"
+              rows="2"
+            >
+            </ejs-textbox>
+          </div>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template #footerTemplate>
+    <button
+      ejs-button
+      buttonSave
+      [disabled]="!this.form.dirty"
+      (click)="onSaveClick()"
+    ></button>
+    <button ejs-button buttonCancel (click)="onModalClose()"></button>
+  </ng-template>
+</app-modal>

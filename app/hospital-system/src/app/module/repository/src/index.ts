@@ -1,4 +1,5 @@
 export * from './disiase/disiase.repository';
+export * from './doctor-appointment/doctor-appointment.repository';
 export * from './hospital/hospital.repository';
 export * from './item/item.repository';
 export * from './login/login.repository';
