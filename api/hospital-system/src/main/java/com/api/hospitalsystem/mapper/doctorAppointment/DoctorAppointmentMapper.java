@@ -14,7 +14,7 @@ public class DoctorAppointmentMapper {
         return new DoctorAppointmentDTO(
                 doctorAppointmentModel.getId(),
                 doctorAppointmentModel.getUserName(),
-                doctorAppointmentModel.getPatiendId(),
+                doctorAppointmentModel.getPatientId(),
                 doctorAppointmentModel.getHospitalId(),
                 doctorAppointmentModel.getAppointmentDate(),
                 doctorAppointmentModel.getObservation(),
@@ -35,7 +35,7 @@ public class DoctorAppointmentMapper {
         }
         doctorAppointmentModel.setAppointmentDate(doctorAppointmentDTO.appointmentDate());
         doctorAppointmentModel.setObservation(doctorAppointmentDTO.observation());
-        doctorAppointmentModel.setPatiendId(doctorAppointmentDTO.patiendId());
+        doctorAppointmentModel.setPatientId(doctorAppointmentDTO.patientId());
         doctorAppointmentModel.setHospitalId(doctorAppointmentDTO.hospitalId());
         doctorAppointmentModel.setMedicalCertificate(doctorAppointmentDTO.medicalCertificate());
         doctorAppointmentModel.setPrescription(doctorAppointmentDTO.prescription());
