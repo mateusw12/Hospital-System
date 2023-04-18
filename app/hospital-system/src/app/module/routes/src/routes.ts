@@ -88,6 +88,14 @@ export const routes: Routes = [
             },
             loadChildren: pages.doctorAppointmentRegistration,
           },
+          {
+            path: 'hospitalization-price',
+            data: {
+              pageTitle: 'Custo Internação',
+              breadcrumb: 'Custo Internação',
+            },
+            loadChildren: pages.hospitalizationPriceRegistration,
+          },
         ],
       },
     ],

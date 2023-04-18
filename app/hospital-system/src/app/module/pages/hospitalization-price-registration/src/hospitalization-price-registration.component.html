@@ -1,0 +1,85 @@
+<div id="content" class="fill">
+  <ejs-formgrid
+    [dataSource]="dataSource"
+    [columns]="columns"
+    (command)="onCommand($event)"
+  >
+  </ejs-formgrid>
+</div>
+
+<app-modal #modal modalHeader="Cadastro Custo de Internação">
+  <ng-template #bodyTemplate>
+    <form [formGroup]="form">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <ejs-textbox formControlName="id" placeholder="Código">
+            </ejs-textbox>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <div class="form-group">
+            <ejs-dropdownlist
+              formControlName="doctorAppointmentId"
+              placeholder="Consulta Médica"
+              [dataSource]="doctorAppointments"
+              [fields]="{ value: 'id', text: 'observation' }"
+              formErrorHandler
+            >
+            </ejs-dropdownlist>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <ejs-numerictextbox
+              formControlName="totalDays"
+              formErrorHandler
+              placeholder="Total Dias"
+              format="0"
+            >
+            </ejs-numerictextbox>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <ejs-numerictextbox
+              formControlName="totalValue"
+              formErrorHandler
+              placeholder="Total Valor"
+            >
+            </ejs-numerictextbox>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <ejs-datepicker
+              formControlName="paymentDate"
+              formErrorHandler
+              placeholder="Data Pagamento"
+              [min]="today"
+            >
+            </ejs-datepicker>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="align-check-box">
+            <ejs-checkbox label="Pago" formControlName="isPayment">
+            </ejs-checkbox>
+          </div>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template #footerTemplate>
+    <button
+      ejs-button
+      buttonSave
+      [disabled]="!this.form.dirty"
+      (click)="onSaveClick()"
+    ></button>
+    <button ejs-button buttonCancel (click)="onModalClose()"></button>
+  </ng-template>
+</app-modal>

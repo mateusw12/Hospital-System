@@ -72,3 +72,10 @@ export function doctorAppointmentRegistration() {
   );
   return promise;
 }
+
+export function hospitalizationPriceRegistration() {
+  const promise = import(
+    '@module/pages/hospitalization-price-registration'
+  ).then((m) => m.HospitalizationPriceRegistrationModule);
+  return promise;
+}
