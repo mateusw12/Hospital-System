@@ -5,6 +5,7 @@ export * from './file-extensions/file-extensions';
 export * from './gender/gender';
 export * from './heath-plan/heath-plan';
 export * from './hospital/hospital';
+export * from './hospitalization-price/hospitalization-price';
 export * from './item/item';
 export * from './login/login';
 export * from './login/user-token';

@@ -1,11 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DoctorAppointment, Patient, User } from '@module/models';
+import { DoctorAppointment, HospitalizationPrice } from '@module/models';
 import {
   DoctorAppointmentRepository,
   HospitalRepository,
-  PatientRepository,
-  UserRepository,
+  HospitalizationPriceRepository,
 } from '@module/repository';
 import { FormGridCommandEventArgs, ModalComponent } from '@module/shared';
 import { SfGridColumnModel, SfGridColumns } from '@module/shared/src/grid';
@@ -23,39 +22,38 @@ const NEW_ID = 'NOVO';
 
 interface GridRow {
   id: number;
-  observation: string;
-  userName: string;
-  patientName: string;
   hospitalName: string;
-  appointmentDate: Date;
+  doctorAppointmentObservation: string;
+  paymentDate: Date;
+  totalValue: number;
+  totalDays: number;
 }
 
 interface FormModel {
   id: FormControl<string | null>;
-  patiendId: FormControl<number | null>;
   hospitalId: FormControl<number | null>;
-  userName: FormControl<string | null>;
-  observation: FormControl<string | null>;
-  prescription: FormControl<string | null>;
-  medicalCertificate: FormControl<boolean | null>;
-  appointmentDate: FormControl<Date | null>;
+  doctorAppointmentId: FormControl<number | null>;
+  totalDays: FormControl<number | null>;
+  totalValue: FormControl<number | null>;
+  isPayment: FormControl<boolean | null>;
+  paymentDate: FormControl<Date | null>;
 }
 
 @Component({
   selector: 'app-doctor-appointment-registration',
-  templateUrl: './doctor-appointment-registration.component.html',
-  styleUrls: ['./doctor-appointment-registration.component.scss'],
+  templateUrl: './hospitalization-price-registration.component.html',
+  styleUrls: ['./hospitalizaiton-price-registration.component.scss'],
 })
-export class DoctorAppointmentRegistrationComponent implements OnInit {
+export class HospitalizationPriceRegistrationComponent
+  implements OnInit, OnDestroy
+{
   @ViewChild(ModalComponent, { static: true })
   modal!: ModalComponent;
 
   columns: SfGridColumnModel[] = this.createColumns();
   dataSource: GridRow[] = [];
   form = this.createForm();
-  userName: string = '';
-  patients: Patient[] = [];
-  users: User[] = [];
+  doctorAppointments: DoctorAppointment[] = [];
 
   readonly today = new Date();
 
@@ -63,10 +61,9 @@ export class DoctorAppointmentRegistrationComponent implements OnInit {
     private toastService: ToastService,
     private messageService: MessageService,
     private errorHandler: ErrorHandler,
-    private doctorAppointmentRepository: DoctorAppointmentRepository,
-    private patientRepository: PatientRepository,
-    private userRepository: UserRepository,
+    private hospitalizationPriceRepository: HospitalizationPriceRepository,
     private hospitalRepository: HospitalRepository,
+    private doctorAppointmentRepository: DoctorAppointmentRepository,
     private menuService: MenuService
   ) {}
 
@@ -108,8 +105,8 @@ export class DoctorAppointmentRegistrationComponent implements OnInit {
     }
 
     (exists
-      ? this.doctorAppointmentRepository.updateById(model)
-      : this.doctorAppointmentRepository.add(model)
+      ? this.hospitalizationPriceRepository.updateById(model)
+      : this.hospitalizationPriceRepository.add(model)
     )
       .pipe(untilDestroyed(this))
       .subscribe(
@@ -129,7 +126,7 @@ export class DoctorAppointmentRegistrationComponent implements OnInit {
     this.reset();
     try {
       if (id) {
-        await this.findDoctorAppointment(id);
+        await this.findHospitalizationPrice(id);
       }
       this.modal.open();
     } catch (error) {
@@ -148,7 +145,7 @@ export class DoctorAppointmentRegistrationComponent implements OnInit {
   private async onCommandRemove(model: GridRow): Promise<void> {
     const confirmed = await this.messageService.showConfirmDelete();
     if (!confirmed) return;
-    this.doctorAppointmentRepository
+    this.hospitalizationPriceRepository
       .deleteById(model.id)
       .pipe(untilDestroyed(this))
       .subscribe(
@@ -161,35 +158,33 @@ export class DoctorAppointmentRegistrationComponent implements OnInit {
   }
 
   private async loadData(): Promise<void> {
-    const hospitalId = await this.getHospitalId();
-    this.form.controls.hospitalId.setValue(hospitalId);
+    const hospitalId = await this.getHospital();
     forkJoin([
-      this.doctorAppointmentRepository.findAll(),
+      this.hospitalizationPriceRepository.findAll(hospitalId),
       this.hospitalRepository.findAll(),
-      this.patientRepository.findAll(hospitalId),
-      this.userRepository.findAll(),
-      this.userRepository.findMe(),
+      this.doctorAppointmentRepository.findAll(),
     ])
       .pipe(untilDestroyed(this))
       .subscribe(
-        async ([doctorAppointments, hospitals, patients, users, user]) => {
+        async ([hospitalizationPrice, hospitals, doctorAppointments]) => {
           const dataSource: GridRow[] = [];
-          this.userName = user.userName;
-          this.patients = patients;
-          this.users = users;
-          this.form.controls.userName.setValue(this.userName);
+          this.doctorAppointments = doctorAppointments;
 
-          for (const item of doctorAppointments) {
+          for (const item of hospitalizationPrice) {
             const hospital = hospitals.find((el) => el.id === item.hospitalId);
-            const patient = patients.find((el) => el.id === item.patientId);
+            const doctorAppointment = doctorAppointments.find(
+              (el) => el.id === item.doctorAppointmentId
+            );
 
             dataSource.push({
               id: item.id,
-              userName: item.userName,
-              appointmentDate: item.appointmentDate,
+              doctorAppointmentObservation: doctorAppointment
+                ? doctorAppointment.observation
+                : '',
               hospitalName: hospital ? hospital.name : '',
-              patientName: patient ? patient.name : '',
-              observation: item.observation
+              totalDays: item.totalDays,
+              paymentDate: item.paymentDate,
+              totalValue: item.totalValue,
             });
           }
           this.dataSource = dataSource;
@@ -198,7 +193,7 @@ export class DoctorAppointmentRegistrationComponent implements OnInit {
       );
   }
 
-  private async getHospitalId(): Promise<number> {
+  private async getHospital(): Promise<number> {
     try {
       const hospital = await untilDestroyedAsync(
         this.menuService.getActiveHospital(),
@@ -211,47 +206,43 @@ export class DoctorAppointmentRegistrationComponent implements OnInit {
     }
   }
 
-  private async findDoctorAppointment(id: number): Promise<void> {
-    this.doctorAppointmentRepository
+  private async findHospitalizationPrice(id: number): Promise<void> {
+    this.hospitalizationPriceRepository
       .findById(id)
       .pipe(untilDestroyed(this))
-      .subscribe((doctorAppointment) => {
-        this.populateForm(doctorAppointment);
+      .subscribe((hospitalizationPrice) => {
+        this.populateForm(hospitalizationPrice);
       });
   }
 
-  private populateForm(doctorAppointment: DoctorAppointment): void {
+  private populateForm(hospitalizationPrice: HospitalizationPrice): void {
     this.form.patchValue({
-      id: doctorAppointment.id.toString(),
-      userName: doctorAppointment.userName,
-      observation: doctorAppointment.observation,
-      hospitalId: doctorAppointment.hospitalId,
-      medicalCertificate: doctorAppointment.medicalCertificate,
-      prescription: doctorAppointment.prescription,
-      patiendId: doctorAppointment.patientId,
-      appointmentDate: doctorAppointment.appointmentDate,
+      id: hospitalizationPrice.id.toString(),
+      doctorAppointmentId: hospitalizationPrice.doctorAppointmentId,
+      hospitalId: hospitalizationPrice.hospitalId,
+      isPayment: hospitalizationPrice.isPayment,
+      paymentDate: hospitalizationPrice.paymentDate,
+      totalDays: hospitalizationPrice.totalDays,
+      totalValue: hospitalizationPrice.totalValue,
     });
   }
 
-  private getModel(): DoctorAppointment {
-    const model = new DoctorAppointment();
+  private getModel(): HospitalizationPrice {
+    const model = new HospitalizationPrice();
     const formValue = this.form.getRawValue();
     model.id = formValue.id === NEW_ID ? 0 : Number(formValue.id);
-    model.userName = formValue.userName as string;
-    model.observation = formValue.observation as string;
-    model.prescription = formValue.prescription as string;
+    model.doctorAppointmentId = formValue.doctorAppointmentId as number;
     model.hospitalId = formValue.hospitalId as number;
-    model.patientId = formValue.patiendId as number;
-    model.appointmentDate = formValue.appointmentDate as Date;
-    model.medicalCertificate = formValue.medicalCertificate as boolean;
+    model.isPayment = formValue.isPayment as boolean;
+    model.paymentDate = formValue.paymentDate as Date;
+    model.totalDays = formValue.totalDays as number;
+    model.totalValue = formValue.totalValue as number;
     return model;
   }
 
   private reset(): void {
     this.form.reset({
       id: NEW_ID,
-      userName: this.userName,
-      appointmentDate: this.today
     });
   }
 
@@ -262,25 +253,19 @@ export class DoctorAppointmentRegistrationComponent implements OnInit {
   private createForm(): FormGroup<FormModel> {
     return new FormGroup<FormModel>({
       id: new FormControl<string | null>({ value: NEW_ID, disabled: true }),
-      userName: new FormControl<string | null>({
-        value: '',
-        disabled: true,
-      }),
-      observation: new FormControl<string | null>(null, [
-        Validators.maxLength(1000),
-        Validators.required,
-      ]),
-      prescription: new FormControl<string | null>(null, [
-        Validators.maxLength(1000),
-        Validators.required,
-      ]),
-      medicalCertificate: new FormControl<boolean | null>(false),
-      hospitalId: new FormControl<number | null>(null),
-      patiendId: new FormControl<number | null>(null, [
+      doctorAppointmentId: new FormControl<number | null>(null, [
         Validators.required,
         Validators.min(0),
       ]),
-      appointmentDate: new FormControl<Date | null>(null, [
+      hospitalId: new FormControl<number | null>(null),
+      isPayment: new FormControl<boolean | null>(false),
+      paymentDate: new FormControl<Date | null>(null, [Validators.required]),
+      totalDays: new FormControl<number | null>(null, [
+        Validators.min(0),
+        Validators.required,
+      ]),
+      totalValue: new FormControl<number | null>(null, [
+        Validators.min(0),
         Validators.required,
       ]),
     });
@@ -289,16 +274,20 @@ export class DoctorAppointmentRegistrationComponent implements OnInit {
   private createColumns() {
     return SfGridColumns.build<GridRow>({
       id: SfGridColumns.text('id', 'Código').minWidth(100).isPrimaryKey(true),
-      observation: SfGridColumns.text('observation', 'Observação').minWidth(200),
-      userName: SfGridColumns.text('userName', 'Médico').minWidth(200),
-      patientName: SfGridColumns.text('patientName', 'Paciente').minWidth(100),
-      appointmentDate: SfGridColumns.date(
-        'appointmentDate',
-        'Data Consulta'
-      ).minWidth(100),
       hospitalName: SfGridColumns.text('hospitalName', 'Hospital').minWidth(
-        200
+        100
       ),
+      doctorAppointmentObservation: SfGridColumns.text(
+        'doctorAppointmentObservation',
+        'Observação Consulta Médica'
+      ).minWidth(200),
+      paymentDate: SfGridColumns.date('paymentDate', 'Data Pagamento').minWidth(
+        100
+      ),
+      totalValue: SfGridColumns.numeric('totalValue', 'Valor Total').minWidth(
+        100
+      ),
+      totalDays: SfGridColumns.numeric('totalDays', 'Total Dias').minWidth(100),
     });
   }
 }
