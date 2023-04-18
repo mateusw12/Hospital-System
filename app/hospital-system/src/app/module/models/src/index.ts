@@ -1,4 +1,5 @@
 export * from './disiase/disiase';
+export * from './doctor-appointment/doctor-appointment';
 export * from './email/email';
 export * from './file-extensions/file-extensions';
 export * from './gender/gender';
