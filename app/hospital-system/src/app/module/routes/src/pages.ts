@@ -79,3 +79,10 @@ export function hospitalizationPriceRegistration() {
   ).then((m) => m.HospitalizationPriceRegistrationModule);
   return promise;
 }
+
+export function error404() {
+  const promise = import(
+    '@module/pages/error-404'
+  ).then((m) => m.Error404Module);
+  return promise;
+}

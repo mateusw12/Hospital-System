@@ -98,6 +98,11 @@ export const routes: Routes = [
           },
         ],
       },
+      {
+        path: '**',
+        data: { pageTitle: 'Erro 404', BreadCrumb: '' },
+        loadChildren: pages.error404,
+      },
     ],
   },
 ];
