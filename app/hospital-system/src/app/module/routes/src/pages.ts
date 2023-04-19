@@ -93,3 +93,9 @@ export function license() {
   );
   return promise;
 }
+
+export function home() {
+  const promise = import('@module/pages/home').then((m) => m.HomeModule);
+  return promise;
+}
+

@@ -104,6 +104,11 @@ export const routes: Routes = [
         loadChildren: pages.license,
       },
       {
+        path: 'home',
+        data: { pageTitle: 'Home', breadcrumb: 'Home' },
+        loadChildren: pages.home,
+      },
+      {
         path: '**',
         data: { pageTitle: 'Erro 404', BreadCrumb: '' },
         loadChildren: pages.error404,
