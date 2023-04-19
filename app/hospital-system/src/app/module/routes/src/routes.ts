@@ -96,6 +96,14 @@ export const routes: Routes = [
             },
             loadChildren: pages.hospitalizationPriceRegistration,
           },
+          {
+            path: 'hospitalization',
+            data: {
+              pageTitle: 'Internação',
+              breadcrumb: 'Internação',
+            },
+            loadChildren: pages.hospitalizationRegistration,
+          },
         ],
       },
       {

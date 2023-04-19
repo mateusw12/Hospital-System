@@ -81,16 +81,14 @@ export function hospitalizationPriceRegistration() {
 }
 
 export function error404() {
-  const promise = import(
-    '@module/pages/error-404'
-  ).then((m) => m.Error404Module);
+  const promise = import('@module/pages/error-404').then(
+    (m) => m.Error404Module
+  );
   return promise;
 }
 
 export function license() {
-  const promise = import('@module/pages/license').then(
-    (m) => m.LicenseModule
-  );
+  const promise = import('@module/pages/license').then((m) => m.LicenseModule);
   return promise;
 }
 
@@ -99,3 +97,9 @@ export function home() {
   return promise;
 }
 
+export function hospitalizationRegistration() {
+  const promise = import('@module/pages/hospitalization-registration').then(
+    (m) => m.HospitalizationRegistrationModule
+  );
+  return promise;
+}
