@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DoctorAppointment, Hospitalization, Sector } from '@module/models';
 import {
   DoctorAppointmentRepository,
-  HospitalizatioRepository,
+  HospitalizationRepository,
 } from '@module/repository';
 import { FormGridCommandEventArgs, ModalComponent } from '@module/shared';
 import { SfGridColumnModel, SfGridColumns } from '@module/shared/src/grid';
@@ -27,6 +27,7 @@ const NEW_ID = 'NOVO';
 interface GridRow {
   id: number;
   doctorAppointmentObservation: string;
+  description: string;
   initialSector: string;
   hospitalizationDate: Date;
   totalDay: number;
@@ -35,6 +36,7 @@ interface GridRow {
 
 interface FormModel {
   id: FormControl<string | null>;
+  description: FormControl<string | null>;
   initialSector: FormControl<Sector | null>;
   doctorAppointmentId: FormControl<number | null>;
   hospitalizationDate: FormControl<Date | null>;
@@ -63,7 +65,7 @@ export class HospitalizationRegistrationComponent implements OnInit, OnDestroy {
     private toastService: ToastService,
     private messageService: MessageService,
     private errorHandler: ErrorHandler,
-    private hospitalizationRepository: HospitalizatioRepository,
+    private hospitalizationRepository: HospitalizationRepository,
     private doctorAppointmentRepository: DoctorAppointmentRepository,
     private menuService: MenuService
   ) {}
@@ -168,7 +170,9 @@ export class HospitalizationRegistrationComponent implements OnInit, OnDestroy {
       .subscribe(
         async ([hospitalizationPrice, doctorAppointments]) => {
           const dataSource: GridRow[] = [];
-          this.doctorAppointments = doctorAppointments;
+          this.doctorAppointments = doctorAppointments.filter(
+            (el) => !el.medicalCertificate
+          );
 
           for (const item of hospitalizationPrice) {
             const doctorAppointment = doctorAppointments.find(
@@ -187,6 +191,7 @@ export class HospitalizationRegistrationComponent implements OnInit, OnDestroy {
                 item.initialSector as unknown as string
               ),
               isFinished: item.isFinished,
+              description: item.description,
             });
           }
           this.dataSource = dataSource;
@@ -225,6 +230,7 @@ export class HospitalizationRegistrationComponent implements OnInit, OnDestroy {
       initialSector: hospitalization.initialSector,
       isFinished: hospitalization.isFinished,
       totalDay: hospitalization.totalDay,
+      description: hospitalization.description,
     });
   }
 
@@ -237,6 +243,7 @@ export class HospitalizationRegistrationComponent implements OnInit, OnDestroy {
     model.isFinished = formValue.isFinished as boolean;
     model.initialSector = formValue.initialSector as Sector;
     model.totalDay = formValue.totalDay as number;
+    model.description = formValue.description as string;
     return model;
   }
 
@@ -267,12 +274,20 @@ export class HospitalizationRegistrationComponent implements OnInit, OnDestroy {
         Validators.min(0),
         Validators.required,
       ]),
+      description: new FormControl<string | null>(null, [
+        Validators.maxLength(200),
+        Validators.required,
+      ]),
     });
   }
 
   private createColumns() {
     return SfGridColumns.build<GridRow>({
       id: SfGridColumns.text('id', 'Código').minWidth(100).isPrimaryKey(true),
+      description: SfGridColumns.text(
+        'description',
+        'Descrição Internação'
+      ).minWidth(200),
       doctorAppointmentObservation: SfGridColumns.text(
         'doctorAppointmentObservation',
         'Observação Consulta Médica'

@@ -2,6 +2,7 @@ import { Sector } from '../sector/sector';
 
 export class Hospitalization {
   id: number = 0;
+  description: string = '';
   doctorAppointmentId: number = 0;
   initialSector: Sector = Sector.Adm;
   hospitalizationDate: Date = new Date();

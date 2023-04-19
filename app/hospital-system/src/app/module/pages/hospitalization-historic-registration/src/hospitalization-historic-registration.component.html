@@ -7,41 +7,47 @@
   </ejs-formgrid>
 </div>
 
-<app-modal #modal modalHeader="Cadastro de Internação" dialogClass="lg">
+<app-modal #modal modalHeader="Cadastro Hisórico de Internação">
   <ng-template #bodyTemplate>
     <form [formGroup]="form">
       <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-3">
           <div class="form-group">
             <ejs-textbox formControlName="id" placeholder="Código">
             </ejs-textbox>
           </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-9">
+          <div class="form-group">
+            <ejs-textbox
+              formControlName="description"
+              formErrorHandler
+              placeholder="Descrição"
+            >
+            </ejs-textbox>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
           <div class="form-group">
             <ejs-dropdownlist
-              formControlName="doctorAppointmentId"
-              placeholder="Consulta Médica"
-              [dataSource]="doctorAppointments"
-              [fields]="{ value: 'id', text: 'observation' }"
+              formControlName="hospitalizationId"
+              placeholder="Internações"
+              [dataSource]="hospitalizations"
+              [fields]="{ value: 'id', text: 'description' }"
               formErrorHandler
             >
             </ejs-dropdownlist>
           </div>
         </div>
-        <div class="col-md-2">
-          <div class="align-check-box">
-            <ejs-checkbox label="Internação" formControlName="isFinished">
-            </ejs-checkbox>
-          </div>
-        </div>
       </div>
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-8">
           <div class="form-group">
             <ejs-dropdownlist
-              formControlName="initialSector"
-              placeholder="Setores"
+              formControlName="currentSector"
+              placeholder="Setor Atual"
               [dataSource]="sectors"
               [fields]="{ value: 'value', text: 'description' }"
               formErrorHandler
@@ -49,27 +55,14 @@
             </ejs-dropdownlist>
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
           <div class="form-group">
             <ejs-numerictextbox
-              formControlName="totalDays"
+              formControlName="days"
               formErrorHandler
-              placeholder="Total Dias"
-              format="0"
-
+              placeholder="Dias"
             >
             </ejs-numerictextbox>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="form-group">
-            <ejs-datepicker
-              formControlName="hospitalizationDate"
-              formErrorHandler
-              [min]="today"
-              placeholder="Data Internação"
-            >
-            </ejs-datepicker>
           </div>
         </div>
       </div>

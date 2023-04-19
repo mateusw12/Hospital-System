@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 const API_URL = 'api/cadastro/internacao';
 
 @Injectable({ providedIn: 'root' })
-export class HospitalizatioRepository {
+export class HospitalizationRepository {
   constructor(private httpCliente: HttpClient) {}
 
   add(hospitalization: Hospitalization): Observable<void> {
