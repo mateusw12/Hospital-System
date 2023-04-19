@@ -64,6 +64,7 @@ public class HospitalizationHistoricService {
                     recordFound.setCurrentSector(hospitalizationDTO.currentSector());
                     recordFound.setHospitalizationId(hospitalizationDTO.hospitalizationId());
                     recordFound.setDays(hospitalizationDTO.days());
+                    recordFound.setDescription(hospitalizationDTO.description());
                     return hospitalizationHistoricMapper.toDTO(hospitalizationHistoricRepository.save(recordFound));
                 }).orElseThrow(() -> new EntityNotFoundException("Hospitalization Historic not found" + id));
     }

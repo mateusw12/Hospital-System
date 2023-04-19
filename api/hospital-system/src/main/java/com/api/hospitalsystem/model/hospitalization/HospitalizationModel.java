@@ -4,8 +4,10 @@ import com.api.hospitalsystem.converter.sector.SectorConverter;
 import com.api.hospitalsystem.model.sector.Sector;
 import com.api.hospitalsystem.utils.decorator.futureDate.FutureDate;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.io.Serializable;
@@ -41,5 +43,11 @@ public class HospitalizationModel implements Serializable {
 
     @Column(name = "internacaoFinalizada")
     public Boolean isFinished;
+
+    @NotNull
+    @NotBlank
+    @Length(max = 200)
+    @Column(name = "descricao", length = 200)
+    public String description;
 
 }

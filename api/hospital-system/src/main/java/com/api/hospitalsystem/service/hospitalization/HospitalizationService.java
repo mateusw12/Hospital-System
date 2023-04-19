@@ -55,6 +55,7 @@ public class HospitalizationService {
                     recordFound.setInitialSector(hospitalizationDTO.initialSector());
                     recordFound.setTotalDays(hospitalizationDTO.totalDays());
                     recordFound.setIsFinished(hospitalizationDTO.isFinished());
+                    recordFound.setDescription(hospitalizationDTO.description());
                     return hospitalizationMapper.toDTO(hospitalizationRepository.save(recordFound));
                 }).orElseThrow(() -> new EntityNotFoundException("Hospitalization not found" + id));
     }

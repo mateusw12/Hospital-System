@@ -15,7 +15,8 @@ public class HospitalizationHistoricMapper {
                 hospitalizationHistoricModel.getId(),
                 hospitalizationHistoricModel.getHospitalizationId(),
                 hospitalizationHistoricModel.getCurrentSector(),
-                hospitalizationHistoricModel.getDays()
+                hospitalizationHistoricModel.getDays(),
+                hospitalizationHistoricModel.getDescription()
         );
     }
 
@@ -32,6 +33,7 @@ public class HospitalizationHistoricMapper {
         hospitalizationHistoricModel.setHospitalizationId(hospitalizationDTO.hospitalizationId());
         hospitalizationHistoricModel.setDays(hospitalizationDTO.days());
         hospitalizationHistoricModel.setCurrentSector(hospitalizationDTO.currentSector());
+        hospitalizationHistoricModel.setDescription(hospitalizationDTO.description());
         return hospitalizationHistoricModel;
     }
 

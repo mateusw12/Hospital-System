@@ -17,7 +17,8 @@ public class HospitalizationMapper {
                 hospitalizationModel.getInitialSector(),
                 hospitalizationModel.getHospitalizationDate(),
                 hospitalizationModel.getTotalDays(),
-                hospitalizationModel.getIsFinished()
+                hospitalizationModel.getIsFinished(),
+                hospitalizationModel.getDescription()
         );
     }
 
@@ -36,6 +37,7 @@ public class HospitalizationMapper {
         hospitalizationModel.setInitialSector(hospitalizationDTO.initialSector());
         hospitalizationModel.setTotalDays(hospitalizationDTO.totalDays());
         hospitalizationModel.setIsFinished(hospitalizationDTO.isFinished());
+        hospitalizationModel.setDescription(hospitalizationDTO.description());
         return hospitalizationModel;
     }
 

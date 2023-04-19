@@ -18,7 +18,8 @@ public class HospitalizationPriceMapper {
                 hospitalizationPriceModel.getTotalDays(),
                 hospitalizationPriceModel.getTotalValue(),
                 hospitalizationPriceModel.getIsPayment(),
-                hospitalizationPriceModel.getPaymentDate()
+                hospitalizationPriceModel.getPaymentDate(),
+                hospitalizationPriceModel.getDescription()
         );
     }
 
@@ -38,6 +39,7 @@ public class HospitalizationPriceMapper {
         hospitalizationPriceModel.setPaymentDate(hospitalizationPriceDTO.paymentDate());
         hospitalizationPriceModel.setTotalDays(hospitalizationPriceDTO.totalDays());
         hospitalizationPriceModel.setTotalValue(hospitalizationPriceDTO.totalValue());
+        hospitalizationPriceModel.setDescription(hospitalizationPriceDTO.description());
         return hospitalizationPriceModel;
     }
 
