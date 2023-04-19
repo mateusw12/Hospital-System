@@ -3,8 +3,10 @@ package com.api.hospitalsystem.model.hospitalizationHistoric;
 import com.api.hospitalsystem.converter.sector.SectorConverter;
 import com.api.hospitalsystem.model.sector.Sector;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.io.Serializable;
@@ -31,5 +33,11 @@ public class  HospitalizationHistoricModel implements Serializable {
     @Positive
     @Column(name = "dias", nullable = false)
     public Long days;
+
+    @NotNull
+    @NotBlank
+    @Length(max = 200)
+    @Column(name = "descricao", nullable = false)
+    public String description;
 
 }

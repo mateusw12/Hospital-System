@@ -51,6 +51,7 @@ public class HospitalizationPriceService {
                     recordFound.setDoctorAppointmentId(hospitalizationPriceDTO.doctorAppointmentId());
                     recordFound.setPaymentDate(hospitalizationPriceDTO.paymentDate());
                     recordFound.setIsPayment(hospitalizationPriceDTO.isPayment());
+                    recordFound.setDescription(hospitalizationPriceDTO.description());
                     return hospitalizationPriceMapper.toDTO(hospitalizationPriceRepository.save(recordFound));
                 }).orElseThrow(() -> new EntityNotFoundException("Hospitalization price not found" + id));
     }

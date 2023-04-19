@@ -1,6 +1,9 @@
 package com.api.hospitalsystem.dto.hospitalizationPrice;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
@@ -13,6 +16,7 @@ public record HospitalizationPriceDTO(
         @NotNull @PositiveOrZero Long totalDays,
         @NotNull @PositiveOrZero Double totalValue,
         Boolean isPayment,
-        @NotNull Date paymentDate
+        @NotNull Date paymentDate,
+        @NotNull @NotBlank @Length(max = 200) String description
         ) {
 }

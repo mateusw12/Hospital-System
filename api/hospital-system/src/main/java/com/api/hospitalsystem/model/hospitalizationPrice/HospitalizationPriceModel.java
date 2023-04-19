@@ -1,8 +1,10 @@
 package com.api.hospitalsystem.model.hospitalizationPrice;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
@@ -43,5 +45,11 @@ public class HospitalizationPriceModel implements Serializable {
     @NotNull
     @Column(name = "dataPagamento")
     public Date paymentDate;
+
+    @NotNull
+    @NotBlank
+    @Length(max = 200)
+    @Column(name = "descricao", length = 200)
+    public String description;
 
 }
