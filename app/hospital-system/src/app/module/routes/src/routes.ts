@@ -104,6 +104,14 @@ export const routes: Routes = [
             },
             loadChildren: pages.hospitalizationRegistration,
           },
+          {
+            path: 'hospitalization-historic',
+            data: {
+              pageTitle: 'Histórico Internação',
+              breadcrumb: 'Histórico Internação',
+            },
+            loadChildren: pages.hospitalizationHistoricRegistration,
+          },
         ],
       },
       {

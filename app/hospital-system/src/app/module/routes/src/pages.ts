@@ -103,3 +103,10 @@ export function hospitalizationRegistration() {
   );
   return promise;
 }
+
+export function hospitalizationHistoricRegistration() {
+  const promise = import('@module/pages/hospitalization-historic-registration').then(
+    (m) => m.HospitalizationHistoricRegistrationModule
+  );
+  return promise;
+}

@@ -7,17 +7,27 @@
   </ejs-formgrid>
 </div>
 
-<app-modal #modal modalHeader="Cadastro Custo de Internação">
+<app-modal #modal modalHeader="Cadastro Custo de Internação" dialogClass="lg">
   <ng-template #bodyTemplate>
     <form [formGroup]="form">
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-2">
           <div class="form-group">
             <ejs-textbox formControlName="id" placeholder="Código">
             </ejs-textbox>
           </div>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-4">
+          <div class="form-group">
+            <ejs-textbox
+              formControlName="description"
+              formErrorHandler
+              placeholder="Descrição"
+            >
+            </ejs-textbox>
+          </div>
+        </div>
+        <div class="col-md-6">
           <div class="form-group">
             <ejs-dropdownlist
               formControlName="doctorAppointmentId"
