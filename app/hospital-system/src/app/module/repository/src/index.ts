@@ -12,3 +12,4 @@ export * from './send-email/send-email.repository';
 export * from './send-sms/send-sms.repository';
 export * from './user/user.repository';
 export * from './zip-code-address/zip-code-address.repository';
+export * from './hospitalization/hospitalization.repository';
