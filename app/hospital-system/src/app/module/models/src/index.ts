@@ -13,6 +13,8 @@ export * from './login/login';
 export * from './login/user-token';
 export * from './marital-status/marital-status';
 export * from './medical-procedure/medical-procedure';
+export * from './news/covid-news';
+export * from './news/covid-news-articles';
 export * from './patient/patient';
 export * from './permission/permission';
 export * from './role/role';

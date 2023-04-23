@@ -22,27 +22,6 @@
 /* SCSS class buttons */
 /* Search and Settings */
 ::ng-deep {
-
-  .e-setting {
-    background-color: #000c49;
-    color: white;
-  }
-
-  .e-setting:hover {
-    background-color: #000c67;
-    color: white;
-  }
-
-  .e-setting:active {
-    background-color: #000c67;
-    color: white;
-  }
-
-  .e-setting:focus {
-    background-color: #000c67;
-    color: white;
-  }
-
   .align-footer-items {
     display: flex;
     justify-content: flex-end;

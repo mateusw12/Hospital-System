@@ -91,7 +91,6 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
 
   async onSaveClick(): Promise<void> {
     const model = this.getModel();
-    console.log('model', model);
 
     if (!this.form.valid) {
       markAllAsTouched(this.form);

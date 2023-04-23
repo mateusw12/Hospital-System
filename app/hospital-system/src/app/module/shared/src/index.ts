@@ -4,6 +4,8 @@ export * from './alert-dialog/alert-dialog.module';
 export * from './bread-crumb/bread-crumb.component';
 export * from './bread-crumb/breadcrumb-interface';
 export * from './button/button-app.module';
+export * from './card/card.component';
+export * from './card/card.module';
 export * from './confirm-dialog/confirm-dialog.component';
 export * from './confirm-dialog/confirm-dialog.module';
 export * from './date-picker/datepicker.directive';
@@ -31,3 +33,4 @@ export * from './password-strength-bar/passwordstrengthbar.module';
 export * from './text-box/textbox.directive';
 export * from './text-box/textbox.module';
 export * from './view-refresh/view-refresh.module';
+

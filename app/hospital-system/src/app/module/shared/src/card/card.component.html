@@ -1,0 +1,26 @@
+<div class="card card-size">
+  <div class="card-header">{{ title }}</div>
+  <div class="align-content-image">
+    <img src="{{ imgLink }}" class="card-img-top" alt="..." height="150px"/>
+  </div>
+  <div class="card-body">
+    <p class="card-text card-content-text">
+      {{ body }}
+    </p>
+    <hr />
+    <div class="align-button">
+      <div>
+        <button class="btn btn-primary" (click)="onReadClick()">
+          Ler Mais
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer text-body-secondary">
+    <div class="align-content-card">
+      <div>{{ author }}</div>
+      |
+      <div>{{ publishDate }}</div>
+    </div>
+  </div>
+</div>

@@ -17,6 +17,10 @@ export class NavigationService {
     return this.navigateTo([`/menu/license`]);
   }
 
+  navigateToNewsPage(): Promise<boolean> {
+    return this.navigateTo([`/menu/news`]);
+  }
+
   navigateToLoginPage(): Promise<boolean> {
     return this.navigateTo([`/login`]);
   }

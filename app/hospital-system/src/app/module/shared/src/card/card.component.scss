@@ -1,0 +1,33 @@
+.card-size {
+  width: 15rem;
+}
+
+.card {
+  border-color: #b2b1b1;
+}
+
+.align-content-image {
+  padding: 3px;
+}
+
+.align-content-card {
+  display: flex;
+  justify-content: space-between;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card-content-text {
+  max-width: 200px;
+  max-height: 100px;
+}
+
+.align-button {
+  display: flex;
+  justify-content: center;
+}
+
+p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
