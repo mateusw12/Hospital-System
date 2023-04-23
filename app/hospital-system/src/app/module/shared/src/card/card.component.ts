@@ -22,7 +22,7 @@ export class CardComponent implements OnInit {
   body: string = '';
 
   @Input()
-  author: string = '';
+  author: string = 'Não Definido';
 
   @Input()
   publishDate: string = '';

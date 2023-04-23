@@ -1,0 +1,26 @@
+<div class="menu-nav-bar">
+  <ejs-appbar colorMode="Primary" cssClass="custom-appbar">
+    <button
+      class="menu-button"
+      ejs-button
+      iconCss="e-icons e-menu"
+      (click)="onToggleSidebar()"
+    ></button>
+    <button
+      class="menu-button"
+      ejs-button
+      iconCss="e-icons e-home"
+      (click)="onHomeClick()"
+    ></button>
+    <span class="regular" style="margin: 0 5px">
+      <app-bread-crumb></app-bread-crumb>
+    </span>
+    <div class="e-appbar-spacer"></div>
+    <button
+      ejs-button
+      class="logout-button"
+      iconCss="bi bi-box-arrow-right"
+      (click)="onLogoutClick()"
+    ></button>
+  </ejs-appbar>
+</div>

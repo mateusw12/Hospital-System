@@ -1,0 +1,60 @@
+<nav id="sidebar">
+  <ul class="list-unstyled components">
+    <p>MW Web Developer</p>
+    <div class="align-drop-down">
+      <ejs-dropdownlist
+        placeholder="Hospital Ativo"
+        [dataSource]="hospitals"
+        [fields]="{ value: 'id', text: 'name' }"
+        [allowFiltering]="true"
+        (change)="onHospitalChange($event)"
+        [(ngModel)]="hospital.id"
+      >
+      </ejs-dropdownlist>
+    </div>
+    <li
+      *ngFor="let itemFather of menuItemsFather; let i = index"
+      [ngClass]="{ active: i === selectedDropdownIndex }"
+    >
+      <a
+        href="#{{ itemFather }}Submenu"
+        data-toggle="collapse"
+        aria-expanded="false"
+        class="dropdown-toggle"
+        (click)="onToggleDropdown(i)"
+        >{{ itemFather }}</a
+      >
+      <ul class="collapse list-unstyled" id="{{ itemFather }}Submenu">
+        <li *ngFor="let item of menuItemsFiltered(itemFather)">
+          <a (click)="onNavigateClick(item)">{{ item.description }}</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <ul class="list-unstyled CTAs">
+    <li class="align-button-format">
+      <button
+        ejs-button
+        buttonInformation
+        style="width: 210px"
+        (click)="onInformationClick()"
+      ></button>
+    </li>
+    <li class="align-button-format">
+      <button
+        ejs-button
+        buttonLicense
+        style="width: 210px"
+        (click)="onLicenseClick()"
+      ></button>
+    </li>
+    <li>
+      <button
+        ejs-button
+        buttonNews
+        style="width: 210px"
+        (click)="onNewsClick()"
+      ></button>
+    </li>
+  </ul>
+</nav>

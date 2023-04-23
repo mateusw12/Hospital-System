@@ -1,91 +1,13 @@
 <div class="wrapper overflow">
-  <nav id="sidebar">
-    <ul class="list-unstyled components">
-      <p>MW Web Developer</p>
-      <div class="align-drop-down">
-        <ejs-dropdownlist
-          placeholder="Hospital Ativo"
-          [dataSource]="hospitals"
-          [fields]="{ value: 'id', text: 'name' }"
-          [allowFiltering]="true"
-          (change)="onHospitalChange($event)"
-          [(ngModel)]="hospital.id"
-        >
-        </ejs-dropdownlist>
-      </div>
-      <li
-        *ngFor="let itemFather of menuItemsFather; let i = index"
-        [ngClass]="{ active: i === selectedDropdownIndex }"
-      >
-        <a
-          href="#{{ itemFather }}Submenu"
-          data-toggle="collapse"
-          aria-expanded="false"
-          class="dropdown-toggle"
-          (click)="onToggleDropdown(i)"
-          >{{ itemFather }}</a
-        >
-        <ul class="collapse list-unstyled" id="{{ itemFather }}Submenu">
-          <li *ngFor="let item of menuItemsFiltered(itemFather)">
-            <a (click)="onNavigateClick(item)">{{ item.description }}</a>
-          </li>
-        </ul>
-      </li>
-    </ul>
-    <ul class="list-unstyled CTAs">
-      <li class="align-button-format">
-        <button
-          ejs-button
-          buttonInformation
-          style="width: 210px"
-          (click)="onInformationClick()"
-        ></button>
-      </li>
-      <li class="align-button-format">
-        <button
-          ejs-button
-          buttonLicense
-          style="width: 210px"
-          (click)="onLicenseClick()"
-        ></button>
-      </li>
-      <li>
-        <button
-          ejs-button
-          buttonNews
-          style="width: 210px"
-          (click)="onNewsClick()"
-        ></button>
-      </li>
-    </ul>
-  </nav>
+  <app-side-bar
+    [hospitals]="hospitals"
+    [menuItems]="menuItems"
+    [hospital]="hospital"
+    [menuItemsFather]="menuItemsFather"
+  ></app-side-bar>
+
   <div class="container-body">
-    <div class="menu-nav-bar">
-      <ejs-appbar colorMode="Primary" cssClass="custom-appbar">
-        <button
-          class="menu-button"
-          ejs-button
-          iconCss="e-icons e-menu"
-          (click)="onToggleSidebar()"
-        ></button>
-        <button
-          class="menu-button"
-          ejs-button
-          iconCss="e-icons e-home"
-          (click)="onHomeClick()"
-        ></button>
-        <span class="regular" style="margin: 0 5px">
-          <app-bread-crumb></app-bread-crumb>
-        </span>
-        <div class="e-appbar-spacer"></div>
-        <button
-          ejs-button
-          class="logout-button"
-          iconCss="bi bi-box-arrow-right"
-          (click)="onLogoutClick()"
-        ></button>
-      </ejs-appbar>
-    </div>
+    <app-nav-bar></app-nav-bar>
     <router-outlet></router-outlet>
   </div>
 </div>

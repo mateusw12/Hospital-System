@@ -1,0 +1,46 @@
+:host::ng-deep {
+  .navbar {
+    padding: 15px 10px;
+    background: var(--body);
+    border: none;
+    border-radius: 0;
+    margin-bottom: 40px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .navbar-btn {
+    box-shadow: none;
+    outline: none !important;
+    border: none;
+  }
+
+  .navbar-custom {
+    background-color: var(--body);
+  }
+
+  .menu-nav-bar {
+    color: #fff;
+  }
+
+  .custom-appbar {
+    background: linear-gradient(to right, #55b0ed 50%, #071981);
+  }
+
+  .logout-button {
+    background-color: #071981;
+    color: #fff;
+  }
+
+  .logout-button:hover {
+    background-color: #042aff;
+    color: #fff;
+  }
+
+  .menu-button {
+    background-color: #55b0ed;
+  }
+
+  .menu-button:hover {
+    background-color: #3498db;
+  }
+}
