@@ -32,6 +32,7 @@
     "@syncfusion/ej2-angular-dropdowns": "^20.3.50",
     "@syncfusion/ej2-angular-grids": "^20.3.50",
     "@syncfusion/ej2-angular-inputs": "^20.3.50",
+    "@syncfusion/ej2-angular-layouts": "^20.3.50",
     "@syncfusion/ej2-angular-navigations": "^20.4.53",
     "@syncfusion/ej2-angular-notifications": "^20.3.47",
     "@syncfusion/ej2-angular-popups": "^20.3.50",
@@ -54,6 +55,7 @@
     "ngx-bootstrap-modal": "^2.0.1",
     "ngx-modal-bootstrap": "^1.0.1",
     "popper.js": "^1.16.1",
+    "remove-accents": "^0.4.4",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

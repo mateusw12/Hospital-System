@@ -7,6 +7,7 @@ export * from './hospitalization/hospitalization.repository';
 export * from './item/item.repository';
 export * from './login/login.repository';
 export * from './medical-procedure/medical-procedure.repository';
+export * from './news/covid-news.repository';
 export * from './patient/patient.repository';
 export * from './permission/permission.repository';
 export * from './sector-settings/sector-settings.repository';

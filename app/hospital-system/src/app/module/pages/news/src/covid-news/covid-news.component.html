@@ -1,0 +1,15 @@
+  <div class="covid-news-content">
+    <div *ngFor="let item of news.articles">
+      <div>
+        <app-card
+          [title]="item.title"
+          [country]="item.country"
+          [author]="item.author"
+          [body]="item.summary"
+          [newsLink]="item.link"
+          [publishDate]="item.published_date"
+          [imgLink]="getImageLInk(item.clean_url)"
+        ></app-card>
+      </div>
+    </div>
+  </div>

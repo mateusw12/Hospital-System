@@ -173,7 +173,6 @@ export class FormGridComponent implements OnInit, OnDestroy {
   }
 
   onSearch(event: any): void {
-    console.log(event);
     const input = event as InputEventArgs;
     this.executeGridSearch(input.value as string);
   }

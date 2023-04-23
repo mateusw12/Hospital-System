@@ -17,6 +17,7 @@ import { ButtonSearchDirective } from './button-search.directive';
 import { ButtonUploadDirective } from './button-upload.directive';
 import { ButtonDirective } from './button.directive';
 import { ThrottleClickDirective } from './throttle-click.directive';
+import { ButtonNewsDirective } from './button-news.directive';
 
 @NgModule({
   imports: [ButtonAllModule],
@@ -38,6 +39,7 @@ import { ThrottleClickDirective } from './throttle-click.directive';
     ButtonConfirmDirective,
     ButtonInformationDirective,
     ButtonLicenseDirective,
+    ButtonNewsDirective,
   ],
   exports: [
     ButtonAddDirective,
@@ -57,6 +59,7 @@ import { ThrottleClickDirective } from './throttle-click.directive';
     ButtonConfirmDirective,
     ButtonInformationDirective,
     ButtonLicenseDirective,
+    ButtonNewsDirective,
   ],
 })
 export class ButtonAppModule {}

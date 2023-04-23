@@ -125,6 +125,11 @@ export const routes: Routes = [
         loadChildren: pages.home,
       },
       {
+        path: 'news',
+        data: { pageTitle: 'Notícias', breadcrumb: 'Notícias' },
+        loadChildren: pages.news,
+      },
+      {
         path: '**',
         data: { pageTitle: 'Erro 404', BreadCrumb: '' },
         loadChildren: pages.error404,

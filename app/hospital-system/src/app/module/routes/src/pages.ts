@@ -105,8 +105,13 @@ export function hospitalizationRegistration() {
 }
 
 export function hospitalizationHistoricRegistration() {
-  const promise = import('@module/pages/hospitalization-historic-registration').then(
-    (m) => m.HospitalizationHistoricRegistrationModule
-  );
+  const promise = import(
+    '@module/pages/hospitalization-historic-registration'
+  ).then((m) => m.HospitalizationHistoricRegistrationModule);
+  return promise;
+}
+
+export function news() {
+  const promise = import('@module/pages/news').then((m) => m.NewsModule);
   return promise;
 }

@@ -57,4 +57,44 @@
     color: var(--text-body);
     font-family: sans-serif;
   }
+
+  .e-info-dark {
+    background-color: #000c49;
+    color: white;
+  }
+
+  .e-info-dark:hover {
+    background-color: #000c67;
+    color: white;
+  }
+
+  .e-info-dark:active {
+    background-color: #000c67;
+    color: white;
+  }
+
+  .e-info-dark:focus {
+    background-color: #000c67;
+    color: white;
+  }
+
+  .e-info-medium {
+    background-color: #1d2fb7;
+    color: white;
+  }
+
+  .e-info-medium:hover {
+    background-color: #1d2fb7;
+    color: white;
+  }
+
+  .e-info-medium:active {
+    background-color: #1d2fb7;
+    color: white;
+  }
+
+  .e-info-medium:focus {
+    background-color: #1d2fb7;
+    color: white;
+  }
 }

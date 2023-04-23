@@ -1,0 +1,24 @@
+:host::ng-deep {
+  .align-content {
+    padding-top: 20px;
+    max-height: calc(100vh - 60px);
+    overflow: scroll;
+  }
+
+  .covid-news-content {
+    display: grid;
+    column-gap: 15px;
+    grid-template-columns: auto auto auto auto;
+    row-gap: 20px;
+  }
+
+  .overflow {
+    overflow: hidden;
+  }
+
+  @media screen and (max-width: 468px) {
+    .covid-news-content {
+      grid-template-columns: auto auto auto;
+    }
+  }
+}
