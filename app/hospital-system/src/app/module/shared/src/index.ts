@@ -26,11 +26,14 @@ export * from './modal/modal.module';
 export * from './multi-select/multiselect.directive';
 export * from './multi-select/multiselect.module';
 export * from './multi-select/multiselectsearch.directive';
+export * from './nav-bar/nav-bar.component';
+export * from './nav-bar/nav-bar.module';
 export * from './numeric-text-box/numerictextbox.directive';
 export * from './numeric-text-box/numerictextbox.module';
 export * from './password-strength-bar/passwordstrengthbar.component';
 export * from './password-strength-bar/passwordstrengthbar.module';
+export * from './side-bar/sidebar.component';
+export * from './side-bar/sidebar.module';
 export * from './text-box/textbox.directive';
 export * from './text-box/textbox.module';
 export * from './view-refresh/view-refresh.module';
-
