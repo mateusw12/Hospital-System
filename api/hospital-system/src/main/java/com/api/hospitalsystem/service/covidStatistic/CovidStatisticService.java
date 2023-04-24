@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class CovidStatisticService {
 
-    private final String apiKey = "";
+    private final String apiKey = "5e6bae4b07mshe77f32ea846bc94p149ec3jsn926370fa091c";
 
     public CovidStatisticsModel findStatisticsCountry(String country) {
         String apiUrl = "https://covid-193.p.rapidapi.com/statistics";
