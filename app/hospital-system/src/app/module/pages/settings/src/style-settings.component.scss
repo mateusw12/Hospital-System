@@ -1,0 +1,22 @@
+:host::ng-deep {
+  .align-content {
+    padding-top: 20px;
+    max-height: calc(100vh - 60px);
+  }
+
+  .align-check-box {
+    margin-top: 20px;
+  }
+
+  .container {
+    border-style: groove;
+    border-color: rgba(255, 255, 255, 0.4941176471);
+    border-radius: 15px;
+  }
+
+  .align-footer-items {
+    display: flex;
+    justify-content: flex-end;
+    padding: 5px;
+  }
+}

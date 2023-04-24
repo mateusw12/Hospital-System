@@ -28,5 +28,6 @@ export * from './sector/sector';
 export * from './sms/sms';
 export * from './specialization/specialization';
 export * from './state/state';
+export * from './style-settings/style-side-bar-settings';
 export * from './user/user';
 export * from './zip-code-address/zip-code-address';
