@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class CovidNewsService {
 
-    private final String apiKey = "";
+    private final String apiKey = "5e6bae4b07mshe77f32ea846bc94p149ec3jsn926370fa091c";
 
     public CovidNewsModel findNews() {
         String apiUrl = "https://covid-19-news.p.rapidapi.com/v1/covid?q=covid&lang=pt&media=True";
