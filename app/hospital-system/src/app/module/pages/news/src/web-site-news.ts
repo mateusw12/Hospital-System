@@ -9,9 +9,6 @@ export const getWebSiteNumber = (webSite: string) => {
   const webSiteIdentifier = webSiteNumberDictionary.find((el) =>
     search(el.webSite, webSite.split('.')[0])
   );
-  console.log(
-    webSiteNumberDictionary.find((el) => search(el.webSite, webSite.split('.')[0]))
-  );
   return webSiteIdentifier ? webSiteIdentifier.id : 0;
 };
 

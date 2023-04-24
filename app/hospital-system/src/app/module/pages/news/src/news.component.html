@@ -1,4 +1,4 @@
-<div id="content" class="overflow">
+<div id="content">
   <ejs-tab id="element">
     <e-tabitems>
       <e-tabitem>
@@ -16,7 +16,9 @@
           <div>Estatística COVID</div>
         </ng-template>
         <ng-template #content>
-          <div class="align-content"></div>
+          <div class="statistic-content">
+            <app-covid-statistic></app-covid-statistic>
+          </div>
         </ng-template>
       </e-tabitem>
     </e-tabitems>

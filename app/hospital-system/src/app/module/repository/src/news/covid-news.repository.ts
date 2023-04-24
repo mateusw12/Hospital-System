@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CovidNews, HeathPlan, Patient } from '@module/models';
-import { InvalidOperationException } from '@module/utils/internal';
+import { CovidNews } from '@module/models';
 import { Observable } from 'rxjs';
 
 const API_URL = 'api/covid/noticias';
