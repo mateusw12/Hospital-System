@@ -1,0 +1,49 @@
+<div class="statistic-container">
+  <div *ngIf="statisticCountry">
+    <div class="card card-size">
+      <div class="card-header">{{ statisticCountry.country }}</div>
+      <div class="card-body">
+        <p class="card-text">
+          <b>População:</b> {{ getFormatNumber(statisticCountry.population) }}
+        </p>
+        <p class="card-text">
+          <b>Data Consulta:</b> {{ statisticCountry.day }}
+        </p>
+        <hr />
+        <h6 class="card-title">Casos</h6>
+        <p class="card-text">
+          <b>Ativos:</b> {{ getFormatNumber(statisticCountry.cases.active) }}
+        </p>
+        <p class="card-text">
+          <b>Críticos:</b>
+          {{ getFormatNumber(statisticCountry.cases.critical) }}
+        </p>
+        <p class="card-text">
+          <b>Total:</b> {{ getFormatNumber(statisticCountry.cases.total) }}
+        </p>
+        <hr />
+        <h6 class="card-title">Mortes</h6>
+        <p class="card-text">
+          <b>Total:</b> {{ getFormatNumber(statisticCountry.deaths.total) }}
+        </p>
+        <hr />
+        <h6 class="card-title">Testes</h6>
+        <p class="card-text">
+          <b>Total:</b> {{ getFormatNumber(statisticCountry.tests.total) }}
+        </p>
+      </div>
+    </div>
+  </div>
+  <div>
+    <ejs-maps id="rn-container" (shapeSelected)="onSelectCountry($event)">
+      <e-layers>
+        <e-layer
+          [shapeData]="shapeData"
+          [shapeSettings]="shapeSettings"
+          [dataLabelSettings]="dataLabelSettings"
+          [tooltipSettings]="tooltipSettings"
+        ></e-layer>
+      </e-layers>
+    </ejs-maps>
+  </div>
+</div>

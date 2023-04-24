@@ -1,3 +1,8 @@
+export * from './covid-statistics/covid-statistics';
+export * from './covid-statistics/statistic-case';
+export * from './covid-statistics/statistic-response';
+export * from './covid-statistics/statistics-deaths';
+export * from './covid-statistics/statistics-tests';
 export * from './disiase/disiase';
 export * from './doctor-appointment/doctor-appointment';
 export * from './email/email';
@@ -25,4 +30,3 @@ export * from './specialization/specialization';
 export * from './state/state';
 export * from './user/user';
 export * from './zip-code-address/zip-code-address';
-
