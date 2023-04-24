@@ -130,6 +130,17 @@ export const routes: Routes = [
         loadChildren: pages.news,
       },
       {
+        path: 'settings',
+        data: { pageTitle: 'Configuração', breadcrumb: 'Configuração' },
+        children: [
+          {
+            path: 'styles',
+            data: { pageTitle: 'Estilização', breadcrumb: 'Estilização' },
+            loadChildren: pages.styleSettings,
+          },
+        ],
+      },
+      {
         path: '**',
         data: { pageTitle: 'Erro 404', BreadCrumb: '' },
         loadChildren: pages.error404,

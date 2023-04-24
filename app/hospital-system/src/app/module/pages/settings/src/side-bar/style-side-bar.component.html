@@ -1,0 +1,173 @@
+<div class="container">
+  <form [formGroup]="form">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-group">
+              <ejs-textbox
+                formControlName="id"
+                placeholder="Código"
+              ></ejs-textbox>
+            </div>
+          </div>
+          <div class="col-md-7">
+            <div class="form-group">
+              <ejs-textbox
+                formControlName="colorTextSideBar"
+                placeholder="Cor Texto Decimal"
+              ></ejs-textbox>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="align-check-box">
+              <input
+                ejs-colorpicker
+                formControlName="colorPickerTextSideBar"
+                type="color"
+                id="colorpicker"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <ejs-textbox
+              formControlName="onlyColorSideBar"
+              formErrorHandler
+              placeholder="Cor Barra Lateral"
+            >
+            </ejs-textbox>
+          </div>
+          <div class="col-md-2">
+            <div class="align-check-box">
+              <input
+                ejs-colorpicker
+                formControlName="onlyColorPickerSideBar"
+                type="color"
+                id="colorpicker"
+              />
+            </div>
+          </div>
+          <div class="col-md-5">
+            <ejs-dropdownlist
+              formControlName="directionGradient"
+              formErrorHandler
+              [dataSource]="directionGradientColors"
+              [fields]="{ value: 'value', text: 'description' }"
+              placeholder="Direção Cor"
+            >
+            </ejs-dropdownlist>
+          </div>
+          <div class="col-md-2">
+            <div class="align-check-box">
+              <ejs-checkbox label="Gradiente" formControlName="isGradient">
+              </ejs-checkbox>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <ejs-textbox
+              formControlName="firstColorSideBar"
+              formErrorHandler
+              placeholder="Primeira Cor Gradiente"
+            >
+            </ejs-textbox>
+          </div>
+          <div class="col-md-2">
+            <div class="align-check-box">
+              <input
+                ejs-colorpicker
+                formControlName="firstColorGradientPickerSideBar"
+                type="color"
+                id="colorpicker"
+              />
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <ejs-textbox
+                formControlName="secondColorSideBar"
+                formErrorHandler
+                placeholder="Segunda Cor Gradiente"
+              >
+              </ejs-textbox>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <div class="align-check-box">
+                <input
+                  ejs-colorpicker
+                  formControlName="secondColorGradientPickerSideBar"
+                  type="color"
+                  id="colorpicker"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <ejs-textbox
+                formControlName="menuHoverColorSideBar"
+                formErrorHandler
+                placeholder="Cor Foco Menu Barra Lateral"
+              >
+              </ejs-textbox>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <div class="align-check-box">
+                <input
+                  ejs-colorpicker
+                  formControlName="menuHoverColorPickerSideBar"
+                  type="color"
+                  id="colorpicker"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <ejs-textbox
+                formControlName="menuColorSideBar"
+                formErrorHandler
+                placeholder="Cor Menu Barra Lateral"
+              >
+              </ejs-textbox>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <div class="align-check-box">
+                <input
+                  ejs-colorpicker
+                  formControlName="menuColorPickerSideBar"
+                  type="color"
+                  id="colorpicker"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="align-footer-items">
+  <div style="padding-right: 5px">
+    <button
+      ejs-button
+      buttonSave
+      [disabled]="!this.form.dirty"
+      (click)="onSaveClick()"
+    ></button>
+  </div>
+  <div>
+    <button ejs-button buttonDelete (click)="onRemoveClick()"></button>
+  </div>
+</div>

@@ -115,3 +115,10 @@ export function news() {
   const promise = import('@module/pages/news').then((m) => m.NewsModule);
   return promise;
 }
+
+export function styleSettings() {
+  const promise = import('@module/pages/settings').then(
+    (m) => m.SettingsModule
+  );
+  return promise;
+}
